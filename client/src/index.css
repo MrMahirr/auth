@@ -1,0 +1,129 @@
+@import "tailwindcss";
+
+@keyframes pulse-glow {
+    0%,
+    100% {
+        box-shadow: 0 0 15px 5px rgba(59, 130, 246, 0.4);
+        border-color: rgba(59, 130, 246, 0.7);
+    }
+    50% {
+        box-shadow: 0 0 25px 10px rgba(59, 130, 246, 0.6);
+        border-color: rgba(59, 130, 246, 1);
+    }
+}
+
+@layer base, components, utilities;
+
+@layer base {
+    .p-inputtext,
+    .p-password-input {
+        background-color: rgba(31, 41, 55, 0.5) !important;
+        border-color: #4b5563 !important;
+        color: #ffffff !important;
+        width: 100% !important;
+    }
+    .p-inputtext:focus,
+    .p-password-input:focus {
+        border-color: #3b82f6 !important;
+        box-shadow: 0 0 0 1px #3b82f6 !important;
+    }
+
+
+    .p-component .p-filled {
+        background-color: rgba(31, 41, 55, 0.5) !important;
+    }
+    .p-icon-field {
+        width : 100% !important;
+    }
+    .p-input-icon{
+        top: 25% !important;
+    }
+    .p-input-icon-left > i {
+        top: 50%;
+        transform: translateY(-50%);
+        margin-top: 0 !important;
+    }
+    .p-checkbox .p-checkbox-box {
+        background-color: rgba(31, 41, 55, 0.5) !important;
+        border-color: #4b5563 !important;
+    }
+    .p-checkbox:not(.p-checkbox-disabled) .p-checkbox-box:hover,
+    .p-checkbox .p-checkbox-box.p-focus {
+        border-color: #3b82f6 !important;
+    }
+    .p-checkbox .p-checkbox-box.p-highlight {
+        background-color: #3b82f6 !important;
+        border-color: #3b82f6 !important;
+    }
+    .p-calendar .p-inputtext {
+        width: 100% !important;
+    }
+    .p-datepicker {
+        background-color: #1f2937 !important;
+        border-color: #4b5563 !important;
+    }
+    .p-datepicker .p-datepicker-header {
+        background-color: transparent !important;
+        color: #e5e7eb !important;
+    }
+    .p-datepicker table th, .p-datepicker table td {
+        color: #e5e7eb !important;
+    }
+    .p-datepicker table td > span:not(.p-disabled):hover {
+        background-color: #3b82f6 !important;
+    }
+    .p-dropdown {
+        background-color: rgba(31, 41, 55, 0.5) !important;
+        border-color: #4b5563 !important;
+    }
+    .p-dropdown-panel {
+        background-color: #1f2937 !important;
+        border-color: #4b5563 !important;
+    }
+    .p-dropdown-item:not(.p-highlight):hover {
+        background-color: #374151 !important;
+    }
+    .p-fileupload-buttonbar,
+    .p-fileupload-content {
+        background-color: rgba(31, 41, 55, 0.5) !important;
+        border-color: #4b5563 !important;
+        color: #e5e7eb !important;
+    }
+    .p-fileupload .p-button {
+        background-color: #3b82f6 !important;
+        border-color: #3b82f6 !important;
+    }
+    .p-fileupload .p-button:hover {
+        background-color: #2563eb !important;
+    }
+    .p-password {
+        width: 100% !important;
+    }
+}
+
+@layer components {
+    .loginbox ::before {
+        content: "";
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        filter: drop-shadow(0 15px 50px #000);
+        border-radius: 20px;
+        animation: rotating 4s linear infinite;
+        animation-delay: -1s;
+    }
+    .loginbox ::after {
+        content: "";
+        position: absolute;
+        inset: 4px;
+        background: #2d2d39;
+        border-radius: 15px;
+        border: 8px solid #25252d;
+    }
+}
+
+@layer utilities {
+    .animate-pulse-glow {
+        animation: pulse-glow 4s infinite ease-in-out;
+    }
+}
