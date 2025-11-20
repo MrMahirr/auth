@@ -4,16 +4,18 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="580bfe7b-7f1a-47f7-bc78-2bea1e7b2db9" name="Changes" comment="ilk">
-      <change afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/server/src/ormconfig.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/server/src/user/user.controller.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/server/src/user/user.entity.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/server/src/user/user.module.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/server/src/user/user.service.ts" afterDir="false" />
+    <list default="true" id="580bfe7b-7f1a-47f7-bc78-2bea1e7b2db9" name="Changes" comment="toplu start yapıldı">
+      <change afterPath="$PROJECT_DIR$/server/src/tag/tag.controller.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/src/tag/tag.module.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/src/tag/tag.service.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/vite.config.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/vite.config.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/app.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/app.service.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/server/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/server/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/app.controller.spec.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/app.controller.ts" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/app.controller.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/app.module.ts" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/app.module.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/ormconfig.ts" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/ormconfig.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/tsconfig.json" beforeDir="false" afterPath="$PROJECT_DIR$/server/tsconfig.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -60,6 +62,7 @@
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
     "prettierjs.PrettierConfiguration.Package": "C:\\Users\\MrMahirr\\Desktop\\auth\\server\\node_modules\\prettier",
+    "settings.editor.selected.configurable": "preferences.keymap",
     "to.speed.mode.migration.done": "true",
     "ts.external.directory.path": "C:\\Users\\MrMahirr\\Desktop\\auth\\server\\node_modules\\typescript\\lib",
     "vue.rearranger.settings.migration": "true"
@@ -81,7 +84,7 @@
       <updated>1762943590360</updated>
       <workItem from="1762943592470" duration="86000" />
       <workItem from="1762943691743" duration="356000" />
-      <workItem from="1763631700081" duration="5349000" />
+      <workItem from="1763631700081" duration="12904000" />
     </task>
     <task id="LOCAL-00001" summary="ilk">
       <option name="closed" value="true" />
@@ -91,7 +94,15 @@
       <option name="project" value="LOCAL" />
       <updated>1762943822230</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="toplu start yapıldı">
+      <option name="closed" value="true" />
+      <created>1763642708774</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1763642708775</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -99,6 +110,7 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="ilk" />
-    <option name="LAST_COMMIT_MESSAGE" value="ilk" />
+    <MESSAGE value="toplu start yapıldı" />
+    <option name="LAST_COMMIT_MESSAGE" value="toplu start yapıldı" />
   </component>
 </project>
