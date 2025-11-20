@@ -4,18 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="580bfe7b-7f1a-47f7-bc78-2bea1e7b2db9" name="Changes" comment="toplu start yapıldı">
-      <change afterPath="$PROJECT_DIR$/server/src/tag/tag.controller.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/server/src/tag/tag.module.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/server/src/tag/tag.service.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/server/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/server/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/app.controller.spec.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/app.controller.ts" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/app.controller.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/app.module.ts" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/app.module.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/ormconfig.ts" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/ormconfig.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/tsconfig.json" beforeDir="false" afterPath="$PROJECT_DIR$/server/tsconfig.json" afterDir="false" />
+    <list default="true" id="580bfe7b-7f1a-47f7-bc78-2bea1e7b2db9" name="Changes" comment="database postgres bağlandı.">
+      <change beforePath="$PROJECT_DIR$/server/src/app.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/app.service.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -84,7 +74,7 @@
       <updated>1762943590360</updated>
       <workItem from="1762943592470" duration="86000" />
       <workItem from="1762943691743" duration="356000" />
-      <workItem from="1763631700081" duration="12904000" />
+      <workItem from="1763631700081" duration="13132000" />
     </task>
     <task id="LOCAL-00001" summary="ilk">
       <option name="closed" value="true" />
@@ -102,7 +92,15 @@
       <option name="project" value="LOCAL" />
       <updated>1763642708775</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="database postgres bağlandı.">
+      <option name="closed" value="true" />
+      <created>1763679709984</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1763679709984</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -111,6 +109,7 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="ilk" />
     <MESSAGE value="toplu start yapıldı" />
-    <option name="LAST_COMMIT_MESSAGE" value="toplu start yapıldı" />
+    <MESSAGE value="database postgres bağlandı." />
+    <option name="LAST_COMMIT_MESSAGE" value="database postgres bağlandı." />
   </component>
 </project>
