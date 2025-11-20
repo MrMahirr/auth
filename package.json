@@ -1,0 +1,23 @@
+{
+  "name": "my-fullstack-app",
+  "version": "1.0.0",
+  "description": "React Client and NestJS Server Monorepo",
+  "main": "index.js",
+  "private": true,
+  "scripts": {
+    "install:all": "cd client && npm install && cd ../server && npm install",
+    "client": "cd client && npm run dev",
+    "server": "cd server && npm run start:dev",
+    "dev": "concurrently \"npm run server\" \"npm run client\""
+  },
+  "keywords": [
+    "react",
+    "nestjs",
+    "fullstack"
+  ],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "concurrently": "^9.1.0"
+  }
+}

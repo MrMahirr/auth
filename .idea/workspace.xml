@@ -1,32 +1,45 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
   <component name="ChangeListManager">
-    <list default="true" id="580bfe7b-7f1a-47f7-bc78-2bea1e7b2db9" name="Changes" comment="" />
+    <list default="true" id="580bfe7b-7f1a-47f7-bc78-2bea1e7b2db9" name="Changes" comment="ilk">
+      <change afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/src/ormconfig.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/src/user/user.controller.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/src/user/user.entity.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/src/user/user.module.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/src/user/user.service.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/vite.config.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/vite.config.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/app.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/app.service.ts" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="Git.Settings">
-    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/client" />
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
     <option name="ROOT_SYNC" value="SYNC" />
   </component>
-  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
-  "lastFilter": {
-    "state": "OPEN",
-    "assignee": "MrMahirr"
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;MrMahirr&quot;
   }
-}]]></component>
-  <component name="GithubPullRequestsUISettings"><![CDATA[{
-  "selectedUrlAndAccountId": {
-    "url": "https://github.com/MrMahirr/login-page.git",
-    "accountId": "e6dae56e-ed0a-42a4-88e3-254afb9e5d24"
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/MrMahirr/auth.git&quot;,
+    &quot;accountId&quot;: &quot;e6dae56e-ed0a-42a4-88e3-254afb9e5d24&quot;
   }
-}]]></component>
-  <component name="ProjectColorInfo"><![CDATA[{
-  "customColor": "",
-  "associatedIndex": 8
-}]]></component>
+}</component>
+  <component name="ProjectColorInfo">{
+  &quot;customColor&quot;: &quot;&quot;,
+  &quot;associatedIndex&quot;: 8
+}</component>
   <component name="ProjectId" id="35NHOhySoLt8XZ9BV1ySuBKGQt2" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
@@ -36,11 +49,19 @@
   "keyToString": {
     "ModuleVcsDetector.initialDetectionPerformed": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
+    "RunOnceActivity.git.unshallow": "true",
     "com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultModelSelectionForGA.v1": "true",
     "git-widget-placeholder": "master",
     "junie.onboarding.icon.badge.shown": "true",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
+    "prettierjs.PrettierConfiguration.Package": "C:\\Users\\MrMahirr\\Desktop\\auth\\server\\node_modules\\prettier",
     "to.speed.mode.migration.done": "true",
+    "ts.external.directory.path": "C:\\Users\\MrMahirr\\Desktop\\auth\\server\\node_modules\\typescript\\lib",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
@@ -59,10 +80,25 @@
       <option name="presentableId" value="Default" />
       <updated>1762943590360</updated>
       <workItem from="1762943592470" duration="86000" />
+      <workItem from="1762943691743" duration="356000" />
+      <workItem from="1763631700081" duration="5349000" />
     </task>
+    <task id="LOCAL-00001" summary="ilk">
+      <option name="closed" value="true" />
+      <created>1762943822230</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1762943822230</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="ilk" />
+    <option name="LAST_COMMIT_MESSAGE" value="ilk" />
   </component>
 </project>
