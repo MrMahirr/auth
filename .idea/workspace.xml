@@ -4,8 +4,18 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="580bfe7b-7f1a-47f7-bc78-2bea1e7b2db9" name="Changes" comment="database postgres bağlandı.">
-      <change beforePath="$PROJECT_DIR$/server/src/app.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/app.service.ts" afterDir="false" />
+    <list default="true" id="580bfe7b-7f1a-47f7-bc78-2bea1e7b2db9" name="Changes" comment="users crate dto">
+      <change afterPath="$PROJECT_DIR$/server/src/tag/tag.entity.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/src/user/dto/createUser.dto.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/app.module.ts" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/app.module.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/ormconfig.ts" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/ormconfig.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/tag/tag.controller.ts" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/tag/tag.controller.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/tag/tag.module.ts" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/tag/tag.module.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/tag/tag.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/tag/tag.service.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/user/user.controller.ts" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/user/user.controller.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/user/user.module.ts" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/user/user.module.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/user/user.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/user/user.service.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -28,6 +38,9 @@
     &quot;accountId&quot;: &quot;e6dae56e-ed0a-42a4-88e3-254afb9e5d24&quot;
   }
 }</component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="CurrentFile" />
+  </component>
   <component name="ProjectColorInfo">{
   &quot;customColor&quot;: &quot;&quot;,
   &quot;associatedIndex&quot;: 8
@@ -74,7 +87,7 @@
       <updated>1762943590360</updated>
       <workItem from="1762943592470" duration="86000" />
       <workItem from="1762943691743" duration="356000" />
-      <workItem from="1763631700081" duration="13132000" />
+      <workItem from="1763631700081" duration="16829000" />
     </task>
     <task id="LOCAL-00001" summary="ilk">
       <option name="closed" value="true" />
@@ -100,7 +113,15 @@
       <option name="project" value="LOCAL" />
       <updated>1763679709984</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="database postgres bağlandı.">
+      <option name="closed" value="true" />
+      <created>1763679745767</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1763679745767</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -110,6 +131,7 @@
     <MESSAGE value="ilk" />
     <MESSAGE value="toplu start yapıldı" />
     <MESSAGE value="database postgres bağlandı." />
-    <option name="LAST_COMMIT_MESSAGE" value="database postgres bağlandı." />
+    <MESSAGE value="users crate dto" />
+    <option name="LAST_COMMIT_MESSAGE" value="users crate dto" />
   </component>
 </project>
