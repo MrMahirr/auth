@@ -5,15 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="580bfe7b-7f1a-47f7-bc78-2bea1e7b2db9" name="Changes" comment="users crate dto">
-      <change afterPath="$PROJECT_DIR$/server/src/tag/tag.entity.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/server/src/user/dto/createUser.dto.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/app.module.ts" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/app.module.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/ormconfig.ts" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/ormconfig.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/tag/tag.controller.ts" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/tag/tag.controller.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/tag/tag.module.ts" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/tag/tag.module.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/tag/tag.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/tag/tag.service.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/user/user.controller.ts" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/user/user.controller.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/server/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/server/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/tag/tag.entity.ts" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/tag/tag.entity.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/user/user.entity.ts" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/user/user.entity.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/server/src/user/user.module.ts" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/user/user.module.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/server/src/user/user.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/user/user.service.ts" afterDir="false" />
     </list>
@@ -87,7 +83,7 @@
       <updated>1762943590360</updated>
       <workItem from="1762943592470" duration="86000" />
       <workItem from="1762943691743" duration="356000" />
-      <workItem from="1763631700081" duration="16829000" />
+      <workItem from="1763631700081" duration="19062000" />
     </task>
     <task id="LOCAL-00001" summary="ilk">
       <option name="closed" value="true" />
@@ -121,7 +117,15 @@
       <option name="project" value="LOCAL" />
       <updated>1763679745767</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="users crate dto">
+      <option name="closed" value="true" />
+      <created>1763683520720</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1763683520720</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
