@@ -4,9 +4,14 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0498930d-d12a-40c3-a4a9-c33ae8b0e5f1" name="Changes" comment="login giriş yapıldı.">
+    <list default="true" id="0498930d-d12a-40c3-a4a9-c33ae8b0e5f1" name="Changes" comment="login giriş işlemi frondend ile bağlandi ama user içeriği düzenlenecek.">
+      <change afterPath="$PROJECT_DIR$/client/src/api/axios.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/client/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/server/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/client/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/pages/LoginPage.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/pages/LoginPage.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/pages/RegisterPage.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/pages/RegisterPage.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/main.ts" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -81,7 +86,7 @@
       <option name="presentableId" value="Default" />
       <updated>1763835690833</updated>
       <workItem from="1763835691955" duration="1264000" />
-      <workItem from="1763837188625" duration="388000" />
+      <workItem from="1763837188625" duration="3731000" />
     </task>
     <task id="LOCAL-00002" summary="login giriş yapıldı.">
       <option name="closed" value="true" />
@@ -91,7 +96,15 @@
       <option name="project" value="LOCAL" />
       <updated>1763837310748</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="login giriş yapıldı.">
+      <option name="closed" value="true" />
+      <created>1763837596491</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1763837596491</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -100,6 +113,7 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="token eklendi şifrelendi" />
     <MESSAGE value="login giriş yapıldı." />
-    <option name="LAST_COMMIT_MESSAGE" value="login giriş yapıldı." />
+    <MESSAGE value="login giriş işlemi frondend ile bağlandi ama user içeriği düzenlenecek." />
+    <option name="LAST_COMMIT_MESSAGE" value="login giriş işlemi frondend ile bağlandi ama user içeriği düzenlenecek." />
   </component>
 </project>

@@ -1,44 +1,80 @@
-import {useState, useEffect} from "react";
-import {Link} from "react-router-dom";
-import { useNavigate } from 'react-router-dom';
+import { useState, useEffect, useRef } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import axios from "axios";
 
-
-import {Button} from "primereact/button";
-import {InputText} from "primereact/inputtext";
-import {Checkbox} from "primereact/checkbox";
-import {Password} from "primereact/password";
-
+import { Button } from "primereact/button";
+import { InputText } from "primereact/inputtext";
+import { Checkbox } from "primereact/checkbox";
+import { Password } from "primereact/password";
+import { Toast } from "primereact/toast";
 
 function LoginPage() {
-
     const navigate = useNavigate();
+    const toast = useRef(null);
+
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [rememberMe, setRememberMe] = useState(false);
 
+    const [loading, setLoading] = useState(false);
+
     const [isMounted, setIsMounted] = useState(false);
+
     useEffect(() => {
         const timer = setTimeout(() => setIsMounted(true), 100);
         return () => clearTimeout(timer);
     }, []);
 
-    const handleSubmit = (e) => {
+
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        console.log('Form gönderildi ve yönlendirme yapılıyor...');
-        navigate('/dashboard');
+
+        if(!email || !password) {
+            toast.current.show({ severity: 'warn', summary: 'Uyarı', detail: 'Lütfen tüm alanları doldurun.' });
+            return;
+        }
+
+        setLoading(true);
+
+        try {
+
+            const response = await axios.post('http://localhost:3000/users/login', {
+                email: email,
+                password: password
+            });
+
+            console.log('Giriş Başarılı:', response.data);
+
+            localStorage.setItem('token', response.data.access_token);
+
+            toast.current.show({ severity: 'success', summary: 'Başarılı', detail: 'Giriş yapıldı, yönlendiriliyorsunuz...' });
+
+            setTimeout(() => {
+                navigate('/dashboard');
+            }, 1000);
+
+        } catch (error) {
+            console.error("Login Hatası:", error);
+
+            const errorMessage = error.response?.data?.message || 'Giriş başarısız. Bilgileri kontrol edin.';
+
+            toast.current.show({ severity: 'error', summary: 'Hata', detail: errorMessage });
+        } finally {
+            setLoading(false); // İşlem bitti, butonu aç
+        }
     };
+    // -------------------------------------
 
     return (
-
         <div className={`relative z-20 w-full max-w-md rounded-2xl border border-blue-500/50 bg-gray-900/60 p-8 text-white backdrop-blur-lg animate-pulse-glow transition-all duration-1000 ease-out ${isMounted ? "translate-y-0 opacity-100" : "translate-y-20 opacity-0"}`}>
 
+            <Toast ref={toast} />
 
             <h2 className="mb-6 animate-pulse text-center text-3xl font-bold text-blue-300">
                 Login
             </h2>
 
             <form onSubmit={handleSubmit} className="space-y-6">
-
 
                 <span className="p-input-icon-left w-full">
                     <i className="pi pi-envelope text-gray-400 pl-2"/>
@@ -48,7 +84,6 @@ function LoginPage() {
                         onChange={(e) => setEmail(e.target.value)}
                         placeholder="Email Adresi"
                         className="w-full text-white pl-7 p-1 rounded-md"
-
                     />
                 </span>
                 <span className="p-input-icon-left w-full">
@@ -60,6 +95,7 @@ function LoginPage() {
                         className="w-full"
                         inputClassName="w-full !text-white pl-7 p-1 rounded-md"
                         toggleMask
+                        feedback={false} // Şifre güçlülük barını gizlemek için (Login'de gerekmez)
                     />
                 </span>
 
@@ -83,8 +119,10 @@ function LoginPage() {
                 </div>
 
                 <Button
-                    label="Giriş Yap"
+                    label={loading ? "Giriş Yapılıyor..." : "Giriş Yap"}
+                    icon={loading ? "pi pi-spin pi-spinner" : ""}
                     type="submit"
+                    disabled={loading}
                     className="w-full !bg-blue-600 !py-3 !text-base font-bold !text-white hover:!bg-blue-700"
                 />
 
@@ -99,7 +137,8 @@ function LoginPage() {
                     </Link>
                 </div>
             </form>
-        </div>);
+        </div>
+    );
 }
 
 export default LoginPage;
