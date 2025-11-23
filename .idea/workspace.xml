@@ -4,10 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0498930d-d12a-40c3-a4a9-c33ae8b0e5f1" name="Changes" comment="middleware ve current user yapıldı">
-      <change afterPath="$PROJECT_DIR$/server/src/user/decorators/user.decorator.ts" afterDir="false" />
+    <list default="true" id="0498930d-d12a-40c3-a4a9-c33ae8b0e5f1" name="Changes" comment="create user decerator">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/user/user.controller.ts" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/user/user.controller.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/pages/LoginPage.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/pages/LoginPage.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/pages/RegisterPage.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/pages/RegisterPage.jsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -83,7 +83,7 @@
       <updated>1763835690833</updated>
       <workItem from="1763835691955" duration="1264000" />
       <workItem from="1763837188625" duration="6207000" />
-      <workItem from="1763906053588" duration="7379000" />
+      <workItem from="1763906053588" duration="7659000" />
     </task>
     <task id="LOCAL-00002" summary="login giriş yapıldı.">
       <option name="closed" value="true" />
@@ -133,7 +133,15 @@
       <option name="project" value="LOCAL" />
       <updated>1763918279745</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="create user decerator">
+      <option name="closed" value="true" />
+      <created>1763919146400</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1763919146400</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -144,6 +152,7 @@
     <MESSAGE value="login giriş yapıldı." />
     <MESSAGE value="login giriş işlemi frondend ile bağlandi ama user içeriği düzenlenecek." />
     <MESSAGE value="middleware ve current user yapıldı" />
-    <option name="LAST_COMMIT_MESSAGE" value="middleware ve current user yapıldı" />
+    <MESSAGE value="create user decerator" />
+    <option name="LAST_COMMIT_MESSAGE" value="create user decerator" />
   </component>
 </project>

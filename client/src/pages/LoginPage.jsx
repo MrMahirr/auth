@@ -39,8 +39,10 @@ function LoginPage() {
         try {
 
             const response = await axios.post('http://localhost:3000/users/login', {
-                email: email,
-                password: password
+                user: {
+                    email: email,
+                    password: password
+                }
             });
 
             console.log('Giriş Başarılı:', response.data);
@@ -60,7 +62,7 @@ function LoginPage() {
 
             toast.current.show({ severity: 'error', summary: 'Hata', detail: errorMessage });
         } finally {
-            setLoading(false); // İşlem bitti, butonu aç
+            setLoading(false);
         }
     };
     // -------------------------------------

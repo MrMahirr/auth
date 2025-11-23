@@ -1,15 +1,15 @@
-import { useState, useEffect, useRef } from "react"; // <--- useRef EKLENDİ
-import { Link, useNavigate } from "react-router-dom";
+import {useState, useEffect, useRef} from "react"; // <--- useRef EKLENDİ
+import {Link, useNavigate} from "react-router-dom";
 import axios from "axios"; // <--- AXIOS EKLENDİ
 
-import { Button } from "primereact/button";
-import { InputText } from "primereact/inputtext";
-import { Checkbox } from "primereact/checkbox";
-import { Calendar } from "primereact/calendar";
-import { Dropdown } from "primereact/dropdown";
-import { FileUpload } from "primereact/fileupload";
-import { Password } from "primereact/password";
-import { Toast } from "primereact/toast"; // <--- TOAST EKLENDİ
+import {Button} from "primereact/button";
+import {InputText} from "primereact/inputtext";
+import {Checkbox} from "primereact/checkbox";
+import {Calendar} from "primereact/calendar";
+import {Dropdown} from "primereact/dropdown";
+import {FileUpload} from "primereact/fileupload";
+import {Password} from "primereact/password";
+import {Toast} from "primereact/toast"; // <--- TOAST EKLENDİ
 
 function RegisterPage() {
     const navigate = useNavigate();
@@ -36,17 +36,17 @@ function RegisterPage() {
         e.preventDefault();
 
         if (!termsAccepted) {
-            toast.current.show({ severity: 'warn', summary: 'Uyarı', detail: 'Lütfen kullanım koşullarını kabul edin.' });
+            toast.current.show({severity: 'warn', summary: 'Uyarı', detail: 'Lütfen kullanım koşullarını kabul edin.'});
             return;
         }
 
         if (password !== confirmPassword) {
-            toast.current.show({ severity: 'error', summary: 'Hata', detail: 'Şifreler birbiriyle uyuşmuyor!' });
+            toast.current.show({severity: 'error', summary: 'Hata', detail: 'Şifreler birbiriyle uyuşmuyor!'});
             return;
         }
 
         if (!email || !password || !firstName) {
-            toast.current.show({ severity: 'warn', summary: 'Eksik Bilgi', detail: 'Lütfen zorunlu alanları doldurun.' });
+            toast.current.show({severity: 'warn', summary: 'Eksik Bilgi', detail: 'Lütfen zorunlu alanları doldurun.'});
             return;
         }
 
@@ -54,17 +54,22 @@ function RegisterPage() {
 
         try {
             const payload = {
-                username: `${firstName}${lastName}`,
-                email: email,
-                password: password,
-                // image: "...", // Profil resmi yükleme işlemi ayrıca (FormData ile) yapılmalı, şimdilik metin gönderiyoruz.
+                user: {
+                    username: `${firstName}${lastName}`,
+                    email: email,
+                    password: password,
+                }
             };
 
             const response = await axios.post('http://localhost:3000/users', payload);
 
             console.log('Kayıt Başarılı:', response.data);
 
-            toast.current.show({ severity: 'success', summary: 'Başarılı', detail: 'Hesap oluşturuldu! Giriş sayfasına yönlendiriliyorsunuz...' });
+            toast.current.show({
+                severity: 'success',
+                summary: 'Başarılı',
+                detail: 'Hesap oluşturuldu! Giriş sayfasına yönlendiriliyorsunuz...'
+            });
 
 
             setTimeout(() => {
@@ -77,16 +82,16 @@ function RegisterPage() {
 
             const displayError = Array.isArray(errorMessage) ? errorMessage[0] : errorMessage;
 
-            toast.current.show({ severity: 'error', summary: 'Hata', detail: displayError });
+            toast.current.show({severity: 'error', summary: 'Hata', detail: displayError});
         } finally {
             setLoading(false);
         }
     };
 
     const genderOptions = [
-        { label: "Erkek", value: "male" },
-        { label: "Kadın", value: "female" },
-        { label: "Belirtmek İstemiyorum", value: "other" },
+        {label: "Erkek", value: "male"},
+        {label: "Kadın", value: "female"},
+        {label: "Belirtmek İstemiyorum", value: "other"},
     ];
 
     return (
@@ -95,7 +100,7 @@ function RegisterPage() {
                 isMounted ? "translate-y-0 opacity-100" : "translate-y-20 opacity-0"
             }`}
         >
-            <Toast ref={toast} />
+            <Toast ref={toast}/>
 
             <h2 className="mb-6 animate-pulse text-center text-3xl font-bold text-blue-300">
                 Hesap Oluşturuluyor
@@ -115,7 +120,7 @@ function RegisterPage() {
 
                 <div className="flex flex-col gap-4 md:flex-row">
                     <span className="p-input-icon-left w-full">
-                        <i className="pi pi-user text-gray-400 pl-2" />
+                        <i className="pi pi-user text-gray-400 pl-2"/>
                         <InputText
                             value={firstName}
                             onChange={(e) => setFirstName(e.target.value)}
@@ -124,7 +129,7 @@ function RegisterPage() {
                         />
                     </span>
                     <span className="p-input-icon-left w-full ">
-                        <i className="pi pi-user text-gray-400 pl-2" />
+                        <i className="pi pi-user text-gray-400 pl-2"/>
                         <InputText
                             value={lastName}
                             onChange={(e) => setLastName(e.target.value)}
@@ -135,7 +140,7 @@ function RegisterPage() {
                 </div>
 
                 <span className="p-input-icon-left w-full">
-                    <i className="pi pi-envelope text-gray-400 pl-2" />
+                    <i className="pi pi-envelope text-gray-400 pl-2"/>
                     <InputText
                         type="email"
                         value={email}
@@ -165,7 +170,7 @@ function RegisterPage() {
                 </div>
 
                 <span className="p-input-icon-left w-full">
-                    <i className="pi pi-lock text-gray-400 pl-2" />
+                    <i className="pi pi-lock text-gray-400 pl-2"/>
                     <Password
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
@@ -178,7 +183,7 @@ function RegisterPage() {
 
 
                 <span className="p-input-icon-left w-full">
-                    <i className="pi pi-lock text-gray-400 pl-2" />
+                    <i className="pi pi-lock text-gray-400 pl-2"/>
                     <Password
                         value={confirmPassword}
                         onChange={(e) => setConfirmPassword(e.target.value)}
@@ -219,7 +224,7 @@ function RegisterPage() {
                         to="/login"
                         className="font-semibold text-blue-400 transition-colors hover:text-blue-300 hover:underline"
                     >
-                        <i className="pi pi-sign-in mr-1 text-xs" />
+                        <i className="pi pi-sign-in mr-1 text-xs"/>
                         Giriş Yap
                     </Link>
                 </div>
