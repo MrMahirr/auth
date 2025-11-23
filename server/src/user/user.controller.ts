@@ -4,15 +4,14 @@ import {
   Controller,
   Get,
   Post,
-  Req,
   UsePipes,
   ValidationPipe,
 } from '@nestjs/common';
 import { CreateUserDto } from '@/user/dto/createUser.dto';
 import { IUserResponse } from '@/user/types/userResponse.interface';
 import { LoginDto } from '@/user/dto/loginUser.dto';
-import type { AuthRequest } from '@/types/expressRequest.interface';
 import { User } from '@/user/decorators/user.decorator';
+import { GoogleLoginDto } from './dto/googleLogin.dto';
 
 @Controller('')
 export class UserController {
@@ -31,6 +30,12 @@ export class UserController {
   ): Promise<IUserResponse> {
     const user = await this.userService.loginUser(loginUserDto);
     return this.userService.generateUserResponse(user);
+  }
+  @Post('users/google-login')
+  async googleLogin(
+    @Body('user') googleLoginDto: GoogleLoginDto,
+  ): Promise<IUserResponse> {
+    return this.userService.loginWithGoogle(googleLoginDto);
   }
   @Get('user')
   async getCurrentUser(@User() user): Promise<IUserResponse> {

@@ -7,6 +7,7 @@ import { IUserResponse } from '@/user/types/userResponse.interface';
 import { sign } from 'jsonwebtoken';
 import { compare } from 'bcrypt';
 import { LoginDto } from '@/user/dto/loginUser.dto';
+import { GoogleLoginDto } from '@/user/dto/googleLogin.dto';
 
 @Injectable()
 export class UserService {
@@ -60,6 +61,34 @@ export class UserService {
     }
     delete user.password;
     return user;
+  }
+  async loginWithGoogle(googleLoginDto: GoogleLoginDto): Promise<IUserResponse> {
+    const user = await this.userRepository.findOne({
+      where: { email: googleLoginDto.email },
+    });
+
+    if (user) {
+      return this.generateUserResponse(user);
+    }
+
+    const newUser = new UserEntity();
+    newUser.email = googleLoginDto.email;
+    // newUser.image = googleLoginDto.avatar; // Entity'de 'image' veya 'avatar' alanı varsa
+
+    let uniqueUsername = googleLoginDto.username;
+    const existingUsername = await this.userRepository.findOne({
+      where: { username: uniqueUsername },
+    });
+
+    if (existingUsername) {
+      uniqueUsername = `${uniqueUsername}${Math.floor(Math.random() * 1000)}`;
+    }
+    newUser.username = uniqueUsername;
+
+    newUser.password = Math.random().toString(36).slice(-8) + 'Aa1!';
+
+    const savedUser = await this.userRepository.save(newUser);
+    return this.generateUserResponse(savedUser);
   }
   async FindById(id: number): Promise<UserEntity> {
     const user = await this.userRepository.findOne({

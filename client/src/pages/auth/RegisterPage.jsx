@@ -1,30 +1,30 @@
-import {useState, useEffect, useRef} from "react"; // <--- useRef EKLENDİ
-import {Link, useNavigate} from "react-router-dom";
-import axios from "axios"; // <--- AXIOS EKLENDİ
+import { useState, useEffect, useRef } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import api from "../../api/api";
 
-import {Button} from "primereact/button";
-import {InputText} from "primereact/inputtext";
-import {Checkbox} from "primereact/checkbox";
-import {Calendar} from "primereact/calendar";
-import {Dropdown} from "primereact/dropdown";
-import {FileUpload} from "primereact/fileupload";
-import {Password} from "primereact/password";
-import {Toast} from "primereact/toast"; // <--- TOAST EKLENDİ
+import { Button } from "primereact/button";
+import { InputText } from "primereact/inputtext";
+import { Checkbox } from "primereact/checkbox";
+import { Calendar } from "primereact/calendar";
+import { Dropdown } from "primereact/dropdown";
+import { FileUpload } from "primereact/fileupload";
+import { Password } from "primereact/password";
+import { Toast } from "primereact/toast";
 
 function RegisterPage() {
     const navigate = useNavigate();
-    const toast = useRef(null); // <--- TOAST REFERANSI
+    const toast = useRef(null);
 
     const [firstName, setFirstName] = useState("");
     const [lastName, setLastName] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-    const [confirmPassword, setConfirmPassword] = useState(""); // <--- YENİ STATE (Şifre Tekrarı için)
+    const [confirmPassword, setConfirmPassword] = useState("");
     const [dob, setDob] = useState(null);
     const [gender, setGender] = useState(null);
     const [termsAccepted, setTermsAccepted] = useState(false);
 
-    const [loading, setLoading] = useState(false); // <--- LOADING STATE
+    const [loading, setLoading] = useState(false);
     const [isMounted, setIsMounted] = useState(false);
 
     useEffect(() => {
@@ -36,32 +36,34 @@ function RegisterPage() {
         e.preventDefault();
 
         if (!termsAccepted) {
-            toast.current.show({severity: 'warn', summary: 'Uyarı', detail: 'Lütfen kullanım koşullarını kabul edin.'});
+            toast.current.show({ severity: 'warn', summary: 'Uyarı', detail: 'Lütfen kullanım koşullarını kabul edin.' });
             return;
         }
 
         if (password !== confirmPassword) {
-            toast.current.show({severity: 'error', summary: 'Hata', detail: 'Şifreler birbiriyle uyuşmuyor!'});
+            toast.current.show({ severity: 'error', summary: 'Hata', detail: 'Şifreler birbiriyle uyuşmuyor!' });
             return;
         }
 
         if (!email || !password || !firstName) {
-            toast.current.show({severity: 'warn', summary: 'Eksik Bilgi', detail: 'Lütfen zorunlu alanları doldurun.'});
+            toast.current.show({ severity: 'warn', summary: 'Eksik Bilgi', detail: 'Lütfen zorunlu alanları doldurun.' });
             return;
         }
 
         setLoading(true);
 
         try {
+
             const payload = {
                 user: {
-                    username: `${firstName}${lastName}`,
+                    username: `${firstName} ${lastName}`,
                     email: email,
                     password: password,
+
                 }
             };
 
-            const response = await axios.post('http://localhost:3000/users', payload);
+            const response = await api.post('/users', payload);
 
             console.log('Kayıt Başarılı:', response.data);
 
@@ -71,7 +73,6 @@ function RegisterPage() {
                 detail: 'Hesap oluşturuldu! Giriş sayfasına yönlendiriliyorsunuz...'
             });
 
-
             setTimeout(() => {
                 navigate('/login');
             }, 1500);
@@ -79,20 +80,22 @@ function RegisterPage() {
         } catch (error) {
             console.error("Kayıt Hatası:", error);
             const errorMessage = error.response?.data?.message || 'Kayıt sırasında bir hata oluştu.';
-
             const displayError = Array.isArray(errorMessage) ? errorMessage[0] : errorMessage;
 
-            toast.current.show({severity: 'error', summary: 'Hata', detail: displayError});
+            toast.current.show({ severity: 'error', summary: 'Hata', detail: displayError });
         } finally {
             setLoading(false);
         }
     };
 
     const genderOptions = [
-        {label: "Erkek", value: "male"},
-        {label: "Kadın", value: "female"},
-        {label: "Belirtmek İstemiyorum", value: "other"},
+        { label: "Erkek", value: "male" },
+        { label: "Kadın", value: "female" },
+        { label: "Belirtmek İstemiyorum", value: "other" },
     ];
+
+
+    const inputClass = "w-full !bg-gray-800 !text-white !pl-10 p-3 rounded-md border-none focus:ring-2 focus:ring-blue-500";
 
     return (
         <div
@@ -100,53 +103,56 @@ function RegisterPage() {
                 isMounted ? "translate-y-0 opacity-100" : "translate-y-20 opacity-0"
             }`}
         >
-            <Toast ref={toast}/>
+            <Toast ref={toast} />
 
             <h2 className="mb-6 animate-pulse text-center text-3xl font-bold text-blue-300">
-                Hesap Oluşturuluyor
+                Hesap Oluştur
             </h2>
 
             <form onSubmit={handleSubmit} className="space-y-5">
 
-                <FileUpload
-                    name="profilePic"
-                    mode="basic"
-                    accept="image/*"
-                    maxFileSize={1000000}
-                    chooseLabel="Profil Fotoğrafı"
-                    className="text-sm"
-                    auto={false}
-                />
+                {/* Profil Resmi - Not: JSON payload ile dosya gitmez, backend formData istiyorsa yapı değişmeli */}
+                <div className="flex justify-center">
+                    <FileUpload
+                        mode="basic"
+                        name="profilePic"
+                        accept="image/*"
+                        maxFileSize={1000000}
+                        chooseLabel="Profil Fotoğrafı Seç"
+                        className="p-button-outlined !text-blue-300 !border-blue-500"
+                        auto={false}
+                    />
+                </div>
 
                 <div className="flex flex-col gap-4 md:flex-row">
-                    <span className="p-input-icon-left w-full">
-                        <i className="pi pi-user text-gray-400 pl-2"/>
+                    <span className="p-input-icon-left w-full relative">
+                        <i className="pi pi-user text-gray-400 pl-2" style={{zIndex:1, position:'absolute', top:'50%', transform:'translateY(-50%)'}}/>
                         <InputText
                             value={firstName}
                             onChange={(e) => setFirstName(e.target.value)}
                             placeholder="Ad"
-                            className="w-full text-white pl-7 rounded-md p-1"
+                            className={inputClass}
                         />
                     </span>
-                    <span className="p-input-icon-left w-full ">
-                        <i className="pi pi-user text-gray-400 pl-2"/>
+                    <span className="p-input-icon-left w-full relative">
+                        <i className="pi pi-user text-gray-400 pl-2" style={{zIndex:1, position:'absolute', top:'50%', transform:'translateY(-50%)'}}/>
                         <InputText
                             value={lastName}
                             onChange={(e) => setLastName(e.target.value)}
                             placeholder="Soyad"
-                            className="w-full text-white pl-7 rounded-md p-1"
+                            className={inputClass}
                         />
                     </span>
                 </div>
 
-                <span className="p-input-icon-left w-full">
-                    <i className="pi pi-envelope text-gray-400 pl-2"/>
+                <span className="p-input-icon-left w-full relative">
+                    <i className="pi pi-envelope text-gray-400 pl-2" style={{zIndex:1, position:'absolute', top:'50%', transform:'translateY(-50%)'}}/>
                     <InputText
                         type="email"
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
                         placeholder="Email Adresi"
-                        className="w-full text-white pl-7 p-1 rounded-md "
+                        className={inputClass}
                     />
                 </span>
 
@@ -158,38 +164,43 @@ function RegisterPage() {
                         dateFormat="dd/mm/yy"
                         showIcon
                         className="w-full md:w-1/2"
-                        inputClassName="w-full !text-white rounded-md p-1"
+                        inputClassName="w-full !bg-gray-800 !text-white rounded-md p-3 border-none"
                     />
                     <Dropdown
                         value={gender}
                         options={genderOptions}
                         onChange={(e) => setGender(e.value)}
                         placeholder="Cinsiyet"
-                        className="w-full md:w-1/2"
+                        className="w-full md:w-1/2 !bg-gray-800 !border-none rounded-md"
+                        pt={{
+                            input: { className: '!text-white' },
+                            trigger: { className: '!text-gray-400' },
+                            panel: { className: '!bg-gray-800 !text-white' },
+                            item: { className: 'hover:!bg-gray-700' }
+                        }}
                     />
                 </div>
 
-                <span className="p-input-icon-left w-full">
-                    <i className="pi pi-lock text-gray-400 pl-2"/>
+                <span className="p-input-icon-left w-full relative">
+                    <i className="pi pi-lock text-gray-400 pl-2" style={{zIndex:1, position:'absolute', top:'50%', transform:'translateY(-50%)'}}/>
                     <Password
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
                         placeholder="Şifre"
                         className="w-full"
-                        inputClassName="w-full !text-white pl-7 rounded-md p-1"
+                        inputClassName={inputClass}
                         toggleMask
                     />
                 </span>
 
-
-                <span className="p-input-icon-left w-full">
-                    <i className="pi pi-lock text-gray-400 pl-2"/>
+                <span className="p-input-icon-left w-full relative">
+                    <i className="pi pi-lock text-gray-400 pl-2" style={{zIndex:1, position:'absolute', top:'50%', transform:'translateY(-50%)'}}/>
                     <Password
                         value={confirmPassword}
                         onChange={(e) => setConfirmPassword(e.target.value)}
                         placeholder="Şifre Tekrarı"
                         className="w-full"
-                        inputClassName="w-full !text-white pl-7 rounded-md p-1"
+                        inputClassName={inputClass}
                         feedback={false}
                         toggleMask
                     />
@@ -200,8 +211,9 @@ function RegisterPage() {
                         inputId="terms"
                         checked={termsAccepted}
                         onChange={(e) => setTermsAccepted(e.checked)}
+                        className="!border-gray-500"
                     />
-                    <label htmlFor="terms" className="text-sm text-gray-300">
+                    <label htmlFor="terms" className="text-sm text-gray-300 cursor-pointer select-none">
                         Kullanım koşullarını{" "}
                         <a href="#" className="text-blue-400 hover:underline">
                             okudum ve kabul ediyorum
@@ -212,10 +224,10 @@ function RegisterPage() {
 
                 <Button
                     label={loading ? "Kaydediliyor..." : "Kayıt Ol"}
-                    icon={loading ? "pi pi-spin pi-spinner" : ""}
+                    icon={loading ? "pi pi-spin pi-spinner" : "pi pi-check"}
                     type="submit"
                     disabled={loading}
-                    className="w-full !bg-blue-600 !py-3 !text-base font-bold !text-white hover:!bg-blue-700"
+                    className="w-full !bg-blue-600 !py-3 !text-base font-bold !text-white hover:!bg-blue-700 border-none shadow-lg shadow-blue-500/30"
                 />
 
                 <div className="mt-4 text-center text-gray-400">
