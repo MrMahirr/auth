@@ -33,7 +33,6 @@ export class UserController {
   }
   @Get('user')
   async getCurrentUser(@Req() request: AuthRequest): Promise<IUserResponse> {
-    console.log(request.user);
     return this.userService.generateUserResponse(request.user);
   }
 }

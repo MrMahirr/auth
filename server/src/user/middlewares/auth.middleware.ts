@@ -6,7 +6,7 @@ import { verify } from 'jsonwebtoken';
 import { UserEntity } from '@/user/user.entity';
 
 @Injectable()
-class AuthMiddleware implements NestMiddleware {
+export class AuthMiddleware implements NestMiddleware {
   constructor(private readonly userService: UserService) {}
 
   async use(req: AuthRequest, res: Response, next: NextFunction) {
