@@ -5,10 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="0498930d-d12a-40c3-a4a9-c33ae8b0e5f1" name="Changes" comment="middleware ve current user yapıldı">
+      <change afterPath="$PROJECT_DIR$/server/src/user/decorators/user.decorator.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/user/middlewares/auth.middleware.ts" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/user/middlewares/auth.middleware.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/server/src/user/user.controller.ts" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/user/user.controller.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/user/user.module.ts" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/user/user.module.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -84,7 +83,7 @@
       <updated>1763835690833</updated>
       <workItem from="1763835691955" duration="1264000" />
       <workItem from="1763837188625" duration="6207000" />
-      <workItem from="1763906053588" duration="6520000" />
+      <workItem from="1763906053588" duration="7379000" />
     </task>
     <task id="LOCAL-00002" summary="login giriş yapıldı.">
       <option name="closed" value="true" />
@@ -118,7 +117,23 @@
       <option name="project" value="LOCAL" />
       <updated>1763917621626</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="middleware ve current user yapıldı">
+      <option name="closed" value="true" />
+      <created>1763918258569</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1763918258569</updated>
+    </task>
+    <task id="LOCAL-00007" summary="middleware ve current user yapıldı">
+      <option name="closed" value="true" />
+      <created>1763918279745</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1763918279745</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
