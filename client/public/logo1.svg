@@ -1,0 +1,10 @@
+<svg width="200" height="200" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="cosmosText" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#2563EB" />
+      <stop offset="100%" style="stop-color:#9333EA" />
+    </linearGradient>
+  </defs>
+
+  <text x="100" y="110" font-family="'Verdana', sans-serif" font-weight="bold" font-size="40" fill="url(#cosmosText)" text-anchor="middle" letter-spacing="2">MAHIR</text>
+</svg>

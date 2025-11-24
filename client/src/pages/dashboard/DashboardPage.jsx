@@ -114,7 +114,7 @@ export default function DashboardPage() {
                             <Activity className="text-cyan-400" size={20} /> Performans Analizi
                         </h3>
                     </div>
-                    <div className="h-[300px]">
+                    <div className="h-[500px]">
                         <Chart type="line" data={chartData} options={chartOptions} />
                     </div>
                 </div>
