@@ -5,7 +5,7 @@ import { ValidationPipe } from '@nestjs/common';
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   app.enableCors({
-    origin: 'http://localhost:3001', // React projenin çalıştığı adres (Vite kullanıyorsan genelde budur)
+    origin: process.env.CORS_ORIGIN ?? 'http://localhost:3001',
     // credentials: true, // Eğer cookie kullanacaksan gerekli
   });
   app.useGlobalPipes(
