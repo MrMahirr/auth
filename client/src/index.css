@@ -127,3 +127,46 @@
         animation: pulse-glow 4s infinite ease-in-out;
     }
 }
+
+/*react quil */
+
+.ql-toolbar.ql-snow {
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+    background-color: rgba(0, 0, 0, 0.3);
+    border-top-left-radius: 0.75rem;
+    border-top-right-radius: 0.75rem;
+}
+
+.ql-container.ql-snow {
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+    background-color: rgba(0, 0, 0, 0.2);
+    border-bottom-left-radius: 0.75rem;
+    border-bottom-right-radius: 0.75rem;
+    color: #e2e8f0; /* Metin rengi (text-gray-200) */
+    font-size: 1rem;
+}
+
+/* Toolbar İkon Renkleri */
+.ql-snow .ql-stroke {
+    stroke: #94a3b8 !important; /* İkon rengi (gray-400) */
+}
+.ql-snow .ql-fill {
+    fill: #94a3b8 !important;
+}
+.ql-snow .ql-picker {
+    color: #94a3b8 !important;
+}
+
+/* Hover durumları */
+.ql-snow .ql-picker:hover, .ql-snow .ql-picker-label:hover {
+    color: #22d3ee !important; /* Cyan hover */
+}
+.ql-snow button:hover .ql-stroke {
+    stroke: #22d3ee !important;
+}
+
+/* Placeholder Rengi */
+.ql-editor.ql-blank::before {
+    color: #64748b !important;
+    font-style: normal !important;
+}

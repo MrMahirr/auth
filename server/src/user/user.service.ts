@@ -116,9 +116,7 @@ export class UserService {
     );
   }
   generateUserResponse(user: UserEntity): IUserResponse {
-    if (!user.id) {
-      throw new HttpException('User data is mising', HttpStatus.BAD_REQUEST);
-    }
+
     return {
       user: {
         ...user,

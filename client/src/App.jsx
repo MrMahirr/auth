@@ -7,6 +7,8 @@ import LoginPage from "./pages/auth/LoginPage";
 import RegisterPage from "./pages/auth/RegisterPage";
 import DashboardPage from "./pages/dashboard/DashboardPage.jsx";
 import Profile from "./pages/dashboard/Profile";
+import Blog from "./pages/dashboard/Blog";
+import BlogManager from "./pages/blog/BlogManager";
 
 function App() {
     return (
@@ -23,6 +25,9 @@ function App() {
                 <Route path="/" element={<MainLayout/>}>
                     <Route index element={<DashboardPage/>}/>
                     <Route path="profile" element={<Profile/>}/>
+                    <Route path="blog" element={<Blog/>}/>
+                    <Route path="blogManager" element={<BlogManager />} />
+                    <Route path="blogManager/*" element={<Navigate to="/blogManager" replace />} />
                 </Route>
 
                 {/* Hatalı URL gelirse Login'e at */}
