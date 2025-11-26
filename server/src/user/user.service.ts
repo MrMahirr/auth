@@ -8,13 +8,14 @@ import { sign } from 'jsonwebtoken';
 import { compare } from 'bcrypt';
 import { LoginDto } from '@/user/dto/loginUser.dto';
 import { GoogleLoginDto } from '@/user/dto/googleLogin.dto';
+import { UpdateUserDto } from '@/user/dto/updateUser.dto';
 
 @Injectable()
 export class UserService {
   constructor(
     @InjectRepository(UserEntity)
     private readonly userRepository: Repository<UserEntity>,
-  ) {}
+  ) { }
   async createUser(createUserDto: CreateUserDto): Promise<IUserResponse> {
     const newUser = new UserEntity();
     Object.assign(newUser, createUserDto);
@@ -62,7 +63,9 @@ export class UserService {
     delete user.password;
     return user;
   }
-  async loginWithGoogle(googleLoginDto: GoogleLoginDto): Promise<IUserResponse> {
+  async loginWithGoogle(
+    googleLoginDto: GoogleLoginDto,
+  ): Promise<IUserResponse> {
     const user = await this.userRepository.findOne({
       where: { email: googleLoginDto.email },
     });
@@ -90,7 +93,17 @@ export class UserService {
     const savedUser = await this.userRepository.save(newUser);
     return this.generateUserResponse(savedUser);
   }
-  async FindById(id: number): Promise<UserEntity> {
+
+  async updateUser(
+    userId: number,
+    updateUserDto: UpdateUserDto,
+  ): Promise<UserEntity> {
+    const user = await this.findById(userId);
+    Object.assign(user, updateUserDto);
+
+    return await this.userRepository.save(user);
+  }
+  async findById(id: number): Promise<UserEntity> {
     const user = await this.userRepository.findOne({
       where: {
         id,
@@ -116,7 +129,6 @@ export class UserService {
     );
   }
   generateUserResponse(user: UserEntity): IUserResponse {
-
     return {
       user: {
         ...user,

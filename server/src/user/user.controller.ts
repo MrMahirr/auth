@@ -4,6 +4,7 @@ import {
   Controller,
   Get,
   Post,
+  Put,
   UseGuards,
   UsePipes,
   ValidationPipe,
@@ -14,6 +15,7 @@ import { LoginDto } from '@/user/dto/loginUser.dto';
 import { User } from '@/user/decorators/user.decorator';
 import { GoogleLoginDto } from './dto/googleLogin.dto';
 import { AuthGuard } from '@/user/guards/auth.guard';
+import { UpdateUserDto } from '@/user/dto/updateUser.dto';
 
 @Controller('')
 export class UserController {
@@ -39,6 +41,20 @@ export class UserController {
   ): Promise<IUserResponse> {
     return this.userService.loginWithGoogle(googleLoginDto);
   }
+
+  @Put('user')
+  @UseGuards(AuthGuard)
+  async updateUser(
+    @User('id') userId: number,
+    @Body('user') updateUserDto: UpdateUserDto,
+  ): Promise<IUserResponse> {
+    const updatedUser = await this.userService.updateUser(
+      userId,
+      updateUserDto,
+    );
+    return this.userService.generateUserResponse(updatedUser);
+  }
+
   @Get('user')
   @UseGuards(AuthGuard)
   async getCurrentUser(@User() user): Promise<IUserResponse> {
