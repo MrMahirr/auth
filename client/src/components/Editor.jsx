@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { LexicalComposer } from '@lexical/react/LexicalComposer';
 import { RichTextPlugin } from '@lexical/react/LexicalRichTextPlugin';
 import { ContentEditable } from '@lexical/react/LexicalContentEditable';
@@ -9,7 +9,7 @@ import { LinkPlugin } from '@lexical/react/LexicalLinkPlugin';
 import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext';
 import { OnChangePlugin } from '@lexical/react/LexicalOnChangePlugin';
 import { $generateHtmlFromNodes, $generateNodesFromDOM } from '@lexical/html';
-import { $getSelection, $isRangeSelection, FORMAT_TEXT_COMMAND, FORMAT_ELEMENT_COMMAND } from 'lexical';
+import { $getSelection, $isRangeSelection, FORMAT_TEXT_COMMAND, FORMAT_ELEMENT_COMMAND, $getRoot } from 'lexical';
 import { $createHeadingNode, $createQuoteNode } from '@lexical/rich-text';
 import { $setBlocksType } from '@lexical/selection';
 import { INSERT_ORDERED_LIST_COMMAND, INSERT_UNORDERED_LIST_COMMAND } from '@lexical/list';
@@ -98,11 +98,10 @@ const Toolbar = () => {
                 e.preventDefault();
                 onClick();
             }}
-            className={`p-1.5 rounded-lg transition-all duration-200 flex items-center justify-center ${
-                isActive
+            className={`p-1.5 rounded-lg transition-all duration-200 flex items-center justify-center ${isActive
                     ? 'bg-cyan-500/20 text-cyan-400 shadow-[0_0_10px_rgba(6,182,212,0.3)]'
                     : 'text-gray-400 hover:text-white hover:bg-white/10'
-            }`}
+                }`}
             title={title}
         >
             <Icon size={18} />
@@ -138,40 +137,32 @@ const Toolbar = () => {
     );
 };
 
-// --- 3. HTML ÇIKTISI VE GİRİŞİ YÖNETİMİ ---
-const HtmlPlugin = ({ initialHtml, onChange }) => {
+// --- HTML ÇIKTISI VE GİRİŞİ YÖNETİMİ ---
+const HtmlPlugin = ({ initialHtml }) => {
     const [editor] = useLexicalComposerContext();
-    const [isFirstRender, setIsFirstRender] = useState(true);
+    const isInitialized = useRef(false);
 
-    // Başlangıç HTML değerini yükle (Sadece ilk renderda)
     useEffect(() => {
-        if (!isFirstRender || !initialHtml) return;
+        if (!initialHtml || isInitialized.current) return;
 
         editor.update(() => {
+            const root = $getRoot();
+            if (root.getTextContentSize() > 0) return; // Zaten içerik varsa dokunma
+
             const parser = new DOMParser();
             const dom = parser.parseFromString(initialHtml, 'text/html');
             const nodes = $generateNodesFromDOM(editor, dom);
-            // Kök düğüme ekle
-            const root = editor.getRootElement(); // Lexical root
-            // Burada $getRoot().select() ve $insertNodes(nodes) daha doğru bir yaklaşım
-        });
-        setIsFirstRender(false);
-    }, [editor, initialHtml, isFirstRender]);
 
-    // Değişiklikleri HTML olarak dışarı ver
-    return (
-        <OnChangePlugin
-            onChange={(editorState) => {
-                editorState.read(() => {
-                    const htmlString = $generateHtmlFromNodes(editor);
-                    onChange(htmlString);
-                });
-            }}
-        />
-    );
+            root.clear();
+            root.append(...nodes);
+            isInitialized.current = true;
+        });
+    }, [editor, initialHtml]);
+
+    return null;
 };
 
-// --- 4. ANA EDİTÖR BİLEŞENİ ---
+// --- ANA EDİTÖR BİLEŞENİ ---
 export default function Editor({ value, onChange }) {
     const initialConfig = {
         namespace: 'MyEditor',
@@ -210,24 +201,20 @@ export default function Editor({ value, onChange }) {
                     <LinkPlugin />
                     <AutoFocusPlugin />
 
-                    {/* HTML Çevirici Plugin */}
+                    {/* HTML Plugin: Başlangıç değerini yükler */}
+                    <HtmlPlugin initialHtml={value} />
+
+                    {/* OnChange Plugin: Değişiklikleri dışarı bildirir */}
                     <OnChangePlugin
-                        onChange={(editorState, editor) => {
+                        onChange={(editorState) => {
                             editorState.read(() => {
                                 const html = $generateHtmlFromNodes(editor);
-                                if (html !== value) { // Döngüyü engellemek için kontrol
+                                if (html !== value) {
                                     onChange(html);
                                 }
                             });
                         }}
                     />
-
-                    {/* Dışarıdan gelen değeri yüklemek için özel bir çözüm gerekebilir.
-                        Lexical'da dışarıdan gelen HTML'i "controlled input" gibi yönetmek zordur.
-                        Basitlik adına, sadece "onChange" tarafını HTML olarak veriyoruz.
-                        Eğer "Edit" modunda dolu gelmesini istiyorsanız, initialConfig'e html verilemez.
-                        Bunun için özel bir useEffect hook'u gerekir.
-                    */}
                 </div>
             </LexicalComposer>
         </div>

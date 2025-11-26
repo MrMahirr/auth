@@ -4,6 +4,7 @@ import { Repository } from 'typeorm';
 import { BlogEntity } from './blog.entity';
 import { CreateBlogDto } from './dto/createBlog.dto';
 import { UserEntity } from '@/user/user.entity';
+import { UpdateBlogDto } from '@/blog/dto/updateBlog.dto';
 
 @Injectable()
 export class BlogService {
@@ -34,7 +35,7 @@ export class BlogService {
     return blog;
   }
 
-  async update(id: number, updateBlogDto: CreateBlogDto): Promise<BlogEntity> {
+  async update(id: number, updateBlogDto: UpdateBlogDto): Promise<BlogEntity> {
     const blog = await this.findOne(id);
     Object.assign(blog, updateBlogDto);
     return await this.blogRepository.save(blog);

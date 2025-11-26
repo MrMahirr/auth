@@ -61,7 +61,7 @@ export default function Header() {
 
             <nav className="hidden md:flex items-center gap-2 bg-white/5 p-1.5 rounded-full border border-white/5">
                 <NavLink to="/" icon={LayoutDashboard} label="Dashboard"/>
-                <NavLink to="/blog" icon={User} label="Bloğum"/>
+                <NavLink to="/blog" icon={FileText} label="Bloğum"/>
                 <NavLink to="/profile" icon={User} label="Profilim"/>
             </nav>
 

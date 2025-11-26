@@ -12,15 +12,15 @@ import {
 import { BlogService } from './blog.services';
 import { CreateBlogDto } from './dto/createBlog.dto';
 import { AuthGuard } from '@/user/guards/auth.guard';
+import { UpdateBlogDto } from '@/blog/dto/updateBlog.dto';
 
 @Controller('blogs')
 export class BlogController {
-  constructor(private readonly blogService: BlogService) { }
+  constructor(private readonly blogService: BlogService) {}
 
   @Post('')
   @UseGuards(AuthGuard)
   create(@Request() req, @Body() createBlogDto: CreateBlogDto) {
-    // Create a new blog post
     return this.blogService.create(req.user, createBlogDto);
   }
 
@@ -36,7 +36,7 @@ export class BlogController {
 
   @Put(':id')
   @UseGuards(AuthGuard)
-  update(@Param('id') id: string, @Body() updateBlogDto: CreateBlogDto) {
+  update(@Param('id') id: string, @Body() updateBlogDto: UpdateBlogDto) {
     return this.blogService.update(+id, updateBlogDto);
   }
 

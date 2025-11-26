@@ -4,25 +4,21 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0498930d-d12a-40c3-a4a9-c33ae8b0e5f1" name="Changes" comment="update user işlemi yapıldı">
-      <change afterPath="$PROJECT_DIR$/server/src/blog/blog.module.ts" afterDir="false" />
+    <list default="true" id="0498930d-d12a-40c3-a4a9-c33ae8b0e5f1" name="Changes" comment="blog ekleme işlemi yapıldı blok ekleme ve düzenleme çalışıyor fotograf yükleme işlemi yapılacak">
+      <change afterPath="$PROJECT_DIR$/server/src/blog/dto/updateBlog.dto.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/src/upload/multer.config.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/src/upload/upload.controller.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/src/upload/upload.module.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/src/upload/upload.service.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/api/api.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/services/api.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/src/components/Editor.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/Editor.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/context/AuthContext.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/context/AuthContext.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/pages/auth/LoginPage.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/pages/auth/LoginPage.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/pages/auth/RegisterPage.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/pages/auth/RegisterPage.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/Header.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/Header.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/src/pages/blog/BlogManager.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/pages/blog/BlogManager.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/pages/dashboard/Blog.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/pages/dashboard/Blog.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/server/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/server/package.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/server/src/app.module.ts" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/app.module.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/server/src/blog/blog.controller.ts" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/blog/blog.controller.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/blog/blog.entity.ts" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/blog/blog.entity.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/blog/blog.model.ts" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/server/src/blog/blog.services.ts" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/blog/blog.services.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main.ts" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/user/dto/updateUser.dto.ts" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/user/dto/updateUser.dto.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/user/user.controller.ts" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/user/user.controller.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/user/user.entity.ts" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/user/user.entity.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -125,7 +121,7 @@
       <workItem from="1763992711466" duration="6903000" />
       <workItem from="1764068371315" duration="449000" />
       <workItem from="1764091674267" duration="6500000" />
-      <workItem from="1764158763029" duration="10925000" />
+      <workItem from="1764158763029" duration="18071000" />
     </task>
     <task id="LOCAL-00002" summary="login giriş yapıldı.">
       <option name="closed" value="true" />
@@ -223,7 +219,15 @@
       <option name="project" value="LOCAL" />
       <updated>1764162520584</updated>
     </task>
-    <option name="localTasksCounter" value="14" />
+    <task id="LOCAL-00014" summary="blog ekleme işlemi yapıldı blok ekleme ve düzenleme çalışıyor fotograf yükleme işlemi yapılacak">
+      <option name="closed" value="true" />
+      <created>1764171779791</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1764171779791</updated>
+    </task>
+    <option name="localTasksCounter" value="15" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -251,6 +255,7 @@
     <MESSAGE value="icon eklendi" />
     <MESSAGE value="add authguard işlemi yapıldı blog backend için temeller atıldı" />
     <MESSAGE value="update user işlemi yapıldı" />
-    <option name="LAST_COMMIT_MESSAGE" value="update user işlemi yapıldı" />
+    <MESSAGE value="blog ekleme işlemi yapıldı blok ekleme ve düzenleme çalışıyor fotograf yükleme işlemi yapılacak" />
+    <option name="LAST_COMMIT_MESSAGE" value="blog ekleme işlemi yapıldı blok ekleme ve düzenleme çalışıyor fotograf yükleme işlemi yapılacak" />
   </component>
 </project>
