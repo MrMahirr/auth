@@ -87,7 +87,7 @@ export default function Header() {
                         <div
                             className={`h-10 w-10 rounded-full bg-gradient-to-r from-cyan-500 to-purple-600 p-[2px] transition-transform duration-300 ${isMenuOpen ? 'scale-110 shadow-[0_0_15px_rgba(6,182,212,0.5)]' : ''}`}>
                             <img
-                                src={user?.avatar || "https://api.dicebear.com/7.x/avataaars/svg?seed=Felix"}
+                                src={user?.image || "https://api.dicebear.com/7.x/avataaars/svg?seed=Felix"}
                                 alt="Avatar"
                                 className="h-full w-full rounded-full object-cover bg-black"
                             />
@@ -124,7 +124,7 @@ export default function Header() {
                                         <div
                                             className="ml-4 pl-4 border-l border-white/10 space-y-1 my-1 animate-in slide-in-from-left-2 duration-200">
                                             <Link
-                                                to="/blogManager/*" // Blog ekleme sayfası rotası
+                                                to="/blogManager/*"
                                                 className="flex items-center gap-2 px-3 py-2 text-sm text-gray-400 hover:text-cyan-400 hover:bg-cyan-500/10 rounded-lg transition-colors"
                                                 onClick={() => setIsMenuOpen(false)}
                                             >
@@ -132,7 +132,7 @@ export default function Header() {
                                                 <span>Blog Ekle</span>
                                             </Link>
                                             <Link
-                                                to="/blogManager/*" // Blog listeleme sayfası rotası
+                                                to="/blogManager/*"
                                                 className="flex items-center gap-2 px-3 py-2 text-sm text-gray-400 hover:text-cyan-400 hover:bg-cyan-500/10 rounded-lg transition-colors"
                                                 onClick={() => setIsMenuOpen(false)}
                                             >

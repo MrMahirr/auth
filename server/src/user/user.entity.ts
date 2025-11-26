@@ -16,9 +16,17 @@ export class UserEntity {
   @Column()
   username: string;
   @Column()
+  name: string;
+  @Column()
+  surname: string;
+  @Column()
   email: string;
   @Column({ default: '' })
   bio: string;
+  @Column({ default: '' })
+  gender: string;
+  @Column({ default: '' })
+  dateofbirth: string;
   @Column({ default: '' })
   image: string;
   @Column()

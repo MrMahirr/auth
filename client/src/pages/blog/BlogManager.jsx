@@ -100,6 +100,14 @@ export default function BlogManager() {
             showToast("Lütfen bir başlık girin.", 'error');
             return;
         }
+        if (!formData.content) {
+            showToast("Lütfen içerik girin.", 'error');
+            return;
+        }
+        if (!formData.category) {
+            showToast("Lütfen bir kategori girin.", 'error');
+            return;
+        }
 
         // Backend validation (whitelist: true) requires only specific fields
         const payload = {
@@ -121,7 +129,8 @@ export default function BlogManager() {
             showToast("Blog başarıyla kaydedildi!");
         } catch (e) {
             console.error("Save error:", e);
-            showToast("Kaydetme hatası oluştu.", 'error');
+            const errorMessage = e.response?.data?.message || "Kaydetme hatası oluştu.";
+            showToast(Array.isArray(errorMessage) ? errorMessage[0] : errorMessage, 'error');
         }
     };
 

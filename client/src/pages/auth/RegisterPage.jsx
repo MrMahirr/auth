@@ -15,6 +15,7 @@ function RegisterPage() {
     const navigate = useNavigate();
     const toast = useRef(null);
 
+    const [username, setUsername] = useState("");
     const [firstName, setFirstName] = useState("");
     const [lastName, setLastName] = useState("");
     const [email, setEmail] = useState("");
@@ -45,7 +46,7 @@ function RegisterPage() {
             return;
         }
 
-        if (!email || !password || !firstName) {
+        if (!email || !password || !firstName || !username) {
             toast.current.show({ severity: 'warn', summary: 'Eksik Bilgi', detail: 'Lütfen zorunlu alanları doldurun.' });
             return;
         }
@@ -53,13 +54,17 @@ function RegisterPage() {
         setLoading(true);
 
         try {
+            const formattedDob = dob ? new Date(dob).toISOString().split('T')[0] : "";
 
             const payload = {
                 user: {
-                    username: `${firstName} ${lastName}`,
+                    username: username,
+                    name: firstName,
+                    surname: lastName,
                     email: email,
                     password: password,
-
+                    gender: gender,
+                    dateofbirth: formattedDob
                 }
             };
 
@@ -99,9 +104,8 @@ function RegisterPage() {
 
     return (
         <div
-            className={`relative z-20 w-full max-w-lg rounded-2xl border border-blue-500/50 bg-gray-900/60 p-8 text-white backdrop-blur-lg animate-pulse-glow transition-all duration-1000 ease-out ${
-                isMounted ? "translate-y-0 opacity-100" : "translate-y-20 opacity-0"
-            }`}
+            className={`relative z-20 w-full max-w-lg rounded-2xl border border-blue-500/50 bg-gray-900/60 p-8 text-white backdrop-blur-lg animate-pulse-glow transition-all duration-1000 ease-out ${isMounted ? "translate-y-0 opacity-100" : "translate-y-20 opacity-0"
+                }`}
         >
             <Toast ref={toast} />
 
@@ -124,9 +128,19 @@ function RegisterPage() {
                     />
                 </div>
 
+                <span className="p-input-icon-left w-full relative">
+                    <i className="pi pi-user text-gray-400 pl-2" style={{ zIndex: 1, position: 'absolute', top: '50%', transform: 'translateY(-50%)' }} />
+                    <InputText
+                        value={username}
+                        onChange={(e) => setUsername(e.target.value)}
+                        placeholder="Kullanıcı Adı"
+                        className={inputClass}
+                    />
+                </span>
+
                 <div className="flex flex-col gap-4 md:flex-row">
                     <span className="p-input-icon-left w-full relative">
-                        <i className="pi pi-user text-gray-400 pl-2" style={{zIndex:1, position:'absolute', top:'50%', transform:'translateY(-50%)'}}/>
+                        <i className="pi pi-user text-gray-400 pl-2" style={{ zIndex: 1, position: 'absolute', top: '50%', transform: 'translateY(-50%)' }} />
                         <InputText
                             value={firstName}
                             onChange={(e) => setFirstName(e.target.value)}
@@ -135,7 +149,7 @@ function RegisterPage() {
                         />
                     </span>
                     <span className="p-input-icon-left w-full relative">
-                        <i className="pi pi-user text-gray-400 pl-2" style={{zIndex:1, position:'absolute', top:'50%', transform:'translateY(-50%)'}}/>
+                        <i className="pi pi-user text-gray-400 pl-2" style={{ zIndex: 1, position: 'absolute', top: '50%', transform: 'translateY(-50%)' }} />
                         <InputText
                             value={lastName}
                             onChange={(e) => setLastName(e.target.value)}
@@ -146,7 +160,7 @@ function RegisterPage() {
                 </div>
 
                 <span className="p-input-icon-left w-full relative">
-                    <i className="pi pi-envelope text-gray-400 pl-2" style={{zIndex:1, position:'absolute', top:'50%', transform:'translateY(-50%)'}}/>
+                    <i className="pi pi-envelope text-gray-400 pl-2" style={{ zIndex: 1, position: 'absolute', top: '50%', transform: 'translateY(-50%)' }} />
                     <InputText
                         type="email"
                         value={email}
@@ -182,7 +196,7 @@ function RegisterPage() {
                 </div>
 
                 <span className="p-input-icon-left w-full relative">
-                    <i className="pi pi-lock text-gray-400 pl-2" style={{zIndex:1, position:'absolute', top:'50%', transform:'translateY(-50%)'}}/>
+                    <i className="pi pi-lock text-gray-400 pl-2" style={{ zIndex: 1, position: 'absolute', top: '50%', transform: 'translateY(-50%)' }} />
                     <Password
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
@@ -194,7 +208,7 @@ function RegisterPage() {
                 </span>
 
                 <span className="p-input-icon-left w-full relative">
-                    <i className="pi pi-lock text-gray-400 pl-2" style={{zIndex:1, position:'absolute', top:'50%', transform:'translateY(-50%)'}}/>
+                    <i className="pi pi-lock text-gray-400 pl-2" style={{ zIndex: 1, position: 'absolute', top: '50%', transform: 'translateY(-50%)' }} />
                     <Password
                         value={confirmPassword}
                         onChange={(e) => setConfirmPassword(e.target.value)}
@@ -236,7 +250,7 @@ function RegisterPage() {
                         to="/login"
                         className="font-semibold text-blue-400 transition-colors hover:text-blue-300 hover:underline"
                     >
-                        <i className="pi pi-sign-in mr-1 text-xs"/>
+                        <i className="pi pi-sign-in mr-1 text-xs" />
                         Giriş Yap
                     </Link>
                 </div>

@@ -18,4 +18,21 @@ export class UploadService {
       folder: folder
     };
   }
+
+  async deleteFile(filename: string, folder: string) {
+    const fs = require('fs/promises');
+    const path = require('path');
+
+    try {
+      const filePath = path.join(process.cwd(), 'uploads', folder, filename);
+      await fs.unlink(filePath);
+      return { success: true };
+    } catch (error) {
+      // Dosya zaten yoksa hata verme, işlem başarılı sayılsın
+      if (error.code === 'ENOENT') {
+        return { success: true };
+      }
+      throw new BadRequestException('Dosya silinemedi.');
+    }
+  }
 }

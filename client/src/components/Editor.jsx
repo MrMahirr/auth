@@ -99,8 +99,8 @@ const Toolbar = () => {
                 onClick();
             }}
             className={`p-1.5 rounded-lg transition-all duration-200 flex items-center justify-center ${isActive
-                    ? 'bg-cyan-500/20 text-cyan-400 shadow-[0_0_10px_rgba(6,182,212,0.3)]'
-                    : 'text-gray-400 hover:text-white hover:bg-white/10'
+                ? 'bg-cyan-500/20 text-cyan-400 shadow-[0_0_10px_rgba(6,182,212,0.3)]'
+                : 'text-gray-400 hover:text-white hover:bg-white/10'
                 }`}
             title={title}
         >
@@ -206,7 +206,7 @@ export default function Editor({ value, onChange }) {
 
                     {/* OnChange Plugin: Değişiklikleri dışarı bildirir */}
                     <OnChangePlugin
-                        onChange={(editorState) => {
+                        onChange={(editorState, editor) => {
                             editorState.read(() => {
                                 const html = $generateHtmlFromNodes(editor);
                                 if (html !== value) {
