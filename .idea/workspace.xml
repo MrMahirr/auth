@@ -4,21 +4,18 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0498930d-d12a-40c3-a4a9-c33ae8b0e5f1" name="Changes" comment="blog eklme ve güncelleme işlemi fotograflı olacak şekilde düzenlendi upload servicesleri yazıldı">
+    <list default="true" id="0498930d-d12a-40c3-a4a9-c33ae8b0e5f1" name="Changes" comment="blog ve kullanıcı bilgileri güncellem tam anlamıyla çalışıyor.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/src/components/Editor.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/Editor.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/Header.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/Header.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/pages/auth/RegisterPage.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/pages/auth/RegisterPage.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/src/pages/blog/BlogManager.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/pages/blog/BlogManager.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/pages/dashboard/Profile.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/pages/dashboard/Profile.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/migrations/1763733507418-createTagsAndUsers.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/migrations/1763733709725-AddCreatedAtTags.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/migrations/1764164718453-CreateBlog.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/.env.example" beforeDir="false" afterPath="$PROJECT_DIR$/server/.env.example" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/upload/multer.config.ts" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/upload/multer.config.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/server/src/upload/upload.controller.ts" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/upload/upload.controller.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/server/src/upload/upload.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/upload/upload.service.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/user/dto/createUser.dto.ts" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/user/dto/createUser.dto.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/user/dto/updateUser.dto.ts" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/user/dto/updateUser.dto.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/user/dto/googleLogin.dto.ts" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/user/dto/googleLogin.dto.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/user/user.controller.ts" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/user/user.controller.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/server/src/user/user.entity.ts" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/user/user.entity.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/user/user.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/user/user.service.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -121,7 +118,7 @@
       <workItem from="1763992711466" duration="6903000" />
       <workItem from="1764068371315" duration="449000" />
       <workItem from="1764091674267" duration="6500000" />
-      <workItem from="1764158763029" duration="24140000" />
+      <workItem from="1764158763029" duration="25256000" />
     </task>
     <task id="LOCAL-00002" summary="login giriş yapıldı.">
       <option name="closed" value="true" />
@@ -235,7 +232,23 @@
       <option name="project" value="LOCAL" />
       <updated>1764186718826</updated>
     </task>
-    <option name="localTasksCounter" value="16" />
+    <task id="LOCAL-00016" summary="blog ve kullanıcı bilgileri güncellem tam anlamıyla çalışıyor.">
+      <option name="closed" value="true" />
+      <created>1764194284931</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1764194284931</updated>
+    </task>
+    <task id="LOCAL-00017" summary="blog ve kullanıcı bilgileri güncellem tam anlamıyla çalışıyor.">
+      <option name="closed" value="true" />
+      <created>1764194299679</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1764194299679</updated>
+    </task>
+    <option name="localTasksCounter" value="18" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -265,6 +278,7 @@
     <MESSAGE value="update user işlemi yapıldı" />
     <MESSAGE value="blog ekleme işlemi yapıldı blok ekleme ve düzenleme çalışıyor fotograf yükleme işlemi yapılacak" />
     <MESSAGE value="blog eklme ve güncelleme işlemi fotograflı olacak şekilde düzenlendi upload servicesleri yazıldı" />
-    <option name="LAST_COMMIT_MESSAGE" value="blog eklme ve güncelleme işlemi fotograflı olacak şekilde düzenlendi upload servicesleri yazıldı" />
+    <MESSAGE value="blog ve kullanıcı bilgileri güncellem tam anlamıyla çalışıyor." />
+    <option name="LAST_COMMIT_MESSAGE" value="blog ve kullanıcı bilgileri güncellem tam anlamıyla çalışıyor." />
   </component>
 </project>

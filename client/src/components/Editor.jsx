@@ -200,11 +200,7 @@ export default function Editor({ value, onChange }) {
                     <ListPlugin />
                     <LinkPlugin />
                     <AutoFocusPlugin />
-
-                    {/* HTML Plugin: Başlangıç değerini yükler */}
                     <HtmlPlugin initialHtml={value} />
-
-                    {/* OnChange Plugin: Değişiklikleri dışarı bildirir */}
                     <OnChangePlugin
                         onChange={(editorState, editor) => {
                             editorState.read(() => {

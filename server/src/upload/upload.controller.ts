@@ -16,12 +16,11 @@ export class UploadController {
   constructor(private readonly uploadService: UploadService) {}
 
   @Post()
-  @UseInterceptors(FileInterceptor('file', multerOptions)) // Config'i buraya bağladık
+  @UseInterceptors(FileInterceptor('file', multerOptions))
   uploadFile(
     @UploadedFile() file: Express.Multer.File,
-    @Query('folder') folder: string, // URL'den ?folder= bilgisini alıyoruz
+    @Query('folder') folder: string,
   ) {
-    // Interceptor dosyayı kaydetti, şimdi URL'i oluşturması için servise gönderiyoruz
     return this.uploadService.uploadFile(file, folder);
   }
 

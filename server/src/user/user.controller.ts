@@ -21,7 +21,7 @@ import { UserEntity } from '@/user/user.entity';
 
 @Controller('')
 export class UserController {
-  constructor(private readonly userService: UserService) { }
+  constructor(private readonly userService: UserService) {}
   @Post('users')
   @UsePipes(new ValidationPipe())
   async createUser(
@@ -64,13 +64,10 @@ export class UserController {
   }
 
   @Get('profile')
-  @UseGuards(AuthGuard) // Sadece giriş yapmış kullanıcılar erişebilir
+  @UseGuards(AuthGuard)
   async getProfile(@Request() req): Promise<UserEntity> {
-    // AuthGuard, token'ı doğrulayıp içindeki kullanıcı bilgisini req.user'a atar.
-    // Veritabanından en güncel kullanıcı bilgisini çekiyoruz:
     const user = await this.userService.findById(req.user.id);
 
-    // Güvenlik: Şifre alanını cevapta göndermiyoruz
     delete user.password;
 
     return user;

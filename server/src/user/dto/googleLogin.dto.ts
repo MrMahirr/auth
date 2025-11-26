@@ -9,7 +9,15 @@ export class GoogleLoginDto {
   @IsString()
   readonly username: string;
 
+  @IsNotEmpty()
+  @IsString()
+  name: string;
+
+  @IsNotEmpty()
+  @IsString()
+  surname: string;
+
   @IsOptional()
   @IsString()
-  readonly avatar?: string;
+  readonly image?: string;
 }

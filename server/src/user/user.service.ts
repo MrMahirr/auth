@@ -15,7 +15,7 @@ export class UserService {
   constructor(
     @InjectRepository(UserEntity)
     private readonly userRepository: Repository<UserEntity>,
-  ) { }
+  ) {}
   async createUser(createUserDto: CreateUserDto): Promise<IUserResponse> {
     const newUser = new UserEntity();
     Object.assign(newUser, createUserDto);
@@ -76,7 +76,7 @@ export class UserService {
 
     const newUser = new UserEntity();
     newUser.email = googleLoginDto.email;
-    // newUser.image = googleLoginDto.avatar; // Entity'de 'image' veya 'avatar' alanı varsa
+    newUser.image = googleLoginDto.image;
 
     let uniqueUsername = googleLoginDto.username;
     const existingUsername = await this.userRepository.findOne({

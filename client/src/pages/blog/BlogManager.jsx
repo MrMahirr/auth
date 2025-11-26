@@ -7,15 +7,12 @@ export default function BlogManager() {
     const [blogs, setBlogs] = useState([]);
     const [selectedId, setSelectedId] = useState('new');
     const [formData, setFormData] = useState({ title: '', content: '', image: '', category: '' });
-
-    // UI Durumları
     const [uploading, setUploading] = useState(false);
     const [toast, setToast] = useState(null); // { message, type: 'success' | 'error' }
     const [showDeleteModal, setShowDeleteModal] = useState(false);
 
     const fileInputRef = useRef(null);
 
-    // Bildirim Gösterme Yardımcısı
     const showToast = (message, type = 'success') => {
         setToast({ message, type });
         setTimeout(() => setToast(null), 3000);
@@ -52,7 +49,6 @@ export default function BlogManager() {
         setFormData(prev => ({ ...prev, content: val }));
     };
 
-    // --- UPLOAD MANTIĞI ---
     const uploadImage = async (file) => {
         if (!file) return;
 
@@ -66,14 +62,10 @@ export default function BlogManager() {
 
         setUploading(true);
         try {
-            // Backend endpoint: /upload?folder=blogs
             const response = await api.post('/upload?folder=blogs', data, {
                 headers: { 'Content-Type': 'multipart/form-data' }
             });
-
-            // Backend yanıt yapına göre burayı güncelle (response.data.url veya response.url)
             const imageUrl = response.data?.url || response.url;
-
             if (imageUrl) {
                 setFormData(prev => ({ ...prev, image: imageUrl }));
                 showToast("Görsel başarıyla yüklendi!");
@@ -109,7 +101,6 @@ export default function BlogManager() {
             return;
         }
 
-        // Backend validation (whitelist: true) requires only specific fields
         const payload = {
             title: formData.title,
             content: formData.content,
@@ -149,7 +140,6 @@ export default function BlogManager() {
     return (
         <div className="flex h-[calc(100vh-2rem)] gap-6 text-gray-100 overflow-hidden bg-gray-950 p-4 font-sans relative">
 
-            {/* Toast Bildirimi */}
             {toast && (
                 <div className={`absolute top-6 right-6 z-50 px-4 py-3 rounded-lg shadow-2xl flex items-center gap-3 animate-fade-in-down border backdrop-blur-md transition-all duration-300
                     ${toast.type === 'error' ? 'bg-red-500/20 border-red-500/50 text-red-200' : 'bg-cyan-500/20 border-cyan-500/50 text-cyan-200'}`}>
@@ -158,7 +148,6 @@ export default function BlogManager() {
                 </div>
             )}
 
-            {/* Silme Onay Modalı */}
             {showDeleteModal && (
                 <div className="absolute inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm">
                     <div className="bg-gray-900 border border-white/10 p-6 rounded-2xl shadow-2xl w-full max-w-sm transform scale-100 transition-all">
@@ -189,7 +178,6 @@ export default function BlogManager() {
                 </div>
             )}
 
-            {/* SOL MENU */}
             <aside className="w-1/3 min-w-[300px] flex flex-col bg-gray-900/60 backdrop-blur-md border border-white/10 rounded-2xl overflow-hidden shadow-xl">
                 <div className="p-4 border-b border-white/10 flex items-center justify-between bg-black/40">
                     <h2 className="font-bold text-lg text-cyan-400">Blog Yazıları</h2>
@@ -215,7 +203,6 @@ export default function BlogManager() {
                 </div>
             </aside>
 
-            {/* SAĞ TARAF (MAIN) */}
             <main className="flex-1 bg-gray-900/60 backdrop-blur-md border border-white/10 rounded-2xl flex flex-col overflow-hidden relative shadow-xl">
                 <header className="p-4 border-b border-white/10 flex items-center justify-between bg-black/40">
                     <div className="flex items-center gap-3">
@@ -244,7 +231,6 @@ export default function BlogManager() {
                 <div className="flex-1 overflow-y-auto p-8 custom-scrollbar">
                     <div className="max-w-4xl mx-auto space-y-6 pb-10">
 
-                        {/* --- RESİM YÜKLEME ALANI --- */}
                         <div
                             onClick={() => !uploading && fileInputRef.current?.click()}
                             onDragOver={handleDragOver}
@@ -287,7 +273,6 @@ export default function BlogManager() {
                             )}
                         </div>
 
-                        {/* Form Alanları */}
                         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                             <div className="md:col-span-2 space-y-2">
                                 <label className="text-xs font-bold text-gray-500 uppercase tracking-wider ml-1">Blog Başlığı</label>
@@ -299,7 +284,6 @@ export default function BlogManager() {
                             </div>
                         </div>
 
-                        {/* Editör */}
                         <div className="space-y-2 h-[500px] flex flex-col">
                             <label className="text-xs font-bold text-gray-500 uppercase tracking-wider ml-1">İçerik</label>
                             <div className="flex-1 rounded-xl overflow-hidden shadow-inner ring-1 ring-white/5 border border-white/5">
