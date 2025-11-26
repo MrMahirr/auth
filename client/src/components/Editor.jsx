@@ -18,7 +18,6 @@ import { ListNode, ListItemNode } from '@lexical/list';
 import { CodeNode } from '@lexical/code';
 import { AutoLinkNode, LinkNode } from '@lexical/link';
 
-// İkonlar
 import {
     Bold, Italic, Underline as UnderlineIcon, Strikethrough,
     List, ListOrdered, Quote, Code, Undo, Redo,
@@ -27,7 +26,6 @@ import {
 } from 'lucide-react';
 import { mergeRegister } from '@lexical/utils';
 
-// --- 1. TEMA YAPILANDIRMASI (Tailwind Sınıfları) ---
 const theme = {
     paragraph: 'mb-2 text-gray-200 leading-relaxed',
     heading: {
@@ -49,7 +47,6 @@ const theme = {
     quote: 'border-l-4 border-cyan-500 pl-4 py-2 my-4 bg-cyan-900/10 text-gray-300 italic rounded-r-lg',
 };
 
-// --- 2. TOOLBAR BİLEŞENİ ---
 const Toolbar = () => {
     const [editor] = useLexicalComposerContext();
     const [isBold, setIsBold] = useState(false);
@@ -57,7 +54,6 @@ const Toolbar = () => {
     const [isUnderline, setIsUnderline] = useState(false);
     const [isStrikethrough, setIsStrikethrough] = useState(false);
 
-    // Seçim değişince buton durumlarını güncelle
     useEffect(() => {
         return mergeRegister(
             editor.registerUpdateListener(({ editorState }) => {
@@ -99,7 +95,7 @@ const Toolbar = () => {
     const ToolbarBtn = ({ icon: Icon, onClick, isActive, title }) => (
         <button
             onClick={(e) => {
-                e.preventDefault(); // Odağı kaybetme
+                e.preventDefault();
                 onClick();
             }}
             className={`p-1.5 rounded-lg transition-all duration-200 flex items-center justify-center ${

@@ -8,6 +8,7 @@ import {
   UseGuards,
   UsePipes,
   ValidationPipe,
+  Request,
 } from '@nestjs/common';
 import { CreateUserDto } from '@/user/dto/createUser.dto';
 import { IUserResponse } from '@/user/types/userResponse.interface';
@@ -16,10 +17,11 @@ import { User } from '@/user/decorators/user.decorator';
 import { GoogleLoginDto } from './dto/googleLogin.dto';
 import { AuthGuard } from '@/user/guards/auth.guard';
 import { UpdateUserDto } from '@/user/dto/updateUser.dto';
+import { UserEntity } from '@/user/user.entity';
 
 @Controller('')
 export class UserController {
-  constructor(private readonly userService: UserService) {}
+  constructor(private readonly userService: UserService) { }
   @Post('users')
   @UsePipes(new ValidationPipe())
   async createUser(
@@ -59,5 +61,18 @@ export class UserController {
   @UseGuards(AuthGuard)
   async getCurrentUser(@User() user): Promise<IUserResponse> {
     return this.userService.generateUserResponse(user);
+  }
+
+  @Get('profile')
+  @UseGuards(AuthGuard) // Sadece giriş yapmış kullanıcılar erişebilir
+  async getProfile(@Request() req): Promise<UserEntity> {
+    // AuthGuard, token'ı doğrulayıp içindeki kullanıcı bilgisini req.user'a atar.
+    // Veritabanından en güncel kullanıcı bilgisini çekiyoruz:
+    const user = await this.userService.findById(req.user.id);
+
+    // Güvenlik: Şifre alanını cevapta göndermiyoruz
+    delete user.password;
+
+    return user;
   }
 }

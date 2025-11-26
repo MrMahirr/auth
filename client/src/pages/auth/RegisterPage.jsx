@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import api from "../../api/api";
+import api from "../../services/api";
 
 import { Button } from "primereact/button";
 import { InputText } from "primereact/inputtext";

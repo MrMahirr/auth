@@ -1,52 +1,37 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Calendar, Clock, ArrowLeft, Tag, Share2, ChevronRight } from 'lucide-react';
-
-// Demo Veriler (Gerçekte API'den gelecek)
-const MOCK_BLOGS = [
-    {
-        id: 1,
-        title: "React 19: Frontend Dünyasında Devrim",
-        content: `
-            <p>React 19, frontend geliştirme süreçlerini kökten değiştirmeye hazırlanıyor. Özellikle <strong>React Compiler</strong> sayesinde artık <code>useMemo</code> ve <code>useCallback</code> gibi hook'lara olan ihtiyaç büyük ölçüde azalıyor.</p>
-            <h3>Öne Çıkan Özellikler</h3>
-            <ul>
-                <li>Otomatik Memoization</li>
-                <li>Gelişmiş Server Actions</li>
-                <li>SEO Dostu Meta Tag Yönetimi</li>
-            </ul>
-            <p>Bu güncelleme ile birlikte performans optimizasyonu artık geliştiricinin sırtında bir yük olmaktan çıkıyor.</p>
-        `,
-        image: "https://images.unsplash.com/photo-1633356122544-f134324a6cee?q=80&w=2070&auto=format&fit=crop",
-        category: "Teknoloji",
-        date: "26 Kasım 2025",
-        readTime: "5 dk"
-    },
-    {
-        id: 2,
-        title: "Uzay Temalı UI Tasarımı Nasıl Yapılır?",
-        content: `
-            <p>Modern web tasarımlarında <i>Glassmorphism</i> ve Neon renklerin birleşimi, kullanıcılara derinlik hissi veren fütüristik deneyimler sunuyor.</p>
-            <blockquote>"Tasarım sadece nasıl göründüğü değil, nasıl hissettirdiğiyle ilgilidir."</blockquote>
-            <p>Karanlık modun yükselişiyle birlikte, yarı saydam paneller ve parlak vurgu renkleri (Cyan, Magenta) vazgeçilmez hale geldi.</p>
-        `,
-        image: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=2072&auto=format&fit=crop",
-        category: "Tasarım",
-        date: "25 Kasım 2025",
-        readTime: "3 dk"
-    },
-    {
-        id: 3,
-        title: "Yapay Zeka Destekli Kodlama",
-        content: "<p>GitHub Copilot ve ChatGPT gibi araçlar, yazılım geliştirme hızını ikiye katlıyor. Ancak kodun güvenliği ve doğruluğu hala insan denetimine muhtaç.</p>",
-        image: "https://images.unsplash.com/photo-1677442136019-21780ecad995?q=80&w=2070&auto=format&fit=crop",
-        category: "Yapay Zeka",
-        date: "24 Kasım 2025",
-        readTime: "7 dk"
-    },
-];
+import api from '../../services/api';
 
 export default function Blog() {
+    const [blogs, setBlogs] = useState([]);
     const [selectedBlog, setSelectedBlog] = useState(null);
+
+    useEffect(() => {
+        const fetchBlogs = async () => {
+            try {
+                const response = await api.get('/blogs');
+                setBlogs(response.data);
+            } catch (error) {
+                console.error("Error fetching blogs:", error);
+            }
+        };
+        fetchBlogs();
+    }, []);
+
+    const calculateReadTime = (content) => {
+        if (!content) return '1 dk';
+        const wordsPerMinute = 200;
+        const text = content.replace(/<[^>]+>/g, '');
+        const wordCount = text.trim().split(/\s+/).length;
+        const readTime = Math.ceil(wordCount / wordsPerMinute);
+        return `${readTime} dk`;
+    };
+
+    const formatDate = (dateString) => {
+        if (!dateString) return '';
+        const options = { year: 'numeric', month: 'long', day: 'numeric' };
+        return new Date(dateString).toLocaleDateString('tr-TR', options);
+    };
 
     // Blog Detayına Git
     const handleReadMore = (blog) => {
@@ -107,11 +92,11 @@ export default function Blog() {
                                     <div className="flex items-center gap-6 text-gray-300 text-sm">
                                         <div className="flex items-center gap-2">
                                             <Calendar size={16} className="text-purple-400" />
-                                            {selectedBlog.date}
+                                            {formatDate(selectedBlog.createdAt)}
                                         </div>
                                         <div className="flex items-center gap-2">
                                             <Clock size={16} className="text-purple-400" />
-                                            {selectedBlog.readTime} okuma süresi
+                                            {calculateReadTime(selectedBlog.content)} okuma süresi
                                         </div>
                                     </div>
                                 </div>
@@ -141,7 +126,7 @@ export default function Blog() {
                 ) : (
                     // --- LİSTE GÖRÜNÜMÜ ---
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                        {MOCK_BLOGS.map((blog) => (
+                        {blogs.map((blog) => (
                             <div
                                 key={blog.id}
                                 onClick={() => handleReadMore(blog)}
@@ -164,9 +149,9 @@ export default function Blog() {
                                 {/* Kart İçeriği */}
                                 <div className="p-6">
                                     <div className="flex items-center gap-3 text-xs text-gray-400 mb-3">
-                                        <span className="flex items-center gap-1"><Calendar size={12} /> {blog.date}</span>
+                                        <span className="flex items-center gap-1"><Calendar size={12} /> {formatDate(blog.createdAt)}</span>
                                         <span className="w-1 h-1 rounded-full bg-gray-600"></span>
-                                        <span className="flex items-center gap-1"><Clock size={12} /> {blog.readTime}</span>
+                                        <span className="flex items-center gap-1"><Clock size={12} /> {calculateReadTime(blog.content)}</span>
                                     </div>
 
                                     <h2 className="text-xl font-bold text-white mb-3 line-clamp-2 group-hover:text-cyan-400 transition-colors">

@@ -1,32 +1,28 @@
 import React, { useState, useEffect } from 'react';
 import Editor from '../../components/Editor'; // Özel Editör Bileşenimiz
+import api from '../../services/api';
 
 import { Plus, Search, Trash2, FileText, Image as ImageIcon, ChevronRight } from 'lucide-react';
 import { InputText } from 'primereact/inputtext';
 import { Button } from 'primereact/button';
 
-// Demo Veriler (Başlangıçta boş kalmaması için)
-const MOCK_BLOGS = [
-    {
-        id: 1,
-        title: "React 19 Yenilikleri",
-        content: "<div>React 19 ile gelen <b>compiler</b> özelliği performansı artırıyor. Ayrıca yeni hook'lar geliştirici deneyimini iyileştiriyor.</div>",
-        image: "https://images.unsplash.com/photo-1633356122544-f134324a6cee?q=80&w=2070&auto=format&fit=crop",
-        category: "Teknoloji"
-    },
-    {
-        id: 2,
-        title: "Uzay Temalı UI Tasarımı",
-        content: "<div><i>Glassmorphism</i> ve Neon renkler kullanılarak modern arayüzler tasarlanabilir. Karanlık modun estetiği kullanıcıları cezbediyor.</div>",
-        image: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=2072&auto=format&fit=crop",
-        category: "Tasarım"
-    },
-];
-
 export default function BlogManager() {
-    const [blogs, setBlogs] = useState(MOCK_BLOGS);
+    const [blogs, setBlogs] = useState([]);
     const [selectedId, setSelectedId] = useState('new');
     const [formData, setFormData] = useState({ title: '', content: '', image: '', category: '' });
+
+    const fetchBlogs = async () => {
+        try {
+            const response = await api.get('/blogs');
+            setBlogs(response.data);
+        } catch (error) {
+            console.error("Error fetching blogs:", error);
+        }
+    };
+
+    useEffect(() => {
+        fetchBlogs();
+    }, []);
 
     // Seçim değiştiğinde formu doldur veya temizle ('Yeni' veya Mevcut Blog)
     useEffect(() => {
@@ -50,33 +46,41 @@ export default function BlogManager() {
     };
 
     // Kaydetme İşlemi (Hem Ekleme Hem Güncelleme)
-    const handleSave = () => {
+    const handleSave = async () => {
         if (!formData.title) {
             alert("Lütfen en azından bir başlık girin.");
             return;
         }
 
-        if (selectedId === 'new') {
-            // YENİ EKLEME
-            const newBlog = { ...formData, id: Date.now() };
-            setBlogs([newBlog, ...blogs]); // Listeye en başa ekle
-            setSelectedId(newBlog.id); // Kaydettikten sonra o blogu seçili hale getir
-        } else {
-            // GÜNCELLEME
-            setBlogs(blogs.map(b => b.id === selectedId ? { ...formData, id: selectedId } : b));
+        try {
+            if (selectedId === 'new') {
+                // YENİ EKLEME
+                const response = await api.post('/blogs', formData);
+                await fetchBlogs();
+                setSelectedId(response.data.id); // Kaydettikten sonra o blogu seçili hale getir
+            } else {
+                // GÜNCELLEME
+                await api.put(`/blogs/${selectedId}`, formData);
+                await fetchBlogs();
+            }
+            alert("Blog başarıyla kaydedildi!");
+        } catch (error) {
+            console.error("Error saving blog:", error);
+            alert("Kaydetme sırasında bir hata oluştu.");
         }
-
-        // Gerçek projede burada API isteği yapılacak:
-        // await api.post('/blogs', formData);
-
-        alert("Blog başarıyla kaydedildi!");
     };
 
     // Silme İşlemi
-    const handleDelete = () => {
+    const handleDelete = async () => {
         if (window.confirm("Bu bloğu silmek istediğine emin misin? Bu işlem geri alınamaz.")) {
-            setBlogs(blogs.filter(b => b.id !== selectedId));
-            setSelectedId('new'); // Silince 'Yeni Ekle' moduna dön
+            try {
+                await api.delete(`/blogs/${selectedId}`);
+                await fetchBlogs();
+                setSelectedId('new'); // Silince 'Yeni Ekle' moduna dön
+            } catch (error) {
+                console.error("Error deleting blog:", error);
+                alert("Silme sırasında bir hata oluştu.");
+            }
         }
     };
 
@@ -121,9 +125,9 @@ export default function BlogManager() {
                             onClick={() => setSelectedId(blog.id)}
                             className={`group p-3 rounded-xl border cursor-pointer transition-all duration-200 hover:bg-white/5 relative overflow-hidden 
                                 ${selectedId === blog.id
-                                ? 'bg-cyan-900/20 border-cyan-500/50 shadow-[0_0_15px_rgba(6,182,212,0.1)]'
-                                : 'bg-transparent border-transparent hover:border-white/10'
-                            }`
+                                    ? 'bg-cyan-900/20 border-cyan-500/50 shadow-[0_0_15px_rgba(6,182,212,0.1)]'
+                                    : 'bg-transparent border-transparent hover:border-white/10'
+                                }`
                             }
                         >
                             <div className="flex justify-between items-start mb-1">
