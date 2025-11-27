@@ -27,8 +27,8 @@ export class UserEntity {
   gender: string;
   @Column({ default: '' })
   dateofbirth: string;
-  @Column({ default: '' })
-  image: string | undefined;
+  @Column({ default: '' }) // String veriler için
+  image: string;
   @Column()
   password?: string;
   @OneToMany(() => BlogEntity, (blog) => blog.author)

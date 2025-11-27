@@ -76,7 +76,7 @@ export class UserService {
 
     const newUser = new UserEntity();
     newUser.email = googleLoginDto.email;
-    newUser.image = googleLoginDto.image;
+    // newUser.image = googleLoginDto.image;
 
     let uniqueUsername = googleLoginDto.username;
     const existingUsername = await this.userRepository.findOne({
