@@ -42,9 +42,35 @@ export default function Blog() {
         setSelectedBlog(null);
     };
 
+    const handleShare = async () => {
+        if (!selectedBlog) return;
+
+        const shareData = {
+            title: selectedBlog.title || document.title,
+            text: `Okuduğum bu makaleyi incele: ${selectedBlog.title}  https://gbtalks.com/`,
+            url: window.location.href,
+        };
+
+        if (navigator.share) {
+            try {
+                await navigator.share(shareData);
+                console.log('İçerik başarıyla paylaşıldı.');
+            } catch (error) {
+                console.log('Paylaşım iptal edildi veya başarısız oldu:', error.message);
+            }
+        } else {
+            try {
+                await navigator.clipboard.writeText(shareData.url);
+                alert('Makalenin bağlantısı panoya kopyalandı!');
+            } catch (err) {
+                console.error('Panoya kopyalama başarısız:', err);
+                alert('Makalenin bağlantısı kopyalanamadı.');
+            }
+        }
+    };
+
     return (
         <div className="min-h-screen text-gray-100 pb-20">
-
             <div className="relative py-20 px-6 text-center overflow-hidden">
                 <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-cyan-500/10 rounded-full blur-[100px] -z-10"></div>
                 <h1 className="text-5xl md:text-7xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-600 mb-6 tracking-tight">
@@ -108,7 +134,10 @@ export default function Blog() {
 
                                 <div className="mt-12 pt-8 border-t border-white/10 flex justify-between items-center">
                                     <p className="text-gray-400 italic">Okuduğunuz için teşekkürler.</p>
-                                    <button className="flex items-center gap-2 text-gray-400 hover:text-white transition-colors">
+                                    <button
+                                        className="flex items-center gap-2 text-gray-400 hover:text-white transition-colors"
+                                        onClick={handleShare}
+                                    >
                                         <Share2 size={18} /> <span className="text-sm">Paylaş</span>
                                     </button>
                                 </div>
@@ -153,7 +182,7 @@ export default function Blog() {
                                     </p>
 
                                     <div className="flex items-center text-cyan-400 text-sm font-semibold group-hover:translate-x-1 transition-transform">
-                                        Devamını Oku <ChevronRight size={16} className="ml-1" />
+                                        <>Devamını O</>ku <ChevronRight size={16} className="ml-1" />
                                     </div>
                                 </div>
 
