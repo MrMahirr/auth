@@ -106,7 +106,6 @@ export default function Blog() {
                                     dangerouslySetInnerHTML={{ __html: selectedBlog.content }}
                                 ></div>
 
-                                {/* Alt Paylaşım Alanı */}
                                 <div className="mt-12 pt-8 border-t border-white/10 flex justify-between items-center">
                                     <p className="text-gray-400 italic">Okuduğunuz için teşekkürler.</p>
                                     <button className="flex items-center gap-2 text-gray-400 hover:text-white transition-colors">
@@ -125,7 +124,6 @@ export default function Blog() {
                                 onClick={() => handleReadMore(blog)}
                                 className="group relative bg-gray-900/40 backdrop-blur-sm border border-white/5 rounded-2xl overflow-hidden cursor-pointer transition-all duration-300 hover:-translate-y-2 hover:shadow-[0_0_30px_rgba(6,182,212,0.15)] hover:border-cyan-500/30"
                             >
-                                {/* Görsel */}
                                 <div className="h-56 overflow-hidden relative">
                                     <img
                                         src={blog.image}
