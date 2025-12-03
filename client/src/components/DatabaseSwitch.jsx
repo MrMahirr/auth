@@ -1,12 +1,11 @@
-import React, {useState} from 'react';
+import React from 'react';
 import {Database, Flame} from 'lucide-react';
 
-const DatabaseSwitchNavbar = () => {
-    const [isFirestore, setIsFirestore] = useState(false);
-
+const DatabaseSwitch = ({ isFirestore, setIsFirestore }) => {
     const toggleSwitch = () => {
-        setIsFirestore(!isFirestore);
-        console.log("Seçilen DB:", !isFirestore ? "Firestore" : "PostgreSQL");
+        const newValue = !isFirestore;
+        setIsFirestore(newValue);
+        console.log("Seçilen DB:", newValue ? "Firestore" : "PostgreSQL");
     };
 
     return (
@@ -63,4 +62,4 @@ const DatabaseSwitchNavbar = () => {
     );
 };
 
-export default DatabaseSwitchNavbar;
+export default DatabaseSwitch;

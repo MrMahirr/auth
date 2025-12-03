@@ -11,7 +11,6 @@ export default function Header() {
     const [isBlogExpanded, setIsBlogExpanded] = useState(false); // Blog alt menüsü açık mı?
     const menuRef = useRef(null); // Dışarı tıklamayı algılamak için
 
-    // Menü açıkken dışarı tıklanırsa kapat
     useEffect(() => {
         const handleClickOutside = (event) => {
             if (menuRef.current && !menuRef.current.contains(event.target)) {
