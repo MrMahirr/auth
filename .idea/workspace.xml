@@ -4,12 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0498930d-d12a-40c3-a4a9-c33ae8b0e5f1" name="Changes" comment="database toogle butonu ismi değiştirildi ve header layout klasorune taşındı">
+    <list default="true" id="0498930d-d12a-40c3-a4a9-c33ae8b0e5f1" name="Changes" comment="blog ekleme ve güncelleme kısmı firestore database entegre edildi">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/DatabaseToggle.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/DatabaseSwitch.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/layouts/Header.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/layouts/Header.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/firebase.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/firebase.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/src/pages/blog/BlogManager.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/pages/blog/BlogManager.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/pages/dashboard/Blog.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/pages/dashboard/Blog.jsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -124,7 +122,7 @@
       <workItem from="1764674583241" duration="204000" />
       <workItem from="1764700028847" duration="3132000" />
       <workItem from="1764741929365" duration="18676000" />
-      <workItem from="1764770941392" duration="12332000" />
+      <workItem from="1764770941392" duration="13680000" />
     </task>
     <task id="LOCAL-00002" summary="login giriş yapıldı.">
       <option name="closed" value="true" />
@@ -318,7 +316,15 @@
       <option name="project" value="LOCAL" />
       <updated>1764787949745</updated>
     </task>
-    <option name="localTasksCounter" value="26" />
+    <task id="LOCAL-00026" summary="blog ekleme ve güncelleme kısmı firestore database entegre edildi">
+      <option name="closed" value="true" />
+      <created>1764799285899</created>
+      <option name="number" value="00026" />
+      <option name="presentableId" value="LOCAL-00026" />
+      <option name="project" value="LOCAL" />
+      <updated>1764799285899</updated>
+    </task>
+    <option name="localTasksCounter" value="27" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -353,7 +359,8 @@
     <MESSAGE value="hata düzeltmeleri yapıldı backen ve client eslink hataları ve uyuşmazlıklar düzeltildi." />
     <MESSAGE value="firestore database postgres seçme butonu eklendi blog sayfasına" />
     <MESSAGE value="database toogle butonu ismi değiştirildi ve header layout klasorune taşındı" />
-    <option name="LAST_COMMIT_MESSAGE" value="database toogle butonu ismi değiştirildi ve header layout klasorune taşındı" />
+    <MESSAGE value="blog ekleme ve güncelleme kısmı firestore database entegre edildi" />
+    <option name="LAST_COMMIT_MESSAGE" value="blog ekleme ve güncelleme kısmı firestore database entegre edildi" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

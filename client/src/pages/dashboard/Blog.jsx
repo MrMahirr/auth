@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Calendar, Clock, ArrowLeft, Tag, Share2, ChevronRight } from 'lucide-react';
 import api from '../../services/api';
+import { collection, getDocs } from 'firebase/firestore';
+import { db } from '../../firebase';
 
 export default function Blog() {
     const [blogs, setBlogs] = useState([]);
@@ -9,8 +11,39 @@ export default function Blog() {
     useEffect(() => {
         const fetchBlogs = async () => {
             try {
-                const response = await api.get('/blogs');
-                setBlogs(response.data);
+                const apiPromise = api.get('/blogs').catch(err => {
+                    console.error("API fetch error:", err);
+                    return { data: [] };
+                });
+
+                const firestorePromise = getDocs(collection(db, "blogs")).catch(err => {
+                    console.error("Firestore fetch error:", err);
+                    return { docs: [] };
+                });
+
+                const [apiRes, firestoreSnapshot] = await Promise.all([apiPromise, firestorePromise]);
+                const apiBlogs = Array.isArray(apiRes.data) ? apiRes.data : [];
+                const firestoreBlogs = [];
+                if (firestoreSnapshot && firestoreSnapshot.docs) {
+                    firestoreSnapshot.forEach(doc => {
+                        const data = doc.data();
+                        const blogData = {
+                            id: doc.id,
+                            ...data,
+                            createdAt: data.created_at?.toDate ? data.created_at.toDate().toISOString() : (data.created_at || new Date().toISOString()),
+                            created_at: data.created_at?.toDate ? data.created_at.toDate().toISOString() : (data.created_at || new Date().toISOString())
+                        };
+                        firestoreBlogs.push(blogData);
+                    });
+                }
+
+                const allBlogs = [...firestoreBlogs, ...apiBlogs].sort((a, b) => {
+                    const dateA = new Date(a.createdAt || a.created_at || 0);
+                    const dateB = new Date(b.createdAt || b.created_at || 0);
+                    return dateB - dateA; // En yeni önce
+                });
+
+                setBlogs(allBlogs);
             } catch (error) {
                 console.error("Error fetching blogs:", error);
             }
@@ -29,8 +62,14 @@ export default function Blog() {
 
     const formatDate = (dateString) => {
         if (!dateString) return '';
-        const options = { year: 'numeric', month: 'long', day: 'numeric' };
-        return new Date(dateString).toLocaleDateString('tr-TR', options);
+        try {
+            const date = new Date(dateString);
+            if (isNaN(date.getTime())) return '';
+            const options = { year: 'numeric', month: 'long', day: 'numeric' };
+            return date.toLocaleDateString('tr-TR', options);
+        } catch (error) {
+            return '';
+        }
     };
 
     const handleReadMore = (blog) => {
@@ -113,7 +152,7 @@ export default function Blog() {
                                     <div className="flex items-center gap-6 text-gray-300 text-sm">
                                         <div className="flex items-center gap-2">
                                             <Calendar size={16} className="text-purple-400" />
-                                            {formatDate(selectedBlog.createdAt)}
+                                            {formatDate(selectedBlog.createdAt || selectedBlog.created_at)}
                                         </div>
                                         <div className="flex items-center gap-2">
                                             <Clock size={16} className="text-purple-400" />
@@ -168,7 +207,7 @@ export default function Blog() {
 
                                 <div className="p-6">
                                     <div className="flex items-center gap-3 text-xs text-gray-400 mb-3">
-                                        <span className="flex items-center gap-1"><Calendar size={12} /> {formatDate(blog.createdAt)}</span>
+                                        <span className="flex items-center gap-1"><Calendar size={12} /> {formatDate(blog.createdAt || blog.created_at)}</span>
                                         <span className="w-1 h-1 rounded-full bg-gray-600"></span>
                                         <span className="flex items-center gap-1"><Clock size={12} /> {calculateReadTime(blog.content)}</span>
                                     </div>
