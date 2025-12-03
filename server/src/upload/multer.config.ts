@@ -1,13 +1,17 @@
 import { diskStorage } from 'multer';
 import { extname } from 'path';
 import { existsSync, mkdirSync } from 'fs';
-import { BadRequestException } from '@nestjs/common';
+import { BadRequestException, HttpException, HttpStatus } from '@nestjs/common';
+import { Request } from 'express';
 
-const ALLOWED_FOLDERS = ['blogs', 'users', 'products', 'others'];
+type DestinationCallback = (error: Error | null, destination: string) => void;
+type FileFilterCallback = (error: Error | null, acceptFile: boolean) => void;
+
+const ALLOWED_FOLDERS = ['blogs', 'avatar', 'product'];
 
 export const multerOptions = {
   storage: diskStorage({
-    destination: (req, file, callback) => {
+    destination: (req: Request, _file, callback: DestinationCallback) => {
       const folder = req.query.folder as string;
 
       if (!folder || !ALLOWED_FOLDERS.includes(folder)) {
@@ -15,7 +19,7 @@ export const multerOptions = {
           new BadRequestException(
             `Geçersiz veya eksik klasör parametresi. İzin verilenler: ${ALLOWED_FOLDERS.join(', ')}`,
           ),
-          null as any,
+          '',
         );
       }
 
@@ -27,17 +31,25 @@ export const multerOptions = {
 
       callback(null, uploadPath);
     },
-    filename: (req, file, callback) => {
+    filename: (_req, file, callback: DestinationCallback) => {
       const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1e9);
       const ext = extname(file.originalname);
       callback(null, `${uniqueSuffix}${ext}`);
     },
   }),
-  fileFilter: (req, file, callback) => {
-    if (!file.originalname.match(/\.(jpg|jpeg|png|gif|webp)$/)) {
-      return callback(new Error('Sadece resim dosyaları yüklenebilir!'), false);
+  fileFilter: (
+    _req: Request,
+    file: Express.Multer.File,
+    callback: FileFilterCallback,
+  ) => {
+    if (file.mimetype.match(/^image\/(jpg|jpeg|png|gif|webp)$/)) {
+      callback(null, true);
+    } else {
+      callback(
+        new HttpException('Unsupported file format', HttpStatus.BAD_REQUEST),
+        false,
+      );
     }
-    callback(null, true);
   },
   limits: {
     fileSize: 5 * 1024 * 1024,

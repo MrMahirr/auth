@@ -7,12 +7,13 @@ import {
   Param,
   Delete,
   UseGuards,
-  Request,
 } from '@nestjs/common';
 import { BlogService } from './blog.services';
 import { CreateBlogDto } from './dto/createBlog.dto';
 import { AuthGuard } from '@/user/guards/auth.guard';
 import { UpdateBlogDto } from '@/blog/dto/updateBlog.dto';
+import { User } from '@/user/decorators/user.decorator';
+import * as userType from '@/user/types/user.type';
 
 @Controller('blogs')
 export class BlogController {
@@ -20,8 +21,8 @@ export class BlogController {
 
   @Post('')
   @UseGuards(AuthGuard)
-  create(@Request() req, @Body() createBlogDto: CreateBlogDto) {
-    return this.blogService.create(req.user, createBlogDto);
+  create(@User() user: userType.IUser, @Body() createBlogDto: CreateBlogDto) {
+    return this.blogService.create(user, createBlogDto);
   }
 
   @Get()

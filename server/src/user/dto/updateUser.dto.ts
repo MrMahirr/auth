@@ -30,7 +30,6 @@ export class UpdateUserDto {
   @IsString()
   dateofbirth: string;
 
-
   @IsOptional()
   @IsString()
   readonly password: string;

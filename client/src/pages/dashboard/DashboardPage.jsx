@@ -8,7 +8,6 @@ export default function DashboardPage() {
     const [chartOptions, setChartOptions] = useState({});
 
     useEffect(() => {
-        const documentStyle = getComputedStyle(document.documentElement);
         const data = {
             labels: ['00:00', '04:00', '08:00', '12:00', '16:00', '20:00', '23:59'],
             datasets: [

@@ -3,8 +3,8 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { BlogEntity } from './blog.entity';
 import { CreateBlogDto } from './dto/createBlog.dto';
-import { UserEntity } from '@/user/user.entity';
 import { UpdateBlogDto } from '@/blog/dto/updateBlog.dto';
+import { IUser } from '@/user/types/user.type';
 
 @Injectable()
 export class BlogService {
@@ -14,12 +14,13 @@ export class BlogService {
   ) {}
 
   async create(
-    currentUser: UserEntity,
+    currentUser: IUser,
     createBlogDto: CreateBlogDto,
   ): Promise<BlogEntity> {
-    const newBlog = new BlogEntity();
-    Object.assign(newBlog, createBlogDto);
-    newBlog.author = currentUser;
+    const newBlog = this.blogRepository.create({
+      ...createBlogDto,
+      author: currentUser,
+    });
     return await this.blogRepository.save(newBlog);
   }
 

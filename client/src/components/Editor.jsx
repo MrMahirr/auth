@@ -20,7 +20,7 @@ import {AutoLinkNode, LinkNode} from '@lexical/link';
 
 import {
     Bold, Italic, Underline as UnderlineIcon, Strikethrough,
-    List, ListOrdered, Quote, Code, Undo, Redo,
+    List, ListOrdered, Quote, Undo, Redo,
     AlignLeft, AlignCenter, AlignRight,
     Heading1, Heading2, Eraser
 } from 'lucide-react';

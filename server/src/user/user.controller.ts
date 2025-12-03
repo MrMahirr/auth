@@ -8,7 +8,6 @@ import {
   UseGuards,
   UsePipes,
   ValidationPipe,
-  Request,
 } from '@nestjs/common';
 import { CreateUserDto } from '@/user/dto/createUser.dto';
 import { IUserResponse } from '@/user/types/userResponse.interface';
@@ -59,16 +58,18 @@ export class UserController {
 
   @Get('user')
   @UseGuards(AuthGuard)
-  async getCurrentUser(@User() user): Promise<IUserResponse> {
-    return this.userService.generateUserResponse(user);
+  async getCurrentUser(@User() user: UserEntity): Promise<IUserResponse> {
+    return Promise.resolve(this.userService.generateUserResponse(user));
   }
 
   @Get('profile')
   @UseGuards(AuthGuard)
-  async getProfile(@Request() req): Promise<UserEntity> {
-    const user = await this.userService.findById(req.user.id);
+  async getProfile(@User() requestUser: UserEntity): Promise<UserEntity> {
+    const user = await this.userService.findById(requestUser.id);
 
-    delete user.password;
+    if (user) {
+      delete user.password;
+    }
 
     return user;
   }

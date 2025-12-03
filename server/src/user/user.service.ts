@@ -9,12 +9,14 @@ import { compare } from 'bcrypt';
 import { LoginDto } from '@/user/dto/loginUser.dto';
 import { GoogleLoginDto } from '@/user/dto/googleLogin.dto';
 import { UpdateUserDto } from '@/user/dto/updateUser.dto';
+import { ConfigService } from '@nestjs/config';
 
 @Injectable()
 export class UserService {
   constructor(
     @InjectRepository(UserEntity)
     private readonly userRepository: Repository<UserEntity>,
+    private readonly configService: ConfigService,
   ) {}
   async createUser(createUserDto: CreateUserDto): Promise<IUserResponse> {
     const newUser = new UserEntity();
@@ -46,6 +48,7 @@ export class UserService {
       where: {
         email: loginUserDto.email,
       },
+      select: ['id', 'username', 'email', 'password', 'image', 'bio'],
     });
     if (!user) {
       throw new HttpException(
@@ -53,7 +56,7 @@ export class UserService {
         HttpStatus.UNAUTHORIZED,
       );
     }
-    const matchPassword = await compare(loginUserDto.password, user.password);
+    const matchPassword = await compare(loginUserDto.password, user.password!);
     if (!matchPassword) {
       throw new HttpException(
         'Wrong email or password',
@@ -117,7 +120,6 @@ export class UserService {
     }
     return user;
   }
-
   generateToken(user: UserEntity): string {
     return sign(
       {
@@ -125,7 +127,7 @@ export class UserService {
         username: user.username,
         email: user.email,
       },
-      process.env.JWT_SECRET,
+      this.configService.getOrThrow<string>('JWT_SECRET'),
     );
   }
   generateUserResponse(user: UserEntity): IUserResponse {

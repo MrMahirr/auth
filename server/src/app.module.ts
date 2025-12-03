@@ -20,6 +20,7 @@ import { join } from 'path';
     TypeOrmModule.forRoot(ormconfig),
     ConfigModule.forRoot({
       isGlobal: true,
+      envFilePath: '.env',
     }),
     TagModule,
     UserModule,

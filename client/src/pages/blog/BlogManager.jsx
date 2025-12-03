@@ -9,7 +9,6 @@ import {
     Upload,
     Loader2,
     Save,
-    X,
     Check,
     AlertCircle
 } from 'lucide-react';
@@ -56,7 +55,7 @@ export default function BlogManager() {
     };
 
     useEffect(() => {
-        fetchBlogs();
+        void fetchBlogs();
     }, []);
 
     useEffect(() => {
@@ -64,7 +63,7 @@ export default function BlogManager() {
             const blog = blogs.find(b => String(b.id) === String(selectedId));
             if (blog) setFormData(blog);
         }
-    }, [blogs]);
+    }, [blogs, selectedId]);
 
     const handleInputChange = (e) => {
         const {name, value} = e.target;
@@ -91,7 +90,7 @@ export default function BlogManager() {
             const response = await api.post('/upload?folder=blogs', data, {
                 headers: {'Content-Type': 'multipart/form-data'}
             });
-            const imageUrl = response.data?.url || response.url;
+            const imageUrl = response.data?.url;
             if (imageUrl) {
                 setFormData(prev => ({...prev, image: imageUrl}));
                 showToast("Görsel başarıyla yüklendi!");
@@ -108,9 +107,9 @@ export default function BlogManager() {
 
     const handleFileSelect = (e) => uploadImage(e.target.files[0]);
     const handleDragOver = (e) => e.preventDefault();
-    const handleDrop = (e) => {
+    const handleDrop = async (e) => {
         e.preventDefault();
-        uploadImage(e.dataTransfer.files[0]);
+        await uploadImage(e.dataTransfer.files[0]);
     };
 
     const handleSave = async () => {
@@ -159,6 +158,7 @@ export default function BlogManager() {
             setShowDeleteModal(false);
             showToast("Blog silindi.");
         } catch (error) {
+            console.error(error);
             showToast("Silme işlemi başarısız.", 'error');
         }
     };
@@ -230,7 +230,8 @@ export default function BlogManager() {
                     />
                 </div>
                 <div className="flex-1 overflow-y-auto p-4 space-y-2 custom-scrollbar">
-                    {filteredBlogs.length === 0 && <div className="text-center text-gray-500 mt-10 text-sm">Liste boş.</div>}
+                    {filteredBlogs.length === 0 &&
+                        <div className="text-center text-gray-500 mt-10 text-sm">Liste boş.</div>}
                     {filteredBlogs.map((blog) => (
                         <div key={blog.id} onClick={() => handleSelectBlog(blog.id)}
                              className={`group p-3 rounded-xl border cursor-pointer transition-all ${String(selectedId) === String(blog.id) ? 'bg-cyan-900/20 border-cyan-500/50 shadow-[0_0_10px_rgba(6,182,212,0.1)]' : 'border-transparent hover:bg-white/5'}`}>
