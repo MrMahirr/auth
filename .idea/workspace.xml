@@ -4,9 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0498930d-d12a-40c3-a4a9-c33ae8b0e5f1" name="Changes" comment="hata düzeltmeleri yapıldı backen ve client eslink hataları ve uyuşmazlıklar düzeltildi.">
-      <change afterPath="$PROJECT_DIR$/client/src/components/Toggle.jsx" afterDir="false" />
+    <list default="true" id="0498930d-d12a-40c3-a4a9-c33ae8b0e5f1" name="Changes" comment="firestore database postgres seçme butonu eklendi blog sayfasına">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/Header.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/layouts/Header.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/Toggle.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/DatabaseToggle.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/layouts/MainLayout.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/layouts/MainLayout.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/src/pages/blog/BlogManager.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/pages/blog/BlogManager.jsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -78,11 +80,11 @@
       <recent name="C:\Users\MrMahirr\Desktop\auth\client\src\components" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\MrMahirr\Desktop\auth\client\src\components\layouts" />
       <recent name="C:\Users\MrMahirr\Desktop\auth\client\public" />
       <recent name="C:\Users\MrMahirr\Desktop\auth\client\src\pages\dashboard" />
       <recent name="C:\Users\MrMahirr\Desktop\auth\client\src\components" />
       <recent name="C:\Users\MrMahirr\Desktop\auth\client\src\pages" />
-      <recent name="C:\Users\MrMahirr\Desktop\auth\client\src\pages\auth" />
     </key>
   </component>
   <component name="SharedIndexes">
@@ -122,7 +124,7 @@
       <workItem from="1764674583241" duration="204000" />
       <workItem from="1764700028847" duration="3132000" />
       <workItem from="1764741929365" duration="18676000" />
-      <workItem from="1764770941392" duration="3626000" />
+      <workItem from="1764770941392" duration="6065000" />
     </task>
     <task id="LOCAL-00002" summary="login giriş yapıldı.">
       <option name="closed" value="true" />
@@ -300,7 +302,15 @@
       <option name="project" value="LOCAL" />
       <updated>1764772801174</updated>
     </task>
-    <option name="localTasksCounter" value="24" />
+    <task id="LOCAL-00024" summary="firestore database postgres seçme butonu eklendi blog sayfasına">
+      <option name="closed" value="true" />
+      <created>1764774637508</created>
+      <option name="number" value="00024" />
+      <option name="presentableId" value="LOCAL-00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1764774637508</updated>
+    </task>
+    <option name="localTasksCounter" value="25" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -333,15 +343,47 @@
     <MESSAGE value="blog ve kullanıcı bilgileri güncellem tam anlamıyla çalışıyor." />
     <MESSAGE value="bug fix giderildi ve seacr bar aktif edildi docker dosyaları düzenlendi editör ms loadin eklendi." />
     <MESSAGE value="hata düzeltmeleri yapıldı backen ve client eslink hataları ve uyuşmazlıklar düzeltildi." />
-    <option name="LAST_COMMIT_MESSAGE" value="hata düzeltmeleri yapıldı backen ve client eslink hataları ve uyuşmazlıklar düzeltildi." />
+    <MESSAGE value="firestore database postgres seçme butonu eklendi blog sayfasına" />
+    <option name="LAST_COMMIT_MESSAGE" value="firestore database postgres seçme butonu eklendi blog sayfasına" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="javascript">
-          <url>file://$PROJECT_DIR$/client/src/pages/auth/LoginPage.jsx</url>
+          <url>file://$PROJECT_DIR$/client/src/pages/auth/RegisterPage.jsx</url>
+          <line>35</line>
           <properties lambdaOrdinal="-1" />
-          <option name="timeStamp" value="1" />
+          <option name="timeStamp" value="3" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/client/src/pages/auth/LoginPage.jsx</url>
+          <line>27</line>
+          <properties lambdaOrdinal="-1" />
+          <option name="timeStamp" value="4" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/client/src/pages/auth/LoginPage.jsx</url>
+          <line>58</line>
+          <properties lambdaOrdinal="-1" />
+          <option name="timeStamp" value="6" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/client/src/pages/blog/BlogManager.jsx</url>
+          <line>77</line>
+          <properties lambdaOrdinal="-1" />
+          <option name="timeStamp" value="7" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/client/src/pages/blog/BlogManager.jsx</url>
+          <line>115</line>
+          <properties lambdaOrdinal="-1" />
+          <option name="timeStamp" value="8" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/client/src/pages/blog/BlogManager.jsx</url>
+          <line>153</line>
+          <properties lambdaOrdinal="-1" />
+          <option name="timeStamp" value="9" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

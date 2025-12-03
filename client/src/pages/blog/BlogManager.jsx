@@ -14,7 +14,7 @@ import {
 } from 'lucide-react';
 import Editor from '../../components/Editor';
 import api from '../../services/api';
-import Toggle from '../../components/Toggle';
+import Toggle from '../../components/DatabaseToggle.jsx';
 
 export default function BlogManager() {
     const [blogs, setBlogs] = useState([]);
@@ -167,8 +167,6 @@ export default function BlogManager() {
         blog.title && blog.title.toLowerCase().includes(searchTerm.toLowerCase())
     );
     const [notifications, setNotifications] = useState(true);
-    const [autoSave, setAutoSave] = useState(false);
-
     return (
         <div
             className="flex h-[calc(100vh-2rem)] gap-6 text-gray-100 overflow-hidden bg-gray-950 p-4 font-sans relative">

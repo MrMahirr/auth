@@ -1,6 +1,6 @@
 import {Link, useLocation} from 'react-router-dom';
 import {useState, useRef, useEffect} from 'react';
-import {useAuth} from '../context/AuthContext';
+import {useAuth} from '../../context/AuthContext.jsx';
 import {LayoutDashboard, User, LogOut, Bell, FileText, PlusCircle, List, ChevronDown, ChevronRight} from 'lucide-react';
 
 export default function Header() {
