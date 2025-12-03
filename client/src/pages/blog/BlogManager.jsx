@@ -14,6 +14,7 @@ import {
 } from 'lucide-react';
 import Editor from '../../components/Editor';
 import api from '../../services/api';
+import Toggle from '../../components/Toggle';
 
 export default function BlogManager() {
     const [blogs, setBlogs] = useState([]);
@@ -165,6 +166,8 @@ export default function BlogManager() {
     const filteredBlogs = blogs.filter(blog =>
         blog.title && blog.title.toLowerCase().includes(searchTerm.toLowerCase())
     );
+    const [notifications, setNotifications] = useState(true);
+    const [autoSave, setAutoSave] = useState(false);
 
     return (
         <div
@@ -267,6 +270,17 @@ export default function BlogManager() {
                                 <Trash2 size={20}/>
                             </button>
                         )}
+
+
+                        <div>
+                            <Toggle
+                                label="Bildirimleri Aç"
+                                enabled={notifications}
+                                onChange={setNotifications}
+                            />
+                        </div>
+
+
                         <button onClick={handleSave}
                                 className="p-2 px-4 bg-cyan-600 hover:bg-cyan-500 text-white rounded-lg flex items-center gap-2 text-sm font-semibold shadow-[0_0_15px_rgba(8,145,178,0.4)]">
                             <Save size={18}/> Kaydet
