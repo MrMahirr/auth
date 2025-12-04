@@ -4,10 +4,27 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0498930d-d12a-40c3-a4a9-c33ae8b0e5f1" name="Changes" comment="blog ekleme ve güncelleme kısmı firestore database entegre edildi">
+    <list default="true" id="0498930d-d12a-40c3-a4a9-c33ae8b0e5f1" name="Changes" comment="blog listele sayfasına firestore dakileridew listeleyecek şekilde ayarlandı.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/pages/blog/BlogManager.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/pages/blog/BlogManager.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/pages/dashboard/Blog.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/pages/dashboard/Blog.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/client/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/client/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/App.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/DatabaseSwitch.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/Editor.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/layouts/Header.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/context/AuthContext.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/context/AuthProvider.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/firebase.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/layouts/AuthLayout.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/layouts/MainLayout.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/main.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/pages/auth/LoginPage.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/pages/auth/RegisterPage.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/pages/blog/BlogManager.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/pages/dashboard/Blog.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/pages/dashboard/DashboardPage.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/pages/dashboard/Profile.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/services/api.js" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -23,6 +40,11 @@
     </option>
   </component>
   <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="master" />
+      </map>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="GitHubPullRequestSearchHistory">{
@@ -48,27 +70,27 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultModelSelectionForGA.v1&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
-    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
-    &quot;junie.onboarding.icon.badge.shown&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/MrMahirr/Desktop/auth/client&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;prettierjs.PrettierConfiguration.Package&quot;: &quot;C:\\Users\\MrMahirr\\Desktop\\auth\\server\\node_modules\\prettier&quot;,
-    &quot;run.code.analysis.last.selected.profile&quot;: &quot;pProject Default&quot;,
-    &quot;to.speed.mode.migration.done&quot;: &quot;true&quot;,
-    &quot;ts.external.directory.path&quot;: &quot;C:\\Users\\MrMahirr\\Desktop\\auth\\server\\node_modules\\typescript\\lib&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultModelSelectionForGA.v1": "true",
+    "git-widget-placeholder": "service-ve-gateway",
+    "ignore.virus.scanning.warn.message": "true",
+    "junie.onboarding.icon.badge.shown": "true",
+    "last_opened_file_path": "C:/Users/MrMahirr/Desktop/auth/client",
+    "node.js.detected.package.eslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "prettierjs.PrettierConfiguration.Package": "C:\\Users\\MrMahirr\\Desktop\\auth\\server\\node_modules\\prettier",
+    "run.code.analysis.last.selected.profile": "pProject Default",
+    "to.speed.mode.migration.done": "true",
+    "ts.external.directory.path": "C:\\Users\\MrMahirr\\Desktop\\auth\\client\\node_modules\\typescript\\lib",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\MrMahirr\Desktop\auth\client" />
@@ -79,9 +101,9 @@
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\MrMahirr\Desktop\auth\client\src\components\layouts" />
+      <recent name="C:\Users\MrMahirr\Desktop\auth\client\src\components" />
       <recent name="C:\Users\MrMahirr\Desktop\auth\client\public" />
       <recent name="C:\Users\MrMahirr\Desktop\auth\client\src\pages\dashboard" />
-      <recent name="C:\Users\MrMahirr\Desktop\auth\client\src\components" />
       <recent name="C:\Users\MrMahirr\Desktop\auth\client\src\pages" />
     </key>
   </component>
@@ -122,7 +144,8 @@
       <workItem from="1764674583241" duration="204000" />
       <workItem from="1764700028847" duration="3132000" />
       <workItem from="1764741929365" duration="18676000" />
-      <workItem from="1764770941392" duration="13680000" />
+      <workItem from="1764770941392" duration="14995000" />
+      <workItem from="1764846186857" duration="4617000" />
     </task>
     <task id="LOCAL-00002" summary="login giriş yapıldı.">
       <option name="closed" value="true" />
@@ -324,11 +347,39 @@
       <option name="project" value="LOCAL" />
       <updated>1764799285899</updated>
     </task>
-    <option name="localTasksCounter" value="27" />
+    <task id="LOCAL-00027" summary="blog listele sayfasına firestore dakileridew listeleyecek şekilde ayarlandı.">
+      <option name="closed" value="true" />
+      <created>1764800671099</created>
+      <option name="number" value="00027" />
+      <option name="presentableId" value="LOCAL-00027" />
+      <option name="project" value="LOCAL" />
+      <updated>1764800671099</updated>
+    </task>
+    <option name="localTasksCounter" value="28" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+    <option name="exactExcludedFiles">
+      <list>
+        <option value="$PROJECT_DIR$/client/src/main.jsx" />
+        <option value="$PROJECT_DIR$/client/src/App.jsx" />
+        <option value="$PROJECT_DIR$/client/src/context/AuthContext.jsx" />
+        <option value="$PROJECT_DIR$/client/src/context/AuthProvider.jsx" />
+        <option value="$PROJECT_DIR$/client/src/components/layouts/MainLayout.jsx" />
+        <option value="$PROJECT_DIR$/client/src/components/layouts/Header.jsx" />
+        <option value="$PROJECT_DIR$/client/src/components/layouts/AuthLayout.jsx" />
+        <option value="$PROJECT_DIR$/client/src/components/pages/auth/LoginPage.jsx" />
+        <option value="$PROJECT_DIR$/client/src/components/pages/auth/RegisterPage.jsx" />
+        <option value="$PROJECT_DIR$/client/src/services/api.js" />
+        <option value="$PROJECT_DIR$/client/src/firebase.js" />
+        <option value="$PROJECT_DIR$/client/src/components/DatabaseSwitch.jsx" />
+        <option value="$PROJECT_DIR$/client/src/components/Editor.jsx" />
+        <option value="$PROJECT_DIR$/client/src/components/pages/dashboard/DashboardPage.jsx" />
+        <option value="$PROJECT_DIR$/client/src/components/pages/dashboard/Blog.jsx" />
+        <option value="$PROJECT_DIR$/client/src/components/pages/dashboard/Profile.jsx" />
+      </list>
+    </option>
   </component>
   <component name="Vcs.Log.Tabs.Properties">
     <option name="TAB_STATES">
@@ -360,27 +411,25 @@
     <MESSAGE value="firestore database postgres seçme butonu eklendi blog sayfasına" />
     <MESSAGE value="database toogle butonu ismi değiştirildi ve header layout klasorune taşındı" />
     <MESSAGE value="blog ekleme ve güncelleme kısmı firestore database entegre edildi" />
-    <option name="LAST_COMMIT_MESSAGE" value="blog ekleme ve güncelleme kısmı firestore database entegre edildi" />
+    <MESSAGE value="blog listele sayfasına firestore dakileridew listeleyecek şekilde ayarlandı." />
+    <option name="LAST_COMMIT_MESSAGE" value="blog listele sayfasına firestore dakileridew listeleyecek şekilde ayarlandı." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="javascript">
-          <url>file://$PROJECT_DIR$/client/src/pages/auth/RegisterPage.jsx</url>
+          <url>file://$PROJECT_DIR$/client/src/components/pages/auth/RegisterPage.jsx</url>
           <line>35</line>
-          <properties lambdaOrdinal="-1" />
           <option name="timeStamp" value="3" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
-          <url>file://$PROJECT_DIR$/client/src/pages/auth/LoginPage.jsx</url>
+          <url>file://$PROJECT_DIR$/client/src/components/pages/auth/LoginPage.jsx</url>
           <line>27</line>
-          <properties lambdaOrdinal="-1" />
           <option name="timeStamp" value="4" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
-          <url>file://$PROJECT_DIR$/client/src/pages/auth/LoginPage.jsx</url>
+          <url>file://$PROJECT_DIR$/client/src/components/pages/auth/LoginPage.jsx</url>
           <line>58</line>
-          <properties lambdaOrdinal="-1" />
           <option name="timeStamp" value="6" />
         </line-breakpoint>
       </breakpoints>
