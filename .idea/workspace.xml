@@ -4,27 +4,29 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0498930d-d12a-40c3-a4a9-c33ae8b0e5f1" name="Changes" comment="blog listele sayfasına firestore dakileridew listeleyecek şekilde ayarlandı.">
+    <list default="true" id="0498930d-d12a-40c3-a4a9-c33ae8b0e5f1" name="Changes" comment="feat(client): migrate frontend to full TypeScript setup">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/client/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/client/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/App.jsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/DatabaseSwitch.jsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/Editor.jsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/layouts/Header.jsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/context/AuthContext.jsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/context/AuthProvider.jsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/firebase.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/layouts/AuthLayout.jsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/layouts/MainLayout.jsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/main.jsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/pages/auth/LoginPage.jsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/pages/auth/RegisterPage.jsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/pages/blog/BlogManager.jsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/pages/dashboard/Blog.jsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/pages/dashboard/DashboardPage.jsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/pages/dashboard/Profile.jsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/services/api.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/pages/dashboard/Profile.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/pages/dashboard/Profile.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/uploads/blogs/1764185827446-506449767.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/uploads/blogs/1764185993606-840250126.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/uploads/blogs/1764186218429-71859034.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/uploads/blogs/1764186536121-828418025.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/uploads/blogs/1764186749138-955786834.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/uploads/blogs/1764189874311-891437019.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/uploads/blogs/1764190226751-931502742.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/uploads/blogs/1764191409235-412289449.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/uploads/blogs/1764191701643-561441763.jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/uploads/blogs/1764282229790-150999851.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/uploads/blogs/1764763685068-440555459.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/uploads/blogs/1764772500265-469470372.jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/uploads/blogs/1764793587378-292365621.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/uploads/blogs/1764799303594-801981248.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/uploads/blogs/1764852714669-427042373.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/uploads/blogs/1764852723038-547321859.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/uploads/users/1764187371425-325949787.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/uploads/users/1764187601392-808619661.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/uploads/users/1764187733206-399958509.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/uploads/users/1764189862961-326515500.jpg" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -145,7 +147,7 @@
       <workItem from="1764700028847" duration="3132000" />
       <workItem from="1764741929365" duration="18676000" />
       <workItem from="1764770941392" duration="14995000" />
-      <workItem from="1764846186857" duration="4617000" />
+      <workItem from="1764846186857" duration="4861000" />
     </task>
     <task id="LOCAL-00002" summary="login giriş yapıldı.">
       <option name="closed" value="true" />
@@ -355,7 +357,15 @@
       <option name="project" value="LOCAL" />
       <updated>1764800671099</updated>
     </task>
-    <option name="localTasksCounter" value="28" />
+    <task id="LOCAL-00028" summary="feat(client): migrate frontend to full TypeScript setup">
+      <option name="closed" value="true" />
+      <created>1764852985533</created>
+      <option name="number" value="00028" />
+      <option name="presentableId" value="LOCAL-00028" />
+      <option name="project" value="LOCAL" />
+      <updated>1764852985533</updated>
+    </task>
+    <option name="localTasksCounter" value="29" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -412,7 +422,8 @@
     <MESSAGE value="database toogle butonu ismi değiştirildi ve header layout klasorune taşındı" />
     <MESSAGE value="blog ekleme ve güncelleme kısmı firestore database entegre edildi" />
     <MESSAGE value="blog listele sayfasına firestore dakileridew listeleyecek şekilde ayarlandı." />
-    <option name="LAST_COMMIT_MESSAGE" value="blog listele sayfasına firestore dakileridew listeleyecek şekilde ayarlandı." />
+    <MESSAGE value="feat(client): migrate frontend to full TypeScript setup" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat(client): migrate frontend to full TypeScript setup" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
