@@ -13,7 +13,7 @@ import {
     AlertCircle,
 } from "lucide-react";
 import Editor from "../../Editor";
-import api from "../../../services/api";
+import { serviceContainer } from "../../../containers/serviceContainer";
 import { collection, addDoc, doc, setDoc, deleteDoc, getDocs } from "firebase/firestore";
 import { db } from "../../../firebase";
 import DatabaseSwitch from "../../DatabaseSwitch";
@@ -80,9 +80,9 @@ export default function BlogManager() {
     const fetchBlogs = async () => {
         setIsLoading(true);
         try {
-            const apiPromise = api.get("/blogs").catch((err) => {
+            const apiPromise = serviceContainer.blogService.getBlogs().catch((err) => {
                 console.error("API fetch error:", err);
-                return { data: [] as BlogFormData[] };
+                return [] as BlogFormData[];
             });
 
             const firestorePromise = getDocs(collection(db, "blogs")).catch((err) => {
@@ -90,9 +90,9 @@ export default function BlogManager() {
                 return { docs: [] as any[] };
             });
 
-            const [apiRes, firestoreSnapshot] = await Promise.all([apiPromise, firestorePromise]);
+            const [apiBlogsRes, firestoreSnapshot] = await Promise.all([apiPromise, firestorePromise]);
 
-            const apiBlogs: BlogFormData[] = (Array.isArray(apiRes.data) ? apiRes.data : []).map(
+            const apiBlogs: BlogFormData[] = (Array.isArray(apiBlogsRes) ? apiBlogsRes : []).map(
                 (b) => ({ ...b, dbSource: "postgres" as const })
             );
 
@@ -169,10 +169,8 @@ export default function BlogManager() {
 
         setUploading(true);
         try {
-            const response = await api.post("/upload?folder=blogs", data, {
-                headers: { "Content-Type": "multipart/form-data" },
-            });
-            const imageUrl = response.data?.url as string | undefined;
+            const response = await serviceContainer.blogService.uploadImage(file);
+            const imageUrl = response.url as string | undefined;
             if (imageUrl) {
                 setFormData((prev) => ({ ...prev, image: imageUrl }));
                 showToast("Görsel başarıyla yüklendi!");
@@ -232,11 +230,11 @@ export default function BlogManager() {
                 showToast("Blog başarıyla Firestore'a kaydedildi!");
             } else {
                 if (selectedId === "new") {
-                    const res = await api.post("/blogs", payload);
+                    const res = await serviceContainer.blogService.createBlog(payload);
                     await fetchBlogs();
-                    if (res.data?.id) handleSelectBlog(res.data.id);
+                    if (res?.id) handleSelectBlog(res.id);
                 } else {
-                    await api.put(`/blogs/${selectedId}`, payload);
+                    await serviceContainer.blogService.updateBlog(selectedId, payload);
                     await fetchBlogs();
                 }
                 showToast("Blog başarıyla PostgreSQL'e kaydedildi!");
@@ -263,7 +261,7 @@ export default function BlogManager() {
             if (blogToDelete.dbSource === "firestore") {
                 await deleteDoc(doc(db, "blogs", selectedId));
             } else {
-                await api.delete(`/blogs/${selectedId}`);
+                await serviceContainer.blogService.deleteBlog(selectedId);
             }
 
             await fetchBlogs();
@@ -286,11 +284,10 @@ export default function BlogManager() {
             {toast && (
                 <div
                     className={`absolute top-6 right-6 z-50 px-4 py-3 rounded-lg shadow-2xl flex items-center gap-3 animate-fade-in-down border backdrop-blur-md transition-all duration-300
-                    ${
-                        toast.type === "error"
+                    ${toast.type === "error"
                             ? "bg-red-500/20 border-red-500/50 text-red-200"
                             : "bg-cyan-500/20 border-cyan-500/50 text-cyan-200"
-                    }`}
+                        }`}
                 >
                     {toast.type === "error" ? (
                         <AlertCircle size={20} />
@@ -368,19 +365,17 @@ export default function BlogManager() {
                         <div
                             key={blog.id}
                             onClick={() => handleSelectBlog(String(blog.id))}
-                            className={`group p-3 rounded-xl border cursor-pointer transition-all ${
-                                String(selectedId) === String(blog.id)
+                            className={`group p-3 rounded-xl border cursor-pointer transition-all ${String(selectedId) === String(blog.id)
                                     ? "bg-cyan-900/20 border-cyan-500/50 shadow-[0_0_10px_rgba(6,182,212,0.1)]"
                                     : "border-transparent hover:bg-white/5"
-                            }`}
+                                }`}
                         >
                             <div className="flex justify-between items-start mb-1">
                                 <h3
-                                    className={`font-semibold text-sm truncate pr-2 ${
-                                        String(selectedId) === String(blog.id)
+                                    className={`font-semibold text-sm truncate pr-2 ${String(selectedId) === String(blog.id)
                                             ? "text-cyan-300"
                                             : "text-gray-300"
-                                    }`}
+                                        }`}
                                 >
                                     {blog.title || "Başlıksız"}
                                 </h3>
@@ -403,11 +398,10 @@ export default function BlogManager() {
                 <header className="p-4 border-b border-white/10 flex items-center justify-between bg-black/40">
                     <div className="flex items-center gap-3">
                         <div
-                            className={`p-2 rounded-lg ${
-                                selectedId === "new"
+                            className={`p-2 rounded-lg ${selectedId === "new"
                                     ? "bg-cyan-500/20 text-cyan-400"
                                     : "bg-purple-500/20 text-purple-400"
-                            }`}
+                                }`}
                         >
                             {selectedId === "new" ? <Plus size={20} /> : <FileText size={20} />}
                         </div>
@@ -451,10 +445,9 @@ export default function BlogManager() {
                             onDrop={handleDrop}
                             className={`
                                 relative group w-full h-64 rounded-xl border-2 border-dashed flex flex-col items-center justify-center transition-all duration-300 overflow-hidden cursor-pointer
-                                ${
-                                    formData.image
-                                        ? "border-cyan-500/30 bg-black/40"
-                                        : "border-gray-700 hover:border-cyan-500/50 bg-black/20 hover:bg-black/30"
+                                ${formData.image
+                                    ? "border-cyan-500/30 bg-black/40"
+                                    : "border-gray-700 hover:border-cyan-500/50 bg-black/20 hover:bg-black/30"
                                 }
                                 ${uploading ? "cursor-not-allowed opacity-90" : ""}
                             `}

@@ -1,50 +1,52 @@
-import { ReactNode, useState, useEffect } from "react";
-import api from "../services/api";
+import {ReactNode, useEffect, useState} from "react";
 import AuthContext from "./AuthContext";
-import type { AuthUser } from "../types/auth";
+import type {AuthUser} from "../types/auth";
+import { apiClient } from "../client/apiClient";
 
 interface AuthProviderProps {
     children: ReactNode;
 }
 
-export const AuthProvider = ({ children }: AuthProviderProps) => {
+export const AuthProvider = ({children}: AuthProviderProps) => {
     const [user, setUser] = useState<AuthUser | null>(null);
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        const checkUser = async () => {
-            const token = localStorage.getItem("token");
-            if (token) {
-                try {
-                    const response = await api.get("/user");
-                    setUser(response.data.user as AuthUser);
-                } catch (error) {
-                    console.error("Token verification failed:", error);
-                    localStorage.removeItem("token");
-                    setUser(null);
-                }
+        const loadUser = async () => {
+            const token = localStorage.getItem("access_token");
+            if (!token) {
+                setLoading(false);
+                return;
             }
-            setLoading(false);
+
+            try {
+                const res = await apiClient.get<{ user: AuthUser }>("/auth/me");
+                setUser(res.data.user);
+            } catch {
+                setUser(null);
+            } finally {
+                setLoading(false);
+            }
         };
-        void checkUser();
+
+        void loadUser();
     }, []);
 
-    const loginSuccess = (userData: AuthUser, token: string) => {
-        localStorage.setItem("token", token);
+    const loginSuccess = (userData: AuthUser, tokens: { access: string; refresh: string }) => {
+        localStorage.setItem("access_token", tokens.access);
+        localStorage.setItem("refresh_token", tokens.refresh);
         setUser(userData);
     };
 
     const logout = () => {
-        localStorage.removeItem("token");
+        localStorage.removeItem("access_token");
+        localStorage.removeItem("refresh_token");
         setUser(null);
     };
 
     return (
-        <AuthContext.Provider value={{ user, loginSuccess, logout, loading }}>
+        <AuthContext.Provider value={{user, loading, loginSuccess, logout}}>
             {!loading && children}
         </AuthContext.Provider>
     );
 };
-
-
-

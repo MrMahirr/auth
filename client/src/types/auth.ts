@@ -16,8 +16,9 @@ export interface AuthUser {
 export interface AuthContextValue {
     user: AuthUser | null;
     loading: boolean;
-    loginSuccess: (userData: AuthUser, token: string) => void;
+    loginSuccess: (userData: AuthUser, tokens: { access: string; refresh: string }) => void;
     logout: () => void;
 }
+
 
 

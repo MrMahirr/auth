@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import api from "../../../services/api";
+import { serviceContainer } from "../../../containers/serviceContainer";
 
 import { Button } from "primereact/button";
 import { InputText } from "primereact/inputtext";
@@ -90,9 +90,9 @@ function RegisterPage() {
                 },
             };
 
-            const response = await api.post("/users", payload);
+            const response = await serviceContainer.authService.register(payload);
 
-            console.log("Kayıt Başarılı:", response.data);
+            console.log("Kayıt Başarılı:", response);
 
             showToast({
                 severity: "success",
@@ -129,9 +129,8 @@ function RegisterPage() {
 
     return (
         <div
-            className={`relative z-20 w-full max-w-lg rounded-2xl border border-blue-500/50 bg-gray-900/60 p-8 text-white backdrop-blur-lg animate-pulse-glow transition-all duration-1000 ease-out ${
-                isMounted ? "translate-y-0 opacity-100" : "translate-y-20 opacity-0"
-            }`}
+            className={`relative z-20 w-full max-w-lg rounded-2xl border border-blue-500/50 bg-gray-900/60 p-8 text-white backdrop-blur-lg animate-pulse-glow transition-all duration-1000 ease-out ${isMounted ? "translate-y-0 opacity-100" : "translate-y-20 opacity-0"
+                }`}
         >
             <Toast ref={toast} />
 
@@ -340,6 +339,7 @@ function RegisterPage() {
 }
 
 export default RegisterPage;
+
 
 
 

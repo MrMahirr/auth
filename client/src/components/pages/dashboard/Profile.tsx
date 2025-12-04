@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef, ChangeEvent, FormEvent } from "react";
 import { useAuth } from "../../../context/AuthContext";
-import api from "../../../services/api";
+import { serviceContainer } from "../../../containers/serviceContainer";
 import {
     User,
     Mail,
@@ -61,8 +61,8 @@ export default function Profile() {
         const fetchBlogCount = async () => {
             if (!user?.id) return;
             try {
-                const response = await api.get("/blogs");
-                const userBlogs = (response.data as any[]).filter(
+                const blogs = await serviceContainer.blogService.getBlogs();
+                const userBlogs = blogs.filter(
                     (blog) => blog.author?.id === user.id
                 );
                 setBlogCount(userBlogs.length);
@@ -101,10 +101,8 @@ export default function Profile() {
         data.append("file", file);
 
         try {
-            const uploadRes = await api.post("/upload?folder=users", data, {
-                headers: { "Content-Type": "multipart/form-data" },
-            });
-            const newImageUrl: string = uploadRes.data.url;
+            const uploadRes = await serviceContainer.userService.uploadAvatar(file);
+            const newImageUrl: string = uploadRes.url;
 
             const oldImage = user.image || user.avatar;
             if (oldImage) {
@@ -115,9 +113,7 @@ export default function Profile() {
                     !oldImage.includes("google")
                 ) {
                     try {
-                        await api.delete("/upload", {
-                            data: { filename: oldFilename, folder: "users" },
-                        });
+                        await serviceContainer.userService.deleteAvatar(oldFilename);
                     } catch (err) {
                         console.warn("Eski resim silinemedi:", err);
                     }
@@ -135,7 +131,7 @@ export default function Profile() {
                 dateofbirth: formData.birthDate,
             };
 
-            await api.put("/user", { user: payload });
+            await serviceContainer.userService.updateUser({ user: payload });
 
             setAvatarPreview(newImageUrl);
             showToast("Profil fotoğrafı güncellendi.");
@@ -170,7 +166,7 @@ export default function Profile() {
                 payload.password = formData.newPassword;
             }
 
-            await api.put("/user", { user: payload });
+            await serviceContainer.userService.updateUser({ user: payload });
 
             showToast("Profil bilgileri güncellendi.");
             setTimeout(() => window.location.reload(), 1000);
@@ -197,11 +193,10 @@ export default function Profile() {
             {toast && (
                 <div
                     className={`fixed top-24 right-8 z-50 px-6 py-4 rounded-xl shadow-[0_0_20px_rgba(0,0,0,0.3)] backdrop-blur-md flex items-center gap-3 animate-in slide-in-from-right border transition-all duration-300
-                    ${
-                        toast.type === "error"
+                    ${toast.type === "error"
                             ? "bg-red-500/10 border-red-500 text-red-400"
                             : "bg-green-500/10 border-green-500 text-green-400"
-                    }`}
+                        }`}
                 >
                     {toast.type === "error" ? (
                         <AlertCircle size={24} />
@@ -462,6 +457,7 @@ export default function Profile() {
         </div>
     );
 }
+
 
 
 

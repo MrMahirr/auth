@@ -4,16 +4,45 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0498930d-d12a-40c3-a4a9-c33ae8b0e5f1" name="Changes" comment="feat(client): migrate frontend to full TypeScript setup">
+    <list default="true" id="0498930d-d12a-40c3-a4a9-c33ae8b0e5f1" name="Changes" comment="service ve client katmanı uluşturuldu. service countainer ve gatewaycountainer eklendi. hatalar giderildi. çalılır durumda">
+      <change afterPath="$PROJECT_DIR$/client/src/client/apiClient.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/src/client/http/axiosInstance.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/src/client/http/interceptors.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/src/containers/gatewayContainer.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/src/containers/serviceContainer.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/src/domain/Auth.model.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/src/domain/Blog.model.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/src/domain/User.model.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/src/gateway/auth.gateway.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/src/gateway/blog.gateway.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/src/gateway/product.gateway.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/src/gateway/user.gateway.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/src/services/auth.service.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/src/services/blog.service.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/src/services/product.service.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/src/services/user.service.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/App.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/App.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/DatabaseSwitch.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/DatabaseSwitch.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/src/components/Editor.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/Editor.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/layouts/AuthLayout.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/layouts/AuthLayout.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/src/components/layouts/Header.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/layouts/Header.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/layouts/MainLayout.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/layouts/MainLayout.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/pages/auth/LoginPage.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/pages/auth/LoginPage.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/pages/auth/RegisterPage.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/pages/auth/RegisterPage.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/src/components/pages/blog/BlogManager.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/pages/blog/BlogManager.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/src/components/pages/dashboard/Blog.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/pages/dashboard/Blog.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/src/components/pages/dashboard/DashboardPage.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/pages/dashboard/DashboardPage.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/pages/dashboard/Profile.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/pages/dashboard/Profile.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/src/context/AuthContext.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/context/AuthContext.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/src/context/AuthProvider.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/context/AuthProvider.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/firebase.ts" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/firebase.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/main.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/main.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/services/api.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/types/auth.ts" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/types/auth.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/types/blog.ts" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/types/blog.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/tsconfig.json" beforeDir="false" afterPath="$PROJECT_DIR$/client/tsconfig.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/user/dto/createUser.dto.ts" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/user/dto/createUser.dto.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -25,6 +54,7 @@
       <list>
         <option value="JSX File" />
         <option value="JavaScript File" />
+        <option value="TypeScript File" />
       </list>
     </option>
   </component>
@@ -135,7 +165,7 @@
       <workItem from="1764741929365" duration="18676000" />
       <workItem from="1764770941392" duration="14995000" />
       <workItem from="1764846186857" duration="7413000" />
-      <workItem from="1764855791540" duration="1519000" />
+      <workItem from="1764855791540" duration="15200000" />
     </task>
     <task id="LOCAL-00002" summary="login giriş yapıldı.">
       <option name="closed" value="true" />
@@ -361,7 +391,15 @@
       <option name="project" value="LOCAL" />
       <updated>1764853098302</updated>
     </task>
-    <option name="localTasksCounter" value="30" />
+    <task id="LOCAL-00030" summary="typesctip update sonrası oluşan hatalar giderildi">
+      <option name="closed" value="true" />
+      <created>1764857395436</created>
+      <option name="number" value="00030" />
+      <option name="presentableId" value="LOCAL-00030" />
+      <option name="project" value="LOCAL" />
+      <updated>1764857395436</updated>
+    </task>
+    <option name="localTasksCounter" value="31" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -377,7 +415,6 @@
         <option value="$PROJECT_DIR$/client/src/components/layouts/AuthLayout.jsx" />
         <option value="$PROJECT_DIR$/client/src/components/pages/auth/LoginPage.jsx" />
         <option value="$PROJECT_DIR$/client/src/components/pages/auth/RegisterPage.jsx" />
-        <option value="$PROJECT_DIR$/client/src/services/api.js" />
         <option value="$PROJECT_DIR$/client/src/firebase.js" />
         <option value="$PROJECT_DIR$/client/src/components/DatabaseSwitch.jsx" />
         <option value="$PROJECT_DIR$/client/src/components/Editor.jsx" />
@@ -419,7 +456,9 @@
     <MESSAGE value="blog ekleme ve güncelleme kısmı firestore database entegre edildi" />
     <MESSAGE value="blog listele sayfasına firestore dakileridew listeleyecek şekilde ayarlandı." />
     <MESSAGE value="feat(client): migrate frontend to full TypeScript setup" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat(client): migrate frontend to full TypeScript setup" />
+    <MESSAGE value="typesctip update sonrası oluşan hatalar giderildi" />
+    <MESSAGE value="service ve client katmanı uluşturuldu. service countainer ve gatewaycountainer eklendi. hatalar giderildi. çalılır durumda" />
+    <option name="LAST_COMMIT_MESSAGE" value="service ve client katmanı uluşturuldu. service countainer ve gatewaycountainer eklendi. hatalar giderildi. çalılır durumda" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

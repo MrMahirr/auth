@@ -1,6 +1,5 @@
 import { useState, useRef, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import api from "../../../services/api";
 import { useAuth } from "../../../context/AuthContext";
 import { signInWithGoogle } from "../../../firebase";
 import { Button } from "primereact/button";
@@ -9,6 +8,7 @@ import { Checkbox, CheckboxChangeEvent } from "primereact/checkbox";
 import { Password } from "primereact/password";
 import { Toast } from "primereact/toast";
 import type { ToastMessage } from "primereact/toast";
+import { serviceContainer } from "../../../containers/serviceContainer";
 
 function LoginPage() {
     const navigate = useNavigate();
@@ -36,22 +36,22 @@ function LoginPage() {
 
             const payload = {
                 user: {
-                    email: googleUser.email,
-                    username: googleUser.displayName,
+                    email: googleUser.email || "",
+                    username: googleUser.displayName || "",
                 },
             };
 
-            const response = await api.post("/users/google-login", payload);
+            const response = await serviceContainer.authService.googleLogin(payload);
 
-            const token = response.data.user.token as string;
-            const userData = response.data.user;
+            const token = response.access_token;
+            const userData = response.user;
 
-            loginSuccess(userData, token);
+            loginSuccess(userData, { access: token, refresh: "" });
 
             showToast({
                 severity: "success",
                 summary: "Başarılı",
-                detail: `Hoşgeldin ${userData.username}`,
+                detail: `Hoşgeldin ${userData.name || userData.email}`,
             });
             navigate("/");
         } catch (error: any) {
@@ -64,6 +64,7 @@ function LoginPage() {
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
+
         if (!email || !password) {
             showToast({
                 severity: "warn",
@@ -72,19 +73,25 @@ function LoginPage() {
             });
             return;
         }
+
         setLoading(true);
+
         try {
-            const response = await api.post("/users/login", { user: { email, password } });
-            const token = response.data.user.token as string;
-            const userData = { email, ...response.data.user };
-            loginSuccess(userData, token);
+            const dto = { email, password };
+
+            const response = await serviceContainer.authService.login(dto);
+            loginSuccess(response.user, { access: response.access_token, refresh: "" });
+
             navigate("/");
         } catch (error: any) {
             const errorMessage =
+
                 error.response?.data?.message || "Giriş başarısız.";
+
             showToast({
                 severity: "error",
                 summary: "Hata",
+
                 detail: errorMessage,
             });
         } finally {
@@ -97,9 +104,8 @@ function LoginPage() {
 
     return (
         <div
-            className={`relative z-20 w-full max-w-md rounded-2xl border border-blue-500/50 bg-gray-900/60 p-8 text-white backdrop-blur-lg transition-all duration-1000 ease-out ${
-                isMounted ? "translate-y-0 opacity-100" : "translate-y-20 opacity-0"
-            }`}
+            className={`relative z-20 w-full max-w-md rounded-2xl border border-blue-500/50 bg-gray-900/60 p-8 text-white backdrop-blur-lg transition-all duration-1000 ease-out ${isMounted ? "translate-y-0 opacity-100" : "translate-y-20 opacity-0"
+                }`}
         >
             <Toast ref={toast} />
             <h2 className="mb-6 text-center text-3xl font-bold text-blue-300">
@@ -206,6 +212,7 @@ function LoginPage() {
 }
 
 export default LoginPage;
+
 
 
 

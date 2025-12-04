@@ -1,9 +1,9 @@
-import {useState, useEffect} from "react";
-import {Calendar, Clock, ArrowLeft, Share2, ChevronRight} from "lucide-react";
-import api from "../../../services/api";
-import {collection, getDocs} from "firebase/firestore";
-import {db} from "../../../firebase";
-import type {Blog} from "../../../types/blog";
+import { useState, useEffect } from "react";
+import { Calendar, Clock, ArrowLeft, Share2, ChevronRight } from "lucide-react";
+import { serviceContainer } from "../../../containers/serviceContainer";
+import { collection, getDocs } from "firebase/firestore";
+import { db } from "../../../firebase";
+import type { Blog } from "../../../types/blog";
 
 export default function BlogPage() {
     const [blogs, setBlogs] = useState<Blog[]>([]);
@@ -12,15 +12,14 @@ export default function BlogPage() {
     useEffect(() => {
         const fetchBlogs = async () => {
             try {
-                const apiPromise = api.get<Blog[]>("/blogs").catch((err) => {
+                const apiPromise = serviceContainer.blogService.getBlogs().catch((err) => {
                     console.error("API fetch error:", err);
-                    return {data: [] as Blog[]};
+                    return [] as Blog[];
                 });
 
                 const firestorePromise = getDocs(collection(db, "blogs")).catch(() => null);
 
-                const [apiRes, firestoreSnapshot] = await Promise.all([apiPromise, firestorePromise]);
-                const apiBlogs = Array.isArray(apiRes.data) ? apiRes.data : [];
+                const [apiBlogs, firestoreSnapshot] = await Promise.all([apiPromise, firestorePromise]);
                 const firestoreBlogs: Blog[] = [];
 
 
@@ -81,7 +80,7 @@ export default function BlogPage() {
 
     const handleReadMore = (blog: Blog) => {
         setSelectedBlog(blog);
-        window.scrollTo({top: 0, behavior: "smooth"});
+        window.scrollTo({ top: 0, behavior: "smooth" });
     };
 
     const handleBack = () => {
@@ -137,7 +136,7 @@ export default function BlogPage() {
                             className="group flex items-center gap-2 text-cyan-400 hover:text-cyan-300 mb-8 transition-colors"
                         >
                             <div className="p-2 rounded-full bg-cyan-500/10 group-hover:bg-cyan-500/20">
-                                <ArrowLeft size={20}/>
+                                <ArrowLeft size={20} />
                             </div>
                             <span className="font-medium">Bloglara Dön</span>
                         </button>
@@ -166,13 +165,13 @@ export default function BlogPage() {
                                     </h1>
                                     <div className="flex items-center gap-6 text-gray-300 text-sm">
                                         <div className="flex items-center gap-2">
-                                            <Calendar size={16} className="text-purple-400"/>
+                                            <Calendar size={16} className="text-purple-400" />
                                             {formatDate(
                                                 selectedBlog.createdAt || selectedBlog.created_at
                                             )}
                                         </div>
                                         <div className="flex items-center gap-2">
-                                            <Clock size={16} className="text-purple-400"/>
+                                            <Clock size={16} className="text-purple-400" />
                                             {calculateReadTime(selectedBlog.content)} okuma süresi
                                         </div>
                                     </div>
@@ -196,7 +195,7 @@ export default function BlogPage() {
                                         className="flex items-center gap-2 text-gray-400 hover:text-white transition-colors"
                                         onClick={handleShare}
                                     >
-                                        <Share2 size={18}/> <span className="text-sm">Paylaş</span>
+                                        <Share2 size={18} /> <span className="text-sm">Paylaş</span>
                                     </button>
                                 </div>
                             </div>
@@ -231,12 +230,12 @@ export default function BlogPage() {
                                 <div className="p-6">
                                     <div className="flex items-center gap-3 text-xs text-gray-400 mb-3">
                                         <span className="flex items-center gap-1">
-                                            <Calendar size={12}/>{" "}
+                                            <Calendar size={12} />{" "}
                                             {formatDate(blog.createdAt || blog.created_at)}
                                         </span>
                                         <span className="w-1 h-1 rounded-full bg-gray-600"></span>
                                         <span className="flex items-center gap-1">
-                                            <Clock size={12}/> {calculateReadTime(blog.content)}
+                                            <Clock size={12} /> {calculateReadTime(blog.content)}
                                         </span>
                                     </div>
 
@@ -251,7 +250,7 @@ export default function BlogPage() {
                                     <div
                                         className="flex items-center text-cyan-400 text-sm font-semibold group-hover:translate-x-1 transition-transform">
                                         <>Devamını O</>
-                                        ku <ChevronRight size={16} className="ml-1"/>
+                                        ku <ChevronRight size={16} className="ml-1" />
                                     </div>
                                 </div>
 
