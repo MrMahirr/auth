@@ -6,7 +6,7 @@ import { Cpu, Activity, Users, Server, Zap, Globe, Shield } from "lucide-react";
 interface StatCardProps {
     title: string;
     value: string;
-    icon: (props: { size?: number }) => JSX.Element;
+    icon: React.ComponentType<{ size?: number }>;
     color: string;
     trend: string;
 }

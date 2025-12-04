@@ -1,18 +1,5 @@
 import { createContext, useContext } from "react";
-
-export interface AuthUser {
-    id?: string | number;
-    name?: string;
-    email?: string;
-    [key: string]: unknown;
-}
-
-export interface AuthContextValue {
-    user: AuthUser | null;
-    loading: boolean;
-    loginSuccess: (userData: AuthUser, token: string) => void;
-    logout: () => void;
-}
+import type { AuthContextValue } from "../types/auth";
 
 const AuthContext = createContext<AuthContextValue | undefined>(undefined);
 
@@ -25,6 +12,3 @@ export const useAuth = (): AuthContextValue => {
 };
 
 export default AuthContext;
-
-
-

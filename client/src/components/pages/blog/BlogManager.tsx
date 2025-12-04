@@ -17,21 +17,11 @@ import api from "../../../services/api";
 import { collection, addDoc, doc, setDoc, deleteDoc, getDocs } from "firebase/firestore";
 import { db } from "../../../firebase";
 import DatabaseSwitch from "../../DatabaseSwitch";
+import type { BlogFormData } from "../../../types/blog";
 
 interface ToastState {
     message: string;
     type: "success" | "error";
-}
-
-interface BlogFormData {
-    id?: string;
-    title: string;
-    content: string;
-    image: string;
-    category: string;
-    created_at?: Date;
-    dbSource?: "firestore" | "postgres";
-    [key: string]: any;
 }
 
 export default function BlogManager() {
@@ -107,7 +97,6 @@ export default function BlogManager() {
             );
 
             const firestoreBlogs: BlogFormData[] = [];
-            // @ts-expect-error - snapshot typing is lenient
             if (firestoreSnapshot && firestoreSnapshot.docs) {
                 // @ts-expect-error - docs is not strongly typed
                 firestoreSnapshot.forEach((d: any) => {

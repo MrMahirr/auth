@@ -15,7 +15,7 @@ import {
 
 interface NavLinkProps {
     to: string;
-    icon: (props: { size?: number }) => JSX.Element;
+    icon: React.ComponentType<{ size?: number }>;
     label: string;
 }
 

@@ -1,14 +1,14 @@
-import React, { useEffect, useState, useRef } from "react";
-import { LexicalComposer } from "@lexical/react/LexicalComposer";
-import { RichTextPlugin } from "@lexical/react/LexicalRichTextPlugin";
-import { ContentEditable } from "@lexical/react/LexicalContentEditable";
-import { HistoryPlugin } from "@lexical/react/LexicalHistoryPlugin";
-import { AutoFocusPlugin } from "@lexical/react/LexicalAutoFocusPlugin";
-import { ListPlugin } from "@lexical/react/LexicalListPlugin";
-import { LinkPlugin } from "@lexical/react/LexicalLinkPlugin";
-import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext";
-import { OnChangePlugin } from "@lexical/react/LexicalOnChangePlugin";
-import { $generateHtmlFromNodes, $generateNodesFromDOM } from "@lexical/html";
+    import React, {useEffect, useState, useRef} from "react";
+import {LexicalComposer} from "@lexical/react/LexicalComposer";
+import {RichTextPlugin} from "@lexical/react/LexicalRichTextPlugin";
+import {ContentEditable} from "@lexical/react/LexicalContentEditable";
+import {HistoryPlugin} from "@lexical/react/LexicalHistoryPlugin";
+import {AutoFocusPlugin} from "@lexical/react/LexicalAutoFocusPlugin";
+import {ListPlugin} from "@lexical/react/LexicalListPlugin";
+import {LinkPlugin} from "@lexical/react/LexicalLinkPlugin";
+import {useLexicalComposerContext} from "@lexical/react/LexicalComposerContext";
+import {OnChangePlugin} from "@lexical/react/LexicalOnChangePlugin";
+import {$generateHtmlFromNodes, $generateNodesFromDOM} from "@lexical/html";
 import {
     $getSelection,
     $isRangeSelection,
@@ -16,13 +16,16 @@ import {
     FORMAT_ELEMENT_COMMAND,
     $getRoot,
 } from "lexical";
-import { $createHeadingNode, $createQuoteNode } from "@lexical/rich-text";
-import { $setBlocksType } from "@lexical/selection";
-import { INSERT_ORDERED_LIST_COMMAND, INSERT_UNORDERED_LIST_COMMAND } from "@lexical/list";
-import { HeadingNode, QuoteNode } from "@lexical/rich-text";
-import { ListNode, ListItemNode } from "@lexical/list";
-import { CodeNode } from "@lexical/code";
-import { AutoLinkNode, LinkNode } from "@lexical/link";
+import {$createHeadingNode, $createQuoteNode} from "@lexical/rich-text";
+import {$setBlocksType} from "@lexical/selection";
+import {INSERT_ORDERED_LIST_COMMAND, INSERT_UNORDERED_LIST_COMMAND} from "@lexical/list";
+import {HeadingNode, QuoteNode} from "@lexical/rich-text";
+import {ListNode, ListItemNode} from "@lexical/list";
+import {CodeNode} from "@lexical/code";
+import {AutoLinkNode, LinkNode} from "@lexical/link";
+import {UNDO_COMMAND, REDO_COMMAND} from "lexical";
+import {LexicalErrorBoundary} from "@lexical/react/LexicalErrorBoundary";
+
 
 import {
     Bold,
@@ -41,7 +44,7 @@ import {
     Heading2,
     Eraser,
 } from "lucide-react";
-import { mergeRegister } from "@lexical/utils";
+import {mergeRegister} from "@lexical/utils";
 
 const theme = {
     paragraph: "mb-2 text-gray-200 leading-relaxed",
@@ -71,7 +74,7 @@ interface ToolbarBtnProps {
     title: string;
 }
 
-const ToolbarBtn: React.FC<ToolbarBtnProps> = ({ icon: Icon, onClick, isActive, title }) => (
+const ToolbarBtn: React.FC<ToolbarBtnProps> = ({icon: Icon, onClick, isActive, title}) => (
     <button
         onClick={(e) => {
             e.preventDefault();
@@ -84,7 +87,7 @@ const ToolbarBtn: React.FC<ToolbarBtnProps> = ({ icon: Icon, onClick, isActive, 
         }`}
         title={title}
     >
-        <Icon size={18} />
+        <Icon size={18}/>
     </button>
 );
 
@@ -97,7 +100,7 @@ const Toolbar: React.FC = () => {
 
     useEffect(() => {
         return mergeRegister(
-            editor.registerUpdateListener(({ editorState }) => {
+            editor.registerUpdateListener(({editorState}) => {
                 editorState.read(() => {
                     const selection = $getSelection();
                     if ($isRangeSelection(selection)) {
@@ -111,7 +114,7 @@ const Toolbar: React.FC = () => {
         );
     }, [editor]);
 
-    const formatText = (format: string) => {
+    const formatText = (format: "bold" | "italic" | "underline" | "strikethrough") => {
         editor.dispatchCommand(FORMAT_TEXT_COMMAND, format);
     };
 
@@ -137,12 +140,13 @@ const Toolbar: React.FC = () => {
         <div className="flex flex-wrap gap-1 p-2 border-b border-white/10 bg-black/40 sticky top-0 z-10">
             <ToolbarBtn
                 icon={Undo}
-                onClick={() => editor.dispatchCommand(Undo as never, undefined)}
+                onClick={() => editor.dispatchCommand(UNDO_COMMAND, undefined)}
                 title="Geri Al"
             />
+
             <ToolbarBtn
                 icon={Redo}
-                onClick={() => editor.dispatchCommand(Redo as never, undefined)}
+                onClick={() => editor.dispatchCommand(REDO_COMMAND, undefined)}
                 title="İleri Al"
             />
             <div className="w-px h-6 bg-white/10 mx-1 self-center"></div>
@@ -173,8 +177,8 @@ const Toolbar: React.FC = () => {
             />
             <div className="w-px h-6 bg-white/10 mx-1 self-center"></div>
 
-            <ToolbarBtn icon={Heading1} onClick={() => formatHeading("h1")} title="Başlık 1" />
-            <ToolbarBtn icon={Heading2} onClick={() => formatHeading("h2")} title="Başlık 2" />
+            <ToolbarBtn icon={Heading1} onClick={() => formatHeading("h1")} title="Başlık 1"/>
+            <ToolbarBtn icon={Heading2} onClick={() => formatHeading("h2")} title="Başlık 2"/>
             <div className="w-px h-6 bg-white/10 mx-1 self-center"></div>
 
             <ToolbarBtn
@@ -204,7 +208,7 @@ const Toolbar: React.FC = () => {
                 onClick={() => editor.dispatchCommand(INSERT_ORDERED_LIST_COMMAND, undefined)}
                 title="Sıralı Liste"
             />
-            <ToolbarBtn icon={Quote} onClick={formatQuote} title="Alıntı" />
+            <ToolbarBtn icon={Quote} onClick={formatQuote} title="Alıntı"/>
             <ToolbarBtn
                 icon={Eraser}
                 onClick={() => editor.dispatchCommand(FORMAT_ELEMENT_COMMAND, "")}
@@ -218,7 +222,7 @@ interface HtmlPluginProps {
     initialHtml: string;
 }
 
-const HtmlPlugin: React.FC<HtmlPluginProps> = ({ initialHtml }) => {
+const HtmlPlugin: React.FC<HtmlPluginProps> = ({initialHtml}) => {
     const [editor] = useLexicalComposerContext();
     const isLoadedRef = useRef(false);
 
@@ -250,7 +254,7 @@ interface EditorProps {
     onChange: (html: string) => void;
 }
 
-const Editor: React.FC<EditorProps> = ({ value, onChange }) => {
+const Editor: React.FC<EditorProps> = ({value, onChange}) => {
     const initialConfig = {
         namespace: "MyEditor",
         theme,
@@ -261,23 +265,25 @@ const Editor: React.FC<EditorProps> = ({ value, onChange }) => {
     };
 
     return (
-        <div className="bg-black/20 border border-white/10 rounded-xl overflow-hidden flex flex-col h-full ring-1 ring-transparent focus-within:ring-cyan-500/50 transition-all shadow-[0_0_20px_rgba(0,0,0,0.2)]">
+        <div
+            className="bg-black/20 border border-white/10 rounded-xl overflow-hidden flex flex-col h-full ring-1 ring-transparent focus-within:ring-cyan-500/50 transition-all shadow-[0_0_20px_rgba(0,0,0,0.2)]">
             <LexicalComposer initialConfig={initialConfig}>
-                <Toolbar />
+                <Toolbar/>
                 <div className="relative flex-1 overflow-y-auto custom-scrollbar bg-black/10">
                     <RichTextPlugin
-                        contentEditable={<ContentEditable className="min-h-full p-6 focus:outline-none" />}
+                        contentEditable={<ContentEditable className="min-h-full p-6"/>}
                         placeholder={
                             <div className="absolute top-6 left-6 text-gray-600 pointer-events-none italic">
                                 Hikayeni yazmaya başla...
                             </div>
                         }
+                        ErrorBoundary={LexicalErrorBoundary}
                     />
-                    <HistoryPlugin />
-                    <ListPlugin />
-                    <LinkPlugin />
-                    <AutoFocusPlugin />
-                    <HtmlPlugin initialHtml={value} />
+                    <HistoryPlugin/>
+                    <ListPlugin/>
+                    <LinkPlugin/>
+                    <AutoFocusPlugin/>
+                    <HtmlPlugin initialHtml={value}/>
                     <OnChangePlugin
                         onChange={(editorState, editorInstance) => {
                             editorState.read(() => {

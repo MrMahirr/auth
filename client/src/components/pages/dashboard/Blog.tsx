@@ -1,47 +1,35 @@
-import { useState, useEffect } from "react";
-import { Calendar, Clock, ArrowLeft, Share2, ChevronRight } from "lucide-react";
+import {useState, useEffect} from "react";
+import {Calendar, Clock, ArrowLeft, Share2, ChevronRight} from "lucide-react";
 import api from "../../../services/api";
-import { collection, getDocs } from "firebase/firestore";
-import { db } from "../../../firebase";
+import {collection, getDocs} from "firebase/firestore";
+import {db} from "../../../firebase";
+import type {Blog} from "../../../types/blog";
 
-interface BlogItem {
-    id?: string;
-    title?: string;
-    content?: string;
-    image?: string;
-    category?: string;
-    createdAt?: string;
-    created_at?: string;
-    [key: string]: any;
-}
-
-export default function Blog() {
-    const [blogs, setBlogs] = useState<BlogItem[]>([]);
-    const [selectedBlog, setSelectedBlog] = useState<BlogItem | null>(null);
+export default function BlogPage() {
+    const [blogs, setBlogs] = useState<Blog[]>([]);
+    const [selectedBlog, setSelectedBlog] = useState<Blog | null>(null);
 
     useEffect(() => {
         const fetchBlogs = async () => {
             try {
-                const apiPromise = api.get("/blogs").catch((err) => {
+                const apiPromise = api.get<Blog[]>("/blogs").catch((err) => {
                     console.error("API fetch error:", err);
-                    return { data: [] as BlogItem[] };
+                    return {data: [] as Blog[]};
                 });
 
-                const firestorePromise = getDocs(collection(db, "blogs")).catch((err) => {
-                    console.error("Firestore fetch error:", err);
-                    return { docs: [] as any[] };
-                });
+                const firestorePromise = getDocs(collection(db, "blogs")).catch(() => null);
 
                 const [apiRes, firestoreSnapshot] = await Promise.all([apiPromise, firestorePromise]);
                 const apiBlogs = Array.isArray(apiRes.data) ? apiRes.data : [];
-                const firestoreBlogs: BlogItem[] = [];
+                const firestoreBlogs: Blog[] = [];
 
-                // @ts-expect-error - Firestore snapshot typing is loose here
+
                 if (firestoreSnapshot && firestoreSnapshot.docs) {
-                    // @ts-expect-error - docs is not strongly typed
+                    // Firestore snapshot tipi dinamik, bu yüzden gevşek tanım kullanıyoruz
+                    // eslint-disable-next-line @typescript-eslint/no-explicit-any
                     firestoreSnapshot.forEach((doc: any) => {
                         const data = doc.data();
-                        const blogData: BlogItem = {
+                        const blogData: Blog = {
                             id: doc.id,
                             ...data,
                             createdAt: data.created_at?.toDate
@@ -55,7 +43,7 @@ export default function Blog() {
                     });
                 }
 
-                const allBlogs = [...firestoreBlogs, ...apiBlogs].sort((a, b) => {
+                const allBlogs: Blog[] = [...firestoreBlogs, ...apiBlogs].sort((a, b) => {
                     const dateA = new Date(a.createdAt || a.created_at || 0);
                     const dateB = new Date(b.createdAt || b.created_at || 0);
                     return dateB.getTime() - dateA.getTime();
@@ -78,25 +66,22 @@ export default function Blog() {
         return `${readTime} dk`;
     };
 
-    const formatDate = (dateString?: string) => {
-        if (!dateString) return "";
-        try {
-            const date = new Date(dateString);
-            if (Number.isNaN(date.getTime())) return "";
-            const options: Intl.DateTimeFormatOptions = {
-                year: "numeric",
-                month: "long",
-                day: "numeric",
-            };
-            return date.toLocaleDateString("tr-TR", options);
-        } catch {
-            return "";
-        }
+    const formatDate = (dateValue?: string | Date) => {
+        if (!dateValue) return "";
+
+        const date = dateValue instanceof Date ? dateValue : new Date(dateValue);
+        if (Number.isNaN(date.getTime())) return "";
+
+        return date.toLocaleDateString("tr-TR", {
+            year: "numeric",
+            month: "long",
+            day: "numeric",
+        });
     };
 
-    const handleReadMore = (blog: BlogItem) => {
+    const handleReadMore = (blog: Blog) => {
         setSelectedBlog(blog);
-        window.scrollTo({ top: 0, behavior: "smooth" });
+        window.scrollTo({top: 0, behavior: "smooth"});
     };
 
     const handleBack = () => {
@@ -134,7 +119,8 @@ export default function Blog() {
     return (
         <div className="min-h-screen text-gray-100 pb-20">
             <div className="relative py-20 px-6 text-center overflow-hidden">
-                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-cyan-500/10 rounded-full blur-[100px] -z-10"></div>
+                <div
+                    className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-cyan-500/10 rounded-full blur-[100px] -z-10"></div>
                 <h1 className="text-5xl md:text-7xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-600 mb-6 tracking-tight">
                     Evrensel Günlük
                 </h1>
@@ -151,12 +137,13 @@ export default function Blog() {
                             className="group flex items-center gap-2 text-cyan-400 hover:text-cyan-300 mb-8 transition-colors"
                         >
                             <div className="p-2 rounded-full bg-cyan-500/10 group-hover:bg-cyan-500/20">
-                                <ArrowLeft size={20} />
+                                <ArrowLeft size={20}/>
                             </div>
                             <span className="font-medium">Bloglara Dön</span>
                         </button>
 
-                        <div className="bg-gray-900/60 backdrop-blur-xl border border-white/10 rounded-3xl overflow-hidden shadow-[0_0_40px_rgba(0,0,0,0.5)]">
+                        <div
+                            className="bg-gray-900/60 backdrop-blur-xl border border-white/10 rounded-3xl overflow-hidden shadow-[0_0_40px_rgba(0,0,0,0.5)]">
                             <div className="h-[400px] w-full relative">
                                 {selectedBlog.image && (
                                     <img
@@ -165,10 +152,12 @@ export default function Blog() {
                                         className="w-full h-full object-cover"
                                     />
                                 )}
-                                <div className="absolute inset-0 bg-gradient-to-t from-gray-900 via-gray-900/20 to-transparent"></div>
+                                <div
+                                    className="absolute inset-0 bg-gradient-to-t from-gray-900 via-gray-900/20 to-transparent"></div>
                                 <div className="absolute bottom-6 left-6 right-6">
                                     {selectedBlog.category && (
-                                        <span className="inline-block px-3 py-1 bg-cyan-500/20 text-cyan-400 border border-cyan-500/30 rounded-full text-sm font-semibold mb-3 backdrop-blur-md">
+                                        <span
+                                            className="inline-block px-3 py-1 bg-cyan-500/20 text-cyan-400 border border-cyan-500/30 rounded-full text-sm font-semibold mb-3 backdrop-blur-md">
                                             {selectedBlog.category}
                                         </span>
                                     )}
@@ -177,13 +166,13 @@ export default function Blog() {
                                     </h1>
                                     <div className="flex items-center gap-6 text-gray-300 text-sm">
                                         <div className="flex items-center gap-2">
-                                            <Calendar size={16} className="text-purple-400" />
+                                            <Calendar size={16} className="text-purple-400"/>
                                             {formatDate(
                                                 selectedBlog.createdAt || selectedBlog.created_at
                                             )}
                                         </div>
                                         <div className="flex items-center gap-2">
-                                            <Clock size={16} className="text-purple-400" />
+                                            <Clock size={16} className="text-purple-400"/>
                                             {calculateReadTime(selectedBlog.content)} okuma süresi
                                         </div>
                                     </div>
@@ -207,7 +196,7 @@ export default function Blog() {
                                         className="flex items-center gap-2 text-gray-400 hover:text-white transition-colors"
                                         onClick={handleShare}
                                     >
-                                        <Share2 size={18} /> <span className="text-sm">Paylaş</span>
+                                        <Share2 size={18}/> <span className="text-sm">Paylaş</span>
                                     </button>
                                 </div>
                             </div>
@@ -231,7 +220,8 @@ export default function Blog() {
                                     )}
                                     <div className="absolute top-4 left-4">
                                         {blog.category && (
-                                            <span className="px-3 py-1 bg-black/60 backdrop-blur-md text-xs font-bold text-white rounded-full border border-white/10">
+                                            <span
+                                                className="px-3 py-1 bg-black/60 backdrop-blur-md text-xs font-bold text-white rounded-full border border-white/10">
                                                 {blog.category}
                                             </span>
                                         )}
@@ -241,12 +231,12 @@ export default function Blog() {
                                 <div className="p-6">
                                     <div className="flex items-center gap-3 text-xs text-gray-400 mb-3">
                                         <span className="flex items-center gap-1">
-                                            <Calendar size={12} />{" "}
+                                            <Calendar size={12}/>{" "}
                                             {formatDate(blog.createdAt || blog.created_at)}
                                         </span>
                                         <span className="w-1 h-1 rounded-full bg-gray-600"></span>
                                         <span className="flex items-center gap-1">
-                                            <Clock size={12} /> {calculateReadTime(blog.content)}
+                                            <Clock size={12}/> {calculateReadTime(blog.content)}
                                         </span>
                                     </div>
 
@@ -258,12 +248,15 @@ export default function Blog() {
                                         {(blog.content || "").replace(/<[^>]+>/g, "")}
                                     </p>
 
-                                    <div className="flex items-center text-cyan-400 text-sm font-semibold group-hover:translate-x-1 transition-transform">
-                                        <>Devamını O</>ku <ChevronRight size={16} className="ml-1" />
+                                    <div
+                                        className="flex items-center text-cyan-400 text-sm font-semibold group-hover:translate-x-1 transition-transform">
+                                        <>Devamını O</>
+                                        ku <ChevronRight size={16} className="ml-1"/>
                                     </div>
                                 </div>
 
-                                <div className="absolute inset-0 border-2 border-transparent group-hover:border-cyan-500/20 rounded-2xl pointer-events-none transition-colors"></div>
+                                <div
+                                    className="absolute inset-0 border-2 border-transparent group-hover:border-cyan-500/20 rounded-2xl pointer-events-none transition-colors"></div>
                             </div>
                         ))}
                     </div>

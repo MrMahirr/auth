@@ -6,27 +6,14 @@
   <component name="ChangeListManager">
     <list default="true" id="0498930d-d12a-40c3-a4a9-c33ae8b0e5f1" name="Changes" comment="feat(client): migrate frontend to full TypeScript setup">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/pages/dashboard/Profile.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/pages/dashboard/Profile.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/uploads/blogs/1764185827446-506449767.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/uploads/blogs/1764185993606-840250126.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/uploads/blogs/1764186218429-71859034.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/uploads/blogs/1764186536121-828418025.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/uploads/blogs/1764186749138-955786834.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/uploads/blogs/1764189874311-891437019.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/uploads/blogs/1764190226751-931502742.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/uploads/blogs/1764191409235-412289449.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/uploads/blogs/1764191701643-561441763.jpeg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/uploads/blogs/1764282229790-150999851.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/uploads/blogs/1764763685068-440555459.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/uploads/blogs/1764772500265-469470372.jpeg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/uploads/blogs/1764793587378-292365621.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/uploads/blogs/1764799303594-801981248.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/uploads/blogs/1764852714669-427042373.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/uploads/blogs/1764852723038-547321859.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/uploads/users/1764187371425-325949787.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/uploads/users/1764187601392-808619661.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/uploads/users/1764187733206-399958509.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/uploads/users/1764189862961-326515500.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/Editor.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/Editor.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/layouts/Header.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/layouts/Header.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/pages/blog/BlogManager.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/pages/blog/BlogManager.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/pages/dashboard/Blog.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/pages/dashboard/Blog.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/pages/dashboard/DashboardPage.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/pages/dashboard/DashboardPage.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/context/AuthContext.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/context/AuthContext.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/context/AuthProvider.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/context/AuthProvider.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/tsconfig.json" beforeDir="false" afterPath="$PROJECT_DIR$/client/tsconfig.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -72,27 +59,27 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultModelSelectionForGA.v1": "true",
-    "git-widget-placeholder": "service-ve-gateway",
-    "ignore.virus.scanning.warn.message": "true",
-    "junie.onboarding.icon.badge.shown": "true",
-    "last_opened_file_path": "C:/Users/MrMahirr/Desktop/auth/client",
-    "node.js.detected.package.eslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "prettierjs.PrettierConfiguration.Package": "C:\\Users\\MrMahirr\\Desktop\\auth\\server\\node_modules\\prettier",
-    "run.code.analysis.last.selected.profile": "pProject Default",
-    "to.speed.mode.migration.done": "true",
-    "ts.external.directory.path": "C:\\Users\\MrMahirr\\Desktop\\auth\\client\\node_modules\\typescript\\lib",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultModelSelectionForGA.v1&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;service-ve-gateway&quot;,
+    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
+    &quot;junie.onboarding.icon.badge.shown&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/MrMahirr/Desktop/auth/client&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;prettierjs.PrettierConfiguration.Package&quot;: &quot;C:\\Users\\MrMahirr\\Desktop\\auth\\server\\node_modules\\prettier&quot;,
+    &quot;run.code.analysis.last.selected.profile&quot;: &quot;pProject Default&quot;,
+    &quot;to.speed.mode.migration.done&quot;: &quot;true&quot;,
+    &quot;ts.external.directory.path&quot;: &quot;C:\\Users\\MrMahirr\\Desktop\\auth\\client\\node_modules\\typescript\\lib&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\MrMahirr\Desktop\auth\client" />
@@ -147,7 +134,8 @@
       <workItem from="1764700028847" duration="3132000" />
       <workItem from="1764741929365" duration="18676000" />
       <workItem from="1764770941392" duration="14995000" />
-      <workItem from="1764846186857" duration="4861000" />
+      <workItem from="1764846186857" duration="7413000" />
+      <workItem from="1764855791540" duration="1519000" />
     </task>
     <task id="LOCAL-00002" summary="login giriş yapıldı.">
       <option name="closed" value="true" />
@@ -365,7 +353,15 @@
       <option name="project" value="LOCAL" />
       <updated>1764852985533</updated>
     </task>
-    <option name="localTasksCounter" value="29" />
+    <task id="LOCAL-00029" summary="feat(client): migrate frontend to full TypeScript setup">
+      <option name="closed" value="true" />
+      <created>1764853098302</created>
+      <option name="number" value="00029" />
+      <option name="presentableId" value="LOCAL-00029" />
+      <option name="project" value="LOCAL" />
+      <updated>1764853098302</updated>
+    </task>
+    <option name="localTasksCounter" value="30" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

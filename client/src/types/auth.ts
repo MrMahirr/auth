@@ -1,0 +1,23 @@
+export interface AuthUser {
+    id?: string | number;
+    username?: string;
+    name?: string;
+    surname?: string;
+    email?: string;
+    image?: string;
+    avatar?: string;
+    bio?: string;
+    gender?: string;
+    dateofbirth?: string;
+    token?: string;
+    [key: string]: unknown;
+}
+
+export interface AuthContextValue {
+    user: AuthUser | null;
+    loading: boolean;
+    loginSuccess: (userData: AuthUser, token: string) => void;
+    logout: () => void;
+}
+
+
