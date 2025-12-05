@@ -265,8 +265,7 @@ const Editor: React.FC<EditorProps> = ({value, onChange}) => {
     };
 
     return (
-        <div
-            className="bg-black/20 border border-white/10 rounded-xl overflow-hidden flex flex-col h-full ring-1 ring-transparent focus-within:ring-cyan-500/50 transition-all shadow-[0_0_20px_rgba(0,0,0,0.2)]">
+        <div className="bg-black/20 border border-white/10 rounded-xl overflow-hidden flex flex-col h-full ring-1 ring-transparent focus-within:ring-cyan-500/50 transition-all shadow-[0_0_20px_rgba(0,0,0,0.2)]">
             <LexicalComposer initialConfig={initialConfig}>
                 <Toolbar/>
                 <div className="relative flex-1 overflow-y-auto custom-scrollbar bg-black/10">

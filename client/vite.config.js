@@ -4,12 +4,16 @@ import tailwindcss from '@tailwindcss/vite'
 
 
 export default defineConfig({
-  plugins: [
-      react(),
-      tailwindcss()
-  ],
+    plugins: [
+        react(),
+        tailwindcss()
+    ],
     server: {
         port: 3001,
+        host: true,
+        watch: {
+            usePolling: true,
+        },
     },
     build: {
         target: "esnext",
