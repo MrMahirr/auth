@@ -7,7 +7,7 @@ import { Request } from 'express';
 type DestinationCallback = (error: Error | null, destination: string) => void;
 type FileFilterCallback = (error: Error | null, acceptFile: boolean) => void;
 
-const ALLOWED_FOLDERS = ['blogs', 'avatar', 'product'];
+const ALLOWED_FOLDERS = ['blogs', 'users'];
 
 export const multerOptions = {
   storage: diskStorage({

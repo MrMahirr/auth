@@ -5,7 +5,7 @@ export class UserGateway {
     private api = new ApiClient();
 
     updateUser(data: UpdateUserDto) {
-        return this.api.put<User>("/user", data);
+        return this.api.put<User>("/user", { user: data });
     }
 
     getUser() {
@@ -25,4 +25,5 @@ export class UserGateway {
             data: { filename, folder: "users" },
         });
     }
+
 }
