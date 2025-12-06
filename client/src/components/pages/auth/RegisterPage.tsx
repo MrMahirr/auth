@@ -1,16 +1,16 @@
-import { useState, useEffect, useRef } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import { serviceContainer } from "../../../containers/serviceContainer";
+import {useState, useEffect, useRef} from "react";
+import {Link, useNavigate} from "react-router-dom";
+import {serviceContainer} from "../../../containers/serviceContainer";
 
-import { Button } from "primereact/button";
-import { InputText } from "primereact/inputtext";
-import { Checkbox, CheckboxChangeEvent } from "primereact/checkbox";
-import { Calendar } from "primereact/calendar";
-import { Dropdown, DropdownChangeEvent } from "primereact/dropdown";
-import { FileUpload } from "primereact/fileupload";
-import { Password } from "primereact/password";
-import { Toast } from "primereact/toast";
-import type { ToastMessage } from "primereact/toast";
+import {Button} from "primereact/button";
+import {InputText} from "primereact/inputtext";
+import {Checkbox, CheckboxChangeEvent} from "primereact/checkbox";
+import {Calendar} from "primereact/calendar";
+import {Dropdown, DropdownChangeEvent} from "primereact/dropdown";
+import {FileUpload} from "primereact/fileupload";
+import {Password} from "primereact/password";
+import {Toast} from "primereact/toast";
+import type {ToastMessage} from "primereact/toast";
 
 interface GenderOption {
     label: string;
@@ -64,6 +64,15 @@ function RegisterPage() {
             return;
         }
 
+        if (password.length < 6) {
+            showToast({
+                severity: "warn",
+                summary: "Güvenlik Uyarısı",
+                detail: "Şifre en az 6 karakter olmalıdır.",
+            });
+            return;
+        }
+
         if (!email || !password || !firstName || !lastName || !username || !dob || !gender) {
             showToast({
                 severity: "warn",
@@ -79,18 +88,19 @@ function RegisterPage() {
             const formattedDob = dob ? dob.toISOString().split("T")[0] : "";
 
             const payload = {
-                user: {
-                    username: username,
-                    name: firstName,
-                    surname: lastName,
-                    email: email,
-                    password: password,
-                    gender: gender,
-                    dateofbirth: formattedDob,
-                },
+
+                username: username,
+                name: firstName,
+                surname: lastName,
+                email: email,
+                password: password,
+                gender: gender,
+                dateofbirth: formattedDob,
+
             };
 
             const response = await serviceContainer.authService.register(payload);
+            console.log(response);
 
             console.log("Kayıt Başarılı:", response);
 
@@ -119,9 +129,9 @@ function RegisterPage() {
     };
 
     const genderOptions: GenderOption[] = [
-        { label: "Erkek", value: "male" },
-        { label: "Kadın", value: "female" },
-        { label: "Belirtmek İstemiyorum", value: "other" },
+        {label: "Erkek", value: "male"},
+        {label: "Kadın", value: "female"},
+        {label: "Belirtmek İstemiyorum", value: "other"},
     ];
 
     const inputClass =
@@ -130,9 +140,9 @@ function RegisterPage() {
     return (
         <div
             className={`relative z-20 w-full max-w-lg rounded-2xl border border-blue-500/50 bg-gray-900/60 p-8 text-white backdrop-blur-lg animate-pulse-glow transition-all duration-1000 ease-out ${isMounted ? "translate-y-0 opacity-100" : "translate-y-20 opacity-0"
-                }`}
+            }`}
         >
-            <Toast ref={toast} />
+            <Toast ref={toast}/>
 
             <h2 className="mb-6 animate-pulse text-center text-3xl font-bold text-blue-300">
                 Hesap Oluştur
@@ -245,10 +255,10 @@ function RegisterPage() {
                         placeholder="Cinsiyet"
                         className="w-full md:w-1/2 !bg-gray-800 !border-none rounded-md"
                         pt={{
-                            input: { className: "!text-white" },
-                            trigger: { className: "!text-gray-400" },
-                            panel: { className: "!bg-gray-800 !text-white" },
-                            item: { className: "hover:!bg-gray-700" },
+                            input: {className: "!text-white"},
+                            trigger: {className: "!text-gray-400"},
+                            panel: {className: "!bg-gray-800 !text-white"},
+                            item: {className: "hover:!bg-gray-700"},
                         }}
                     />
                 </div>
@@ -329,7 +339,7 @@ function RegisterPage() {
                         to="/login"
                         className="font-semibold text-blue-400 transition-colors hover:text-blue-300 hover:underline"
                     >
-                        <i className="pi pi-sign-in mr-1 text-xs" />
+                        <i className="pi pi-sign-in mr-1 text-xs"/>
                         Giriş Yap
                     </Link>
                 </div>
@@ -339,6 +349,7 @@ function RegisterPage() {
 }
 
 export default RegisterPage;
+
 
 
 

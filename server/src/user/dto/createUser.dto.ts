@@ -1,21 +1,50 @@
-import { IsEmail, IsNotEmpty, IsOptional, IsString } from 'class-validator';
+import {
+  IsDateString,
+  IsEmail,
+  IsNotEmpty,
+  IsOptional,
+  IsString,
+  MinLength,
+} from 'class-validator';
 
 export class CreateUserDto {
   @IsNotEmpty()
+  @IsString()
   readonly username: string;
+
   @IsNotEmpty()
-  name: string;
+  @IsString()
+  readonly name: string;
+
   @IsNotEmpty()
-  surname: string;
+  @IsString()
+  readonly surname: string;
+
   @IsEmail()
   readonly email: string;
-  @IsNotEmpty()
-  readonly gender: string;
-  @IsNotEmpty()
-  readonly dateofbirth: string;
-  @IsNotEmpty()
-  readonly password: string;
+
   @IsOptional()
   @IsString()
-  readonly image: string;
+  readonly bio?: string;
+
+  @IsOptional()
+  @IsString()
+  readonly gender?: string;
+
+  @IsOptional()
+  @IsDateString()
+  readonly dateofbirth?: string;
+
+  @IsNotEmpty()
+  @IsString()
+  @MinLength(6, { message: 'Password must be at least 6 characters long' })
+  readonly password: string;
+
+  @IsOptional()
+  @IsString()
+  readonly image?: string;
+
+  @IsOptional()
+  @IsString()
+  readonly refreshToken?: string | null;
 }

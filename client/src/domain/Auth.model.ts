@@ -1,9 +1,10 @@
-import { User } from "./User.model";
+import {User} from "./User.model";
 
 export interface AuthResponse {
     token: string;
     user: User;
 }
+
 export interface LoginDto {
     email: string;
     password: string;
@@ -17,24 +18,25 @@ export interface LoginResponse {
         name: string;
         email: string;
         role?: string;
-    };
-}
-export interface RegisterDto {
-    user: {
-        username: string;
-        name: string;
-        surname: string;
-        email: string;
-        password: string;
-        gender: string | null;
-        dateofbirth: string;
     }
+}
+
+export interface RegisterDto {
+
+    username: string;
+    name: string;
+    surname: string;
+    email: string;
+    password: string;
+    gender: string | null;
+    dateofbirth: string | null;
+
 
 }
 
 export interface GoogleLoginDto {
-    user: {
-        email: string;
-        username: string;
-    }
+
+    email: string;
+    username: string;
+
 }

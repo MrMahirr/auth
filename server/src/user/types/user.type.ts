@@ -1,3 +1,11 @@
-import { UserEntity } from '@/user/user.entity';
-
-export type IUser = Omit<UserEntity, 'hashPassword'>;
+export interface IUser {
+  id: number;
+  username: string;
+  name: string;
+  surname: string;
+  email: string;
+  bio: string;
+  image: string;
+  gender?: string;
+  dateofbirth?: string;
+}

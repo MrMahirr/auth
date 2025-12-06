@@ -36,7 +36,7 @@ export class UserController {
   @Post('users')
   @UsePipes(new ValidationPipe())
   async createUser(
-    @Body('user') dto: CreateUserDto,
+    @Body() dto: CreateUserDto,
     @Res({ passthrough: true }) res: express.Response,
   ): Promise<IUserResponse> {
     const result = await this.userService.createUser(dto);
@@ -48,7 +48,7 @@ export class UserController {
   @Post('users/login')
   @UsePipes(new ValidationPipe())
   async loginUser(
-    @Body('user') dto: LoginDto,
+    @Body() dto: LoginDto,
     @Res({ passthrough: true }) res: express.Response,
   ): Promise<IUserResponse> {
     const result = await this.userService.loginUser(dto);
@@ -59,7 +59,7 @@ export class UserController {
 
   @Post('users/google-login')
   async googleLogin(
-    @Body('user') dto: GoogleLoginDto,
+    @Body() dto: GoogleLoginDto,
     @Res({ passthrough: true }) res: express.Response,
   ): Promise<IUserResponse> {
     const result = await this.userService.loginWithGoogle(dto);

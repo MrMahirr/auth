@@ -1,19 +1,19 @@
-import { useState, useRef, useEffect } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import { useAuth } from "../../../context/AuthContext";
-import { signInWithGoogle } from "../../../firebase";
-import { Button } from "primereact/button";
-import { InputText } from "primereact/inputtext";
-import { Checkbox, CheckboxChangeEvent } from "primereact/checkbox";
-import { Password } from "primereact/password";
-import { Toast } from "primereact/toast";
-import type { ToastMessage } from "primereact/toast";
-import { serviceContainer } from "../../../containers/serviceContainer";
+import {useState, useRef, useEffect} from "react";
+import {Link, useNavigate} from "react-router-dom";
+import {useAuth} from "../../../context/AuthContext";
+import {signInWithGoogle} from "../../../firebase";
+import {Button} from "primereact/button";
+import {InputText} from "primereact/inputtext";
+import {Checkbox, CheckboxChangeEvent} from "primereact/checkbox";
+import {Password} from "primereact/password";
+import {Toast} from "primereact/toast";
+import type {ToastMessage} from "primereact/toast";
+import {serviceContainer} from "../../../containers/serviceContainer";
 
 function LoginPage() {
     const navigate = useNavigate();
     const toast = useRef<Toast | null>(null);
-    const { loginSuccess } = useAuth();
+    const {loginSuccess} = useAuth();
 
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
@@ -35,10 +35,10 @@ function LoginPage() {
             const googleUser = await signInWithGoogle();
 
             const payload = {
-                user: {
-                    email: googleUser.email || "",
-                    username: googleUser.displayName || "",
-                },
+
+                "email": googleUser.email || "",
+                "username": googleUser.displayName || "",
+
             };
 
             const response = await serviceContainer.authService.googleLogin(payload);
@@ -46,7 +46,7 @@ function LoginPage() {
             const token = response.access_token;
             const userData = response.user;
 
-            loginSuccess(userData, { access: token, refresh: "" });
+            loginSuccess(userData, {access: token, refresh: ""});
 
             showToast({
                 severity: "success",
@@ -58,7 +58,7 @@ function LoginPage() {
             console.error("Google Login Hatası:", error);
             const errorMsg =
                 error.response?.data?.message || "Google girişi sırasında hata oluştu.";
-            showToast({ severity: "error", summary: "Hata", detail: errorMsg });
+            showToast({severity: "error", summary: "Hata", detail: errorMsg});
         }
     };
 
@@ -77,22 +77,20 @@ function LoginPage() {
         setLoading(true);
 
         try {
-            const dto = { email, password };
+            const dto = {email, password};
 
             const response = await serviceContainer.authService.login(dto);
-            loginSuccess(response.user, { access: response.access_token, refresh: "" });
+            loginSuccess(response.user, {access: response.access_token, refresh: ""});
 
             navigate("/");
         } catch (error: any) {
-            const errorMessage =
-
-                error.response?.data?.message || "Giriş başarısız.";
+            const errorMessage = error.response?.data?.message;
+            const displayError = Array.isArray(errorMessage) ? errorMessage[0] : (errorMessage || "Giriş başarısız.");
 
             showToast({
                 severity: "error",
                 summary: "Hata",
-
-                detail: errorMessage,
+                detail: displayError,
             });
         } finally {
             setLoading(false);
@@ -105,9 +103,9 @@ function LoginPage() {
     return (
         <div
             className={`relative z-20 w-full max-w-md rounded-2xl border border-blue-500/50 bg-gray-900/60 p-8 text-white backdrop-blur-lg transition-all duration-1000 ease-out ${isMounted ? "translate-y-0 opacity-100" : "translate-y-20 opacity-0"
-                }`}
+            }`}
         >
-            <Toast ref={toast} />
+            <Toast ref={toast}/>
             <h2 className="mb-6 text-center text-3xl font-bold text-blue-300">
                 Giriş Yap
             </h2>
@@ -212,6 +210,7 @@ function LoginPage() {
 }
 
 export default LoginPage;
+
 
 
 

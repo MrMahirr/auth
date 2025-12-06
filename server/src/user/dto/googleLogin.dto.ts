@@ -20,4 +20,7 @@ export class GoogleLoginDto {
   @IsOptional()
   @IsString()
   readonly image?: string;
+  @IsOptional()
+  @IsString()
+  readonly refreshToken: string;
 }

@@ -160,10 +160,20 @@ export class UserService {
     const refreshToken = this.getRefreshToken(user);
 
     await this.setRefreshToken(user, refreshToken);
+    delete user.password;
 
+    const plainUser = {
+      id: user.id,
+      username: user.username,
+      name: user.name,
+      surname: user.surname,
+      email: user.email,
+      image: user.image,
+      bio: user.bio,
+    };
     return {
       user: {
-        ...user,
+        ...plainUser,
         token: accessToken,
         refreshToken,
       },
