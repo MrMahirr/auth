@@ -11,9 +11,15 @@ export class AuthService {
 
         return response;
     }
-    logout() {
-        localStorage.removeItem("token");
-        localStorage.removeItem("user");
+    async logout() {
+        try {
+            await this.gateway.logout();
+        } catch (error) {
+            console.error("Logout failed", error);
+        } finally {
+            localStorage.removeItem("access_token");
+            localStorage.removeItem("user");
+        }
     }
 
     async register(data: RegisterDto) {
@@ -23,6 +29,13 @@ export class AuthService {
 
     async googleLogin(data: GoogleLoginDto) {
         const res = await this.gateway.googleLogin(data);
+        localStorage.setItem("access_token", res.access_token);
+        localStorage.setItem("user", JSON.stringify(res.user));
+        return res;
+    }
+
+    async refreshToken(token: string) {
+        const res = await this.gateway.refresh(token);
         localStorage.setItem("access_token", res.access_token);
         localStorage.setItem("user", JSON.stringify(res.user));
         return res;

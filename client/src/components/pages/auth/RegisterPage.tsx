@@ -64,11 +64,11 @@ function RegisterPage() {
             return;
         }
 
-        if (!email || !password || !firstName || !username) {
+        if (!email || !password || !firstName || !lastName || !username || !dob || !gender) {
             showToast({
                 severity: "warn",
                 summary: "Eksik Bilgi",
-                detail: "Lütfen zorunlu alanları doldurun.",
+                detail: "Lütfen tüm zorunlu alanları (Doğum Tarihi ve Cinsiyet dahil) doldurun.",
             });
             return;
         }
@@ -339,6 +339,7 @@ function RegisterPage() {
 }
 
 export default RegisterPage;
+
 
 
 

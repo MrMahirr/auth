@@ -23,4 +23,13 @@ export class AuthGateway {
     me() {
         return this.api.get<AuthResponse>("/user");
     }
+
+    logout() {
+        return this.api.post("/logout");
+    }
+
+    async refresh(refreshToken: string): Promise<LoginResponse> {
+        const response = await this.api.post<LoginResponse>("/refresh", { token: refreshToken });
+        return response.data;
+    }
 }

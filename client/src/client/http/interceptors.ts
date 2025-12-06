@@ -1,6 +1,5 @@
-// src/client/http/interceptors.ts
-import axios, { AxiosError } from "axios";
-import { axiosInstance } from "./axiosInstance";
+import axios, {AxiosError} from "axios";
+import {axiosInstance} from "./axiosInstance";
 
 let isRefreshing = false;
 let failedQueue: any[] = [];
@@ -15,7 +14,6 @@ const processQueue = (error: any, token: string | null = null) => {
 };
 
 export function setupInterceptors() {
-    // REQUEST — Token ekleme
     axiosInstance.interceptors.request.use((config) => {
         const token = localStorage.getItem("access_token");
         if (token) {
@@ -25,7 +23,6 @@ export function setupInterceptors() {
         return config;
     });
 
-    // RESPONSE — Refresh mekanizması
     axiosInstance.interceptors.response.use(
         res => res,
         async (error: AxiosError) => {
@@ -36,7 +33,7 @@ export function setupInterceptors() {
 
                 if (isRefreshing) {
                     return new Promise(function (resolve, reject) {
-                        failedQueue.push({ resolve, reject });
+                        failedQueue.push({resolve, reject});
                     })
                         .then((token) => {
                             originalRequest.headers["Authorization"] = `Bearer ${token}`;
@@ -49,9 +46,9 @@ export function setupInterceptors() {
 
                 try {
                     const refreshToken = localStorage.getItem("refresh_token");
-                    const { data } = await axios.post(
-                        `${import.meta.env.VITE_API_URL}/auth/refresh`,
-                        { refresh_token: refreshToken }
+                    const {data} = await axios.post(
+                        `${import.meta.env.VITE_API_URL}/refresh`,
+                        {refresh_token: refreshToken}
                     );
 
                     const newAccessToken = data.access_token;

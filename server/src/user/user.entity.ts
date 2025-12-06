@@ -27,13 +27,14 @@ export class UserEntity {
   gender: string;
   @Column({ default: '' })
   dateofbirth: string;
-  @Column({ default: '' }) // String veriler için
+  @Column({ default: '' })
   image: string;
   @Column()
   password?: string;
   @OneToMany(() => BlogEntity, (blog) => blog.author)
   blogs: BlogEntity[];
-
+  @Column({ type: 'text', nullable: true })
+  refreshToken?: string | null;
   @BeforeInsert()
   @BeforeUpdate()
   async hashPassword() {

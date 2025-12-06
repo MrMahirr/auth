@@ -1,11 +1,16 @@
-import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
+import {
+  HttpException,
+  HttpStatus,
+  Injectable,
+  UnauthorizedException,
+} from '@nestjs/common';
 import { CreateUserDto } from '@/user/dto/createUser.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { UserEntity } from '@/user/user.entity';
 import { Repository } from 'typeorm';
 import { IUserResponse } from '@/user/types/userResponse.interface';
-import { sign } from 'jsonwebtoken';
-import { compare } from 'bcrypt';
+import jwt, { Secret, SignOptions } from 'jsonwebtoken';
+import { compare, hash } from 'bcrypt';
 import { LoginDto } from '@/user/dto/loginUser.dto';
 import { GoogleLoginDto } from '@/user/dto/googleLogin.dto';
 import { UpdateUserDto } from '@/user/dto/updateUser.dto';
@@ -40,62 +45,63 @@ export class UserService {
       );
     }
     const savedUser = await this.userRepository.save(newUser);
-    return this.generateUserResponse(savedUser);
+    return this.buildAuthResponse(savedUser);
   }
 
-  async loginUser(loginUserDto: LoginDto): Promise<UserEntity> {
+  // ========== LOGIN USER ==========
+
+  async loginUser(loginUserDto: LoginDto): Promise<IUserResponse> {
     const user = await this.userRepository.findOne({
       where: {
         email: loginUserDto.email,
       },
       select: ['id', 'username', 'email', 'password', 'image', 'bio'],
     });
+
     if (!user) {
       throw new HttpException(
         'Wrong email or password',
         HttpStatus.UNAUTHORIZED,
       );
     }
-    const matchPassword = await compare(loginUserDto.password, user.password!);
-    if (!matchPassword) {
+
+    const passwordMatches = await compare(
+      loginUserDto.password,
+      user.password!,
+    );
+
+    if (!passwordMatches) {
       throw new HttpException(
         'Wrong email or password',
         HttpStatus.UNAUTHORIZED,
       );
     }
+
     delete user.password;
-    return user;
+    return this.buildAuthResponse(user);
   }
+
+  // ========== GOOGLE LOGIN ==========
+
   async loginWithGoogle(
     googleLoginDto: GoogleLoginDto,
   ): Promise<IUserResponse> {
-    const user = await this.userRepository.findOne({
+    let user = await this.userRepository.findOne({
       where: { email: googleLoginDto.email },
     });
 
-    if (user) {
-      return this.generateUserResponse(user);
+    if (!user) {
+      const newUser = new UserEntity();
+      newUser.email = googleLoginDto.email;
+      newUser.username = googleLoginDto.username;
+      newUser.password = Math.random().toString(36).slice(-8) + 'Aa1!';
+      user = await this.userRepository.save(newUser);
     }
 
-    const newUser = new UserEntity();
-    newUser.email = googleLoginDto.email;
-    // newUser.image = googleLoginDto.image;
-
-    let uniqueUsername = googleLoginDto.username;
-    const existingUsername = await this.userRepository.findOne({
-      where: { username: uniqueUsername },
-    });
-
-    if (existingUsername) {
-      uniqueUsername = `${uniqueUsername}${Math.floor(Math.random() * 1000)}`;
-    }
-    newUser.username = uniqueUsername;
-
-    newUser.password = Math.random().toString(36).slice(-8) + 'Aa1!';
-
-    const savedUser = await this.userRepository.save(newUser);
-    return this.generateUserResponse(savedUser);
+    return this.buildAuthResponse(user);
   }
+
+  // ========== UPDATE USER ==========
 
   async updateUser(
     userId: number,
@@ -103,15 +109,11 @@ export class UserService {
   ): Promise<UserEntity> {
     const user = await this.findById(userId);
     Object.assign(user, updateUserDto);
-
     return await this.userRepository.save(user);
   }
+
   async findById(id: number): Promise<UserEntity> {
-    const user = await this.userRepository.findOne({
-      where: {
-        id,
-      },
-    });
+    const user = await this.userRepository.findOne({ where: { id } });
     if (!user) {
       throw new HttpException(
         `User with ID ${id} not found`,
@@ -120,22 +122,82 @@ export class UserService {
     }
     return user;
   }
-  generateToken(user: UserEntity): string {
-    return sign(
-      {
-        id: user.id,
-        username: user.username,
-        email: user.email,
-      },
-      this.configService.getOrThrow<string>('JWT_SECRET'),
-    );
+
+  // ========== TOKEN HELPERS ==========
+
+  private getAccessToken(user: UserEntity) {
+    const payload = { id: user.id, email: user.email };
+
+    const secret = this.configService.getOrThrow<string>(
+      'JWT_SECRET',
+    ) as Secret;
+
+    const expiresIn = this.configService.getOrThrow<string>(
+      'JWT_EXPIRES_IN',
+    ) as SignOptions['expiresIn'];
+
+    const options: SignOptions = { expiresIn };
+
+    return jwt.sign(payload, secret, options);
   }
-  generateUserResponse(user: UserEntity): IUserResponse {
+
+  private getRefreshToken(user: UserEntity) {
+    const payload = { id: user.id, email: user.email };
+
+    const secret = this.configService.getOrThrow<string>(
+      'JWT_REFRESH_SECRET',
+    ) as Secret;
+
+    const expiresIn = this.configService.getOrThrow<string>(
+      'JWT_REFRESH_EXPIRES_IN',
+    ) as SignOptions['expiresIn'];
+
+    const options: SignOptions = { expiresIn };
+
+    return jwt.sign(payload, secret, options);
+  }
+
+  private async setRefreshToken(user: UserEntity, token: string) {
+    const hashed = await hash(token, 10);
+    user.refreshToken = hashed;
+    await this.userRepository.save(user);
+  }
+
+  private async buildAuthResponse(user: UserEntity): Promise<IUserResponse> {
+    const accessToken = this.getAccessToken(user);
+    const refreshToken = this.getRefreshToken(user);
+
+    await this.setRefreshToken(user, refreshToken);
+
     return {
       user: {
         ...user,
-        token: this.generateToken(user),
+        token: accessToken,
+        refreshToken,
       },
     };
+  }
+
+  // ========== REFRESH TOKEN ==========
+
+  async refreshTokens(userId: number, oldToken: string) {
+    const user = await this.userRepository.findOne({
+      where: { id: userId },
+    });
+
+    if (!user || !user.refreshToken)
+      throw new UnauthorizedException('Invalid refresh request');
+
+    const matches = await compare(oldToken, user.refreshToken);
+    if (!matches) throw new UnauthorizedException('Refresh token mismatch');
+
+    return this.buildAuthResponse(user);
+  }
+
+  // ========== LOGOUT ==========
+
+  async logout(userId: number) {
+    await this.userRepository.update(userId, { refreshToken: null });
+    return { message: 'Logged out successfully' };
   }
 }

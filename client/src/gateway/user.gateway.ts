@@ -12,6 +12,10 @@ export class UserGateway {
         return this.api.get<User>("/user");
     }
 
+    getProfile() {
+        return this.api.get<User>("/profile");
+    }
+
     uploadAvatar(file: File) {
         const formData = new FormData();
         formData.append("file", file);

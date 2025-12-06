@@ -13,6 +13,11 @@ export class UserService {
         return user.data;
     }
 
+    async getProfile() {
+        const user = await this.gateway.getProfile();
+        return user.data;
+    }
+
     async uploadAvatar(file: File) {
         const res = await this.gateway.uploadAvatar(file);
         return res.data;
