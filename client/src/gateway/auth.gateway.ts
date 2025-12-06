@@ -8,7 +8,6 @@ export class AuthGateway {
         const response = await this.api.post<LoginResponse>("/users/login", {
             user: payload,
         });
-        console.log(response);
         return response.data;
     }
 

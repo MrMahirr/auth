@@ -9,14 +9,14 @@ export interface AuthUser {
     bio?: string;
     gender?: string;
     dateofbirth?: string;
-    token?: string;
+    tokens?: { access: string; refresh: string }
     [key: string]: unknown;
 }
 
 export interface AuthContextValue {
     user: AuthUser | null;
     loading: boolean;
-    loginSuccess: (userData: AuthUser, tokens: { access: string; refresh: string }) => void;
+    loginSuccess: (user: AuthUser, tokens: { access: string; refresh: string }) => void;
     logout: () => void;
 }
 

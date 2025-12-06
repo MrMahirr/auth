@@ -4,8 +4,45 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0498930d-d12a-40c3-a4a9-c33ae8b0e5f1" name="Changes" comment="hata düzeltmeleri">
+    <list default="true" id="0498930d-d12a-40c3-a4a9-c33ae8b0e5f1" name="Changes" comment="service ve client katmanı uluşturuldu. service countainer ve gatewaycountainer eklendi. hatalar giderildi. çalılır durumda">
+      <change afterPath="$PROJECT_DIR$/client/src/client/apiClient.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/src/client/http/axiosInstance.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/src/client/http/interceptors.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/src/containers/gatewayContainer.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/src/containers/serviceContainer.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/src/domain/Auth.model.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/src/domain/Blog.model.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/src/domain/User.model.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/src/gateway/auth.gateway.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/src/gateway/blog.gateway.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/src/gateway/product.gateway.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/src/gateway/user.gateway.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/src/services/auth.service.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/src/services/blog.service.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/src/services/product.service.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/src/services/user.service.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/App.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/App.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/DatabaseSwitch.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/DatabaseSwitch.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/Editor.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/Editor.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/layouts/AuthLayout.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/layouts/AuthLayout.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/layouts/Header.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/layouts/Header.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/layouts/MainLayout.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/layouts/MainLayout.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/pages/auth/LoginPage.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/pages/auth/LoginPage.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/pages/auth/RegisterPage.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/pages/auth/RegisterPage.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/pages/blog/BlogManager.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/pages/blog/BlogManager.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/pages/dashboard/Blog.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/pages/dashboard/Blog.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/pages/dashboard/DashboardPage.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/pages/dashboard/DashboardPage.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/pages/dashboard/Profile.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/pages/dashboard/Profile.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/context/AuthContext.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/context/AuthContext.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/context/AuthProvider.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/context/AuthProvider.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/firebase.ts" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/firebase.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/main.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/main.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/services/api.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/types/auth.ts" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/types/auth.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/types/blog.ts" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/types/blog.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/tsconfig.json" beforeDir="false" afterPath="$PROJECT_DIR$/client/tsconfig.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/user/dto/createUser.dto.ts" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/user/dto/createUser.dto.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

@@ -20,9 +20,9 @@ export const AuthProvider = ({children}: AuthProviderProps) => {
             }
 
             try {
-                const res = await apiClient.get<{ user: AuthUser }>("/auth/me");
+                const res = await apiClient.get<{ user: AuthUser }>("/user");
                 setUser(res.data.user);
-            } catch {
+            } catch (error) {
                 setUser(null);
             } finally {
                 setLoading(false);

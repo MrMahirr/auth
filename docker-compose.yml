@@ -43,9 +43,14 @@ services:
     build:
       context: ./client
       dockerfile: Dockerfile
+      target: build
     container_name: auth-client
     ports:
-      - "5173:80"
+      - "5173:3001"
+    volumes:
+      - ./client:/app
+      - /app/node_modules
+    command: npm run dev
     depends_on:
       - server
     networks:
