@@ -48,8 +48,6 @@ export class UserService {
     return this.buildAuthResponse(savedUser);
   }
 
-  // ========== LOGIN USER ==========
-
   async loginUser(loginUserDto: LoginDto): Promise<IUserResponse> {
     const user = await this.userRepository.findOne({
       where: {
@@ -81,8 +79,6 @@ export class UserService {
     return this.buildAuthResponse(user);
   }
 
-  // ========== GOOGLE LOGIN ==========
-
   async loginWithGoogle(
     googleLoginDto: GoogleLoginDto,
   ): Promise<IUserResponse> {
@@ -100,8 +96,6 @@ export class UserService {
 
     return this.buildAuthResponse(user);
   }
-
-  // ========== UPDATE USER ==========
 
   async updateUser(
     userId: number,
@@ -122,8 +116,6 @@ export class UserService {
     }
     return user;
   }
-
-  // ========== TOKEN HELPERS ==========
 
   private getAccessToken(user: UserEntity) {
     const payload = { id: user.id, email: user.email };
@@ -178,8 +170,6 @@ export class UserService {
     };
   }
 
-  // ========== REFRESH TOKEN ==========
-
   async refreshTokens(userId: number, oldToken: string) {
     const user = await this.userRepository.findOne({
       where: { id: userId },
@@ -193,8 +183,6 @@ export class UserService {
 
     return this.buildAuthResponse(user);
   }
-
-  // ========== LOGOUT ==========
 
   async logout(userId: number) {
     await this.userRepository.update(userId, { refreshToken: null });

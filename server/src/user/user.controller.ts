@@ -33,7 +33,6 @@ export class UserController {
     });
   }
 
-  // ===== REGISTER =====
   @Post('users')
   @UsePipes(new ValidationPipe())
   async createUser(
@@ -46,7 +45,6 @@ export class UserController {
     return result;
   }
 
-  // ===== LOGIN =====
   @Post('users/login')
   @UsePipes(new ValidationPipe())
   async loginUser(
@@ -59,7 +57,6 @@ export class UserController {
     return result;
   }
 
-  // ===== GOOGLE LOGIN =====
   @Post('users/google-login')
   async googleLogin(
     @Body('user') dto: GoogleLoginDto,
@@ -71,7 +68,6 @@ export class UserController {
     return result;
   }
 
-  // ===== REFRESH ACCESS TOKEN =====
   @Post('refresh')
   @UseGuards(AuthGuard)
   async refresh(
@@ -85,7 +81,6 @@ export class UserController {
     return result;
   }
 
-  // ===== LOGOUT =====
   @Post('logout')
   @UseGuards(AuthGuard)
   async logout(
@@ -97,7 +92,6 @@ export class UserController {
     return { message: 'Logged out successfully' };
   }
 
-  // ===== UPDATE USER =====
   @Put('user')
   @UseGuards(AuthGuard)
   async updateUser(
@@ -107,14 +101,12 @@ export class UserController {
     return await this.userService.updateUser(userId, dto);
   }
 
-  // ===== CURRENT USER =====
   @Get('user')
   @UseGuards(AuthGuard)
   getCurrentUser(@User() user: UserEntity): UserEntity {
     return user;
   }
 
-  // ===== PROFILE =====
   @Get('profile')
   @UseGuards(AuthGuard)
   async getProfile(@User() reqUser: UserEntity): Promise<UserEntity> {

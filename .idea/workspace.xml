@@ -4,40 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0498930d-d12a-40c3-a4a9-c33ae8b0e5f1" name="Changes" comment="hata düzeltmeleri">
-      <change afterPath="$PROJECT_DIR$/server/src/user/strategies/jwt.strategy.ts" afterDir="false" />
+    <list default="true" id="0498930d-d12a-40c3-a4a9-c33ae8b0e5f1" name="Changes" comment="refreshTopken işlemi backende eklendi ve front ende yoları belirlendi.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/.env.example" beforeDir="false" afterPath="$PROJECT_DIR$/client/.env.example" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/App.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/App.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/client/http/interceptors.ts" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/client/http/interceptors.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/DatabaseSwitch.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/DatabaseSwitch.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/Editor.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/Editor.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/layouts/AuthLayout.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/layouts/AuthLayout.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/layouts/Header.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/layouts/Header.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/layouts/MainLayout.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/layouts/MainLayout.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/pages/auth/LoginPage.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/pages/auth/LoginPage.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/pages/auth/RegisterPage.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/pages/auth/RegisterPage.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/pages/blog/BlogManager.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/pages/blog/BlogManager.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/pages/dashboard/Blog.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/pages/dashboard/Blog.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/pages/dashboard/DashboardPage.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/pages/dashboard/DashboardPage.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/pages/dashboard/Profile.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/pages/dashboard/Profile.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/context/AuthProvider.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/context/AuthProvider.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/firebase.ts" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/firebase.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/gateway/auth.gateway.ts" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/gateway/auth.gateway.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/gateway/user.gateway.ts" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/gateway/user.gateway.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/main.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/main.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/services/auth.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/services/auth.service.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/services/user.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/services/user.service.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/types/auth.ts" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/types/auth.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/types/blog.ts" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/types/blog.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/.env.example" beforeDir="false" afterPath="$PROJECT_DIR$/server/.env.example" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/server/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/server/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/user/guards/auth.guard.ts" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/user/guards/auth.guard.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/user/types/userResponse.interface.ts" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/user/types/userResponse.interface.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/server/src/user/user.controller.ts" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/user/user.controller.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/user/user.entity.ts" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/user/user.entity.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/user/user.module.ts" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/user/user.module.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/server/src/user/user.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/user/user.service.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -163,7 +132,7 @@
       <workItem from="1764846186857" duration="7413000" />
       <workItem from="1764855791540" duration="15200000" />
       <workItem from="1765014781391" duration="4641000" />
-      <workItem from="1765022123989" duration="7195000" />
+      <workItem from="1765022123989" duration="8188000" />
     </task>
     <task id="LOCAL-00002" summary="login giriş yapıldı.">
       <option name="closed" value="true" />
@@ -405,7 +374,15 @@
       <option name="project" value="LOCAL" />
       <updated>1765014842654</updated>
     </task>
-    <option name="localTasksCounter" value="32" />
+    <task id="LOCAL-00032" summary="refreshTopken işlemi backende eklendi ve front ende yoları belirlendi.">
+      <option name="closed" value="true" />
+      <created>1765029673086</created>
+      <option name="number" value="00032" />
+      <option name="presentableId" value="LOCAL-00032" />
+      <option name="project" value="LOCAL" />
+      <updated>1765029673086</updated>
+    </task>
+    <option name="localTasksCounter" value="33" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -465,7 +442,8 @@
     <MESSAGE value="typesctip update sonrası oluşan hatalar giderildi" />
     <MESSAGE value="service ve client katmanı uluşturuldu. service countainer ve gatewaycountainer eklendi. hatalar giderildi. çalılır durumda" />
     <MESSAGE value="hata düzeltmeleri" />
-    <option name="LAST_COMMIT_MESSAGE" value="hata düzeltmeleri" />
+    <MESSAGE value="refreshTopken işlemi backende eklendi ve front ende yoları belirlendi." />
+    <option name="LAST_COMMIT_MESSAGE" value="refreshTopken işlemi backende eklendi ve front ende yoları belirlendi." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
