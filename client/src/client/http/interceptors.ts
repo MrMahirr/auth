@@ -48,7 +48,7 @@ export function setupInterceptors() {
                     const refreshToken = localStorage.getItem("refresh_token");
                     const {data} = await axios.post(
                         `${import.meta.env.VITE_API_URL}/refresh`,
-                        {refresh_token: refreshToken}
+                        {token: refreshToken}
                     );
 
                     const newAccessToken = data.access_token;

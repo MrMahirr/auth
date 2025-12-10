@@ -5,9 +5,7 @@ export class AuthGateway {
     private api = new ApiClient();
 
     async login(payload: LoginDto): Promise<LoginResponse> {
-        const response = await this.api.post<LoginResponse>("/users/login", {
-            user: payload,
-        });
+        const response = await this.api.post<LoginResponse>("/users/login", payload);
         return response.data;
     }
 

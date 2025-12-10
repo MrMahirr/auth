@@ -24,27 +24,35 @@ export class UserService {
     private readonly configService: ConfigService,
   ) {}
   async createUser(createUserDto: CreateUserDto): Promise<IUserResponse> {
-    const newUser = new UserEntity();
-    Object.assign(newUser, createUserDto);
     const userByEmail = await this.userRepository.findOne({
-      where: {
-        email: createUserDto.email,
-      },
+      where: { email: createUserDto.email },
     });
-
-    const userByUsername = await this.userRepository.findOne({
-      where: {
-        username: createUserDto.username,
-      },
-    });
-
-    if (userByEmail || userByUsername) {
+    if (userByEmail) {
       throw new HttpException(
-        'Email or username already taken',
+        'Email already taken',
         HttpStatus.UNPROCESSABLE_ENTITY,
       );
     }
+    const userByUsername = await this.userRepository.findOne({
+      where: { username: createUserDto.username },
+    });
+    if (userByUsername) {
+      throw new HttpException(
+        'Username already taken',
+        HttpStatus.UNPROCESSABLE_ENTITY,
+      );
+    }
+
+    const newUser = new UserEntity();
+    Object.assign(newUser, createUserDto);
+    if (!newUser.password) {
+      throw new HttpException('Password is required', HttpStatus.BAD_REQUEST);
+    }
+
+    newUser.password = await hash(newUser.password, 10);
+
     const savedUser = await this.userRepository.save(newUser);
+
     return this.buildAuthResponse(savedUser);
   }
 
@@ -102,8 +110,47 @@ export class UserService {
     updateUserDto: UpdateUserDto,
   ): Promise<UserEntity> {
     const user = await this.findById(userId);
+
+    // Eğer email değişmişse kullanılabilir mi kontrol et
+    if (updateUserDto.email && updateUserDto.email !== user.email) {
+      const existingByEmail = await this.userRepository.findOne({
+        where: { email: updateUserDto.email },
+      });
+      if (existingByEmail) {
+        throw new HttpException(
+          'Email already taken',
+          HttpStatus.UNPROCESSABLE_ENTITY,
+        );
+      }
+    }
+
+    // Eğer username değişmişse kullanılabilir mi kontrol et
+    if (updateUserDto.username && updateUserDto.username !== user.username) {
+      const existingByUsername = await this.userRepository.findOne({
+        where: { username: updateUserDto.username },
+      });
+      if (existingByUsername) {
+        throw new HttpException(
+          'Username already taken',
+          HttpStatus.UNPROCESSABLE_ENTITY,
+        );
+      }
+    }
+
+    // Sadece password gönderildiyse hashle
+    if (updateUserDto.password) {
+      updateUserDto.password = await hash(updateUserDto.password, 10);
+    }
+
     Object.assign(user, updateUserDto);
-    return await this.userRepository.save(user);
+
+    const savedUser = await this.userRepository.save(user);
+
+    const returnedUser = { ...savedUser };
+    delete returnedUser.password;
+    delete returnedUser.refreshToken;
+
+    return returnedUser;
   }
 
   async findById(id: number): Promise<UserEntity> {

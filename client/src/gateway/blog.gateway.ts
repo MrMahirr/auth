@@ -23,8 +23,6 @@ export class BlogGateway {
     uploadImage(file: File) {
         const formData = new FormData();
         formData.append("file", file);
-        return this.api.post<{ url: string }>("/upload?folder=blogs", formData, {
-            headers: { "Content-Type": "multipart/form-data" },
-        });
+        return this.api.post<{ url: string }>("/upload?folder=blogs", formData);
     }
 }

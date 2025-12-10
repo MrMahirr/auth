@@ -14,12 +14,12 @@ export class BlogService {
   ) {}
 
   async create(
-    currentUser: IUser,
+    currentUser: IUser | undefined,
     createBlogDto: CreateBlogDto,
   ): Promise<BlogEntity> {
     const newBlog = this.blogRepository.create({
       ...createBlogDto,
-      author: currentUser,
+      author: currentUser || undefined,
     });
     return await this.blogRepository.save(newBlog);
   }

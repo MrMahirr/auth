@@ -214,7 +214,7 @@ export default function BlogManager() {
             title: formData.title,
             content: formData.content,
             category: formData.category,
-            image: formData.image,
+            image: formData.image || undefined,
         };
 
         try {
@@ -366,15 +366,15 @@ export default function BlogManager() {
                             key={blog.id}
                             onClick={() => handleSelectBlog(String(blog.id))}
                             className={`group p-3 rounded-xl border cursor-pointer transition-all ${String(selectedId) === String(blog.id)
-                                    ? "bg-cyan-900/20 border-cyan-500/50 shadow-[0_0_10px_rgba(6,182,212,0.1)]"
-                                    : "border-transparent hover:bg-white/5"
+                                ? "bg-cyan-900/20 border-cyan-500/50 shadow-[0_0_10px_rgba(6,182,212,0.1)]"
+                                : "border-transparent hover:bg-white/5"
                                 }`}
                         >
                             <div className="flex justify-between items-start mb-1">
                                 <h3
                                     className={`font-semibold text-sm truncate pr-2 ${String(selectedId) === String(blog.id)
-                                            ? "text-cyan-300"
-                                            : "text-gray-300"
+                                        ? "text-cyan-300"
+                                        : "text-gray-300"
                                         }`}
                                 >
                                     {blog.title || "Başlıksız"}
@@ -399,8 +399,8 @@ export default function BlogManager() {
                     <div className="flex items-center gap-3">
                         <div
                             className={`p-2 rounded-lg ${selectedId === "new"
-                                    ? "bg-cyan-500/20 text-cyan-400"
-                                    : "bg-purple-500/20 text-purple-400"
+                                ? "bg-cyan-500/20 text-cyan-400"
+                                : "bg-purple-500/20 text-purple-400"
                                 }`}
                         >
                             {selectedId === "new" ? <Plus size={20} /> : <FileText size={20} />}

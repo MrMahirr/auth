@@ -10,14 +10,14 @@ import {
   UsePipes,
   ValidationPipe,
 } from '@nestjs/common';
-import type { CreateUserDto } from '@/user/dto/createUser.dto';
-import type { IUserResponse } from '@/user/types/userResponse.interface';
-import type { LoginDto } from '@/user/dto/loginUser.dto';
+import { CreateUserDto } from '@/user/dto/createUser.dto';
+import { IUserResponse } from '@/user/types/userResponse.interface';
+import { LoginDto } from '@/user/dto/loginUser.dto';
 import { User } from '@/user/decorators/user.decorator';
-import type { GoogleLoginDto } from './dto/googleLogin.dto';
+import { GoogleLoginDto } from './dto/googleLogin.dto';
 import { AuthGuard } from '@/user/guards/auth.guard';
-import type { UpdateUserDto } from '@/user/dto/updateUser.dto';
-import type { UserEntity } from '@/user/user.entity';
+import { UpdateUserDto } from '@/user/dto/updateUser.dto';
+import { UserEntity } from '@/user/user.entity';
 import express from 'express';
 
 @Controller('')

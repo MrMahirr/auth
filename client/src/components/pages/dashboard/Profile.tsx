@@ -29,6 +29,7 @@ interface ProfileFormData {
     currentPassword: string;
     newPassword: string;
     confirmPassword: string;
+    bio: string;
     [key: string]: string;
 }
 
@@ -50,6 +51,7 @@ export default function Profile() {
         currentPassword: "",
         newPassword: "",
         confirmPassword: "",
+        bio: "",
     });
 
     const showToast = (message: string, type: ToastState["type"] = "success") => {
@@ -83,6 +85,7 @@ export default function Profile() {
                 email: user.email ?? "",
                 birthDate: user.dateofbirth ?? "",
                 gender: user.gender ?? "",
+                bio: user.bio ?? "",
             }));
             setAvatarPreview(user.image || user.avatar || null);
         }
@@ -125,8 +128,8 @@ export default function Profile() {
                 name: formData.firstName,
                 surname: formData.lastName,
                 email: formData.email,
-                image: newImageUrl,
-                bio: user.bio || "",
+                image: newImageUrl || "",
+                bio: formData.bio || "",
                 gender: formData.gender,
                 dateofbirth: formData.birthDate,
             };
@@ -157,8 +160,8 @@ export default function Profile() {
                 name: formData.firstName,
                 surname: formData.lastName,
                 email: formData.email,
-                bio: user.bio || "",
-                image: avatarPreview,
+                bio: formData.bio || "",
+                image: avatarPreview || "",
                 gender: formData.gender,
                 dateofbirth: formData.birthDate,
             };
@@ -392,6 +395,18 @@ export default function Profile() {
                                         />
                                     </div>
                                 </div>
+                                <div className="md:col-span-2">
+                                    <label className={labelClass}>Biyografi</label>
+                                    <div className={inputWrapperClass}>
+                                        <textarea
+                                            name="bio"
+                                            value={formData.bio}
+                                            onChange={(e) => setFormData(prev => ({ ...prev, bio: e.target.value }))}
+                                            placeholder="Kendinizden bahsedin..."
+                                            className={`${inputClass} min-h-[100px] resize-none`}
+                                        />
+                                    </div>
+                                </div>
                             </div>
                         </div>
 
@@ -457,9 +472,5 @@ export default function Profile() {
         </div>
     );
 }
-
-
-
-
 
 

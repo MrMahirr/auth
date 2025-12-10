@@ -3,7 +3,7 @@ import { IsEmail, IsOptional, IsString } from 'class-validator';
 export class UpdateUserDto {
   @IsOptional()
   @IsString()
-  readonly username: string;
+  username: string;
 
   @IsOptional()
   @IsString()
@@ -14,17 +14,16 @@ export class UpdateUserDto {
   surname: string;
 
   @IsOptional()
-  @IsString()
   @IsEmail()
-  readonly email: string;
+  email: string;
 
   @IsOptional()
   @IsString()
-  readonly bio: string;
+  bio: string;
 
   @IsOptional()
   @IsString()
-  readonly gender: string;
+  gender: string;
 
   @IsOptional()
   @IsString()
@@ -32,9 +31,9 @@ export class UpdateUserDto {
 
   @IsOptional()
   @IsString()
-  readonly password: string;
+  password: string;
 
   @IsOptional()
   @IsString()
-  readonly image: string;
+  image: string;
 }

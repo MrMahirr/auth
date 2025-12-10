@@ -6,7 +6,7 @@ import {
   CreateDateColumn,
   UpdateDateColumn,
 } from 'typeorm';
-import { UserEntity } from '../user/user.entity';
+import { UserEntity } from '@/user/user.entity';
 
 @Entity('blogs')
 export class BlogEntity {
@@ -31,6 +31,9 @@ export class BlogEntity {
   @UpdateDateColumn()
   updatedAt: Date;
 
-  @ManyToOne(() => UserEntity, (user) => user.blogs, { eager: true })
-  author: UserEntity;
+  @ManyToOne(() => UserEntity, (user) => user.blogs, {
+    eager: true,
+    nullable: true,
+  })
+  author: UserEntity | null;
 }
