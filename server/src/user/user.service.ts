@@ -23,226 +23,518 @@ export class UserService {
     private readonly userRepository: Repository<UserEntity>,
     private readonly configService: ConfigService,
   ) {}
+
   async createUser(createUserDto: CreateUserDto): Promise<IUserResponse> {
-    const userByEmail = await this.userRepository.findOne({
-      where: { email: createUserDto.email },
-    });
-    if (userByEmail) {
+    try {
+      const userByEmail = await this.userRepository.findOne({
+        where: { email: createUserDto.email },
+      });
+      if (userByEmail) {
+        throw new HttpException(
+          'Email already taken',
+          HttpStatus.UNPROCESSABLE_ENTITY,
+        );
+      }
+
+      const userByUsername = await this.userRepository.findOne({
+        where: { username: createUserDto.username },
+      });
+      if (userByUsername) {
+        throw new HttpException(
+          'Username already taken',
+          HttpStatus.UNPROCESSABLE_ENTITY,
+        );
+      }
+
+      const newUser = new UserEntity();
+      Object.assign(newUser, createUserDto);
+
+      if (!newUser.password) {
+        throw new HttpException('Password is required', HttpStatus.BAD_REQUEST);
+      }
+
+      newUser.password = await hash(newUser.password, 10);
+
+      const savedUser = await this.userRepository.save(newUser);
+
+      return this.buildAuthResponse(savedUser);
+    } catch (error: unknown) {
+      if (error instanceof Error) {
+        console.error('[UserService.createUser] Hata:', {
+          message: error.message,
+          email: createUserDto.email,
+          username: createUserDto.username,
+          timestamp: new Date().toISOString(),
+        });
+      } else {
+        console.error('[UserService.createUser] Bilinmeyen hata:', {
+          raw: error,
+          email: createUserDto.email,
+          username: createUserDto.username,
+          timestamp: new Date().toISOString(),
+        });
+      }
+
+      if (error instanceof HttpException) {
+        throw error;
+      }
+
       throw new HttpException(
-        'Email already taken',
-        HttpStatus.UNPROCESSABLE_ENTITY,
+        'Kullanıcı oluşturulurken veritabanı hatası oluştu',
+        HttpStatus.INTERNAL_SERVER_ERROR,
       );
     }
-    const userByUsername = await this.userRepository.findOne({
-      where: { username: createUserDto.username },
-    });
-    if (userByUsername) {
-      throw new HttpException(
-        'Username already taken',
-        HttpStatus.UNPROCESSABLE_ENTITY,
-      );
-    }
-
-    const newUser = new UserEntity();
-    Object.assign(newUser, createUserDto);
-    if (!newUser.password) {
-      throw new HttpException('Password is required', HttpStatus.BAD_REQUEST);
-    }
-
-    newUser.password = await hash(newUser.password, 10);
-
-    const savedUser = await this.userRepository.save(newUser);
-
-    return this.buildAuthResponse(savedUser);
   }
 
   async loginUser(loginUserDto: LoginDto): Promise<IUserResponse> {
-    const user = await this.userRepository.findOne({
-      where: {
-        email: loginUserDto.email,
-      },
-      select: ['id', 'username', 'email', 'password', 'image', 'bio'],
-    });
+    try {
+      const user = await this.userRepository.findOne({
+        where: { email: loginUserDto.email },
+        select: ['id', 'username', 'email', 'password', 'image', 'bio'],
+      });
 
-    if (!user) {
+      if (!user) {
+        throw new HttpException(
+          'Wrong email or password',
+          HttpStatus.UNAUTHORIZED,
+        );
+      }
+
+      const matches = await compare(loginUserDto.password, user.password!);
+
+      if (!matches) {
+        throw new HttpException(
+          'Wrong email or password',
+          HttpStatus.UNAUTHORIZED,
+        );
+      }
+
+      delete user.password;
+
+      return this.buildAuthResponse(user);
+    } catch (error: unknown) {
+      if (error instanceof Error) {
+        console.error('[UserService.loginUser] Hata:', {
+          message: error.message,
+          email: loginUserDto.email,
+          timestamp: new Date().toISOString(),
+        });
+      } else {
+        console.error('[UserService.loginUser] Bilinmeyen hata:', {
+          raw: error,
+          email: loginUserDto.email,
+          timestamp: new Date().toISOString(),
+        });
+      }
+
+      if (error instanceof HttpException) {
+        throw error;
+      }
+
       throw new HttpException(
-        'Wrong email or password',
-        HttpStatus.UNAUTHORIZED,
+        'Giriş işlemi sırasında bir hata oluştu',
+        HttpStatus.INTERNAL_SERVER_ERROR,
       );
     }
-
-    const passwordMatches = await compare(
-      loginUserDto.password,
-      user.password!,
-    );
-
-    if (!passwordMatches) {
-      throw new HttpException(
-        'Wrong email or password',
-        HttpStatus.UNAUTHORIZED,
-      );
-    }
-
-    delete user.password;
-    return this.buildAuthResponse(user);
   }
 
   async loginWithGoogle(
     googleLoginDto: GoogleLoginDto,
   ): Promise<IUserResponse> {
-    let user = await this.userRepository.findOne({
-      where: { email: googleLoginDto.email },
-    });
+    try {
+      let user = await this.userRepository.findOne({
+        where: { email: googleLoginDto.email },
+      });
 
-    if (!user) {
-      const newUser = new UserEntity();
-      newUser.email = googleLoginDto.email;
-      newUser.username = googleLoginDto.username;
-      newUser.password = Math.random().toString(36).slice(-8) + 'Aa1!';
-      user = await this.userRepository.save(newUser);
+      if (!user) {
+        const newUser = new UserEntity();
+        newUser.email = googleLoginDto.email;
+        newUser.username = googleLoginDto.username;
+        newUser.password = Math.random().toString(36).slice(-8) + 'Aa1!';
+        user = await this.userRepository.save(newUser);
+      }
+
+      return this.buildAuthResponse(user);
+    } catch (error: unknown) {
+      if (error instanceof Error) {
+        console.error('[UserService.loginWithGoogle] Hata:', {
+          message: error.message,
+          email: googleLoginDto.email,
+          timestamp: new Date().toISOString(),
+        });
+      } else {
+        console.error('[UserService.loginWithGoogle] Bilinmeyen hata:', {
+          raw: error,
+          email: googleLoginDto.email,
+          timestamp: new Date().toISOString(),
+        });
+      }
+
+      if (error instanceof HttpException) {
+        throw error;
+      }
+
+      throw new HttpException(
+        'Google ile giriş sırasında bir hata oluştu',
+        HttpStatus.INTERNAL_SERVER_ERROR,
+      );
     }
-
-    return this.buildAuthResponse(user);
   }
 
   async updateUser(
     userId: number,
     updateUserDto: UpdateUserDto,
   ): Promise<UserEntity> {
-    const user = await this.findById(userId);
+    try {
+      const user = await this.findById(userId);
 
-    // Eğer email değişmişse kullanılabilir mi kontrol et
-    if (updateUserDto.email && updateUserDto.email !== user.email) {
-      const existingByEmail = await this.userRepository.findOne({
-        where: { email: updateUserDto.email },
-      });
-      if (existingByEmail) {
-        throw new HttpException(
-          'Email already taken',
-          HttpStatus.UNPROCESSABLE_ENTITY,
-        );
+      if (updateUserDto.email && updateUserDto.email !== user.email) {
+        const exists = await this.userRepository.findOne({
+          where: { email: updateUserDto.email },
+        });
+        if (exists) {
+          throw new HttpException(
+            'Email already taken',
+            HttpStatus.UNPROCESSABLE_ENTITY,
+          );
+        }
       }
-    }
 
-    // Eğer username değişmişse kullanılabilir mi kontrol et
-    if (updateUserDto.username && updateUserDto.username !== user.username) {
-      const existingByUsername = await this.userRepository.findOne({
-        where: { username: updateUserDto.username },
-      });
-      if (existingByUsername) {
-        throw new HttpException(
-          'Username already taken',
-          HttpStatus.UNPROCESSABLE_ENTITY,
-        );
+      if (updateUserDto.username && updateUserDto.username !== user.username) {
+        const exists = await this.userRepository.findOne({
+          where: { username: updateUserDto.username },
+        });
+        if (exists) {
+          throw new HttpException(
+            'Username already taken',
+            HttpStatus.UNPROCESSABLE_ENTITY,
+          );
+        }
       }
+
+      if (updateUserDto.password) {
+        updateUserDto.password = await hash(updateUserDto.password, 10);
+      }
+
+      Object.assign(user, updateUserDto);
+
+      const saved = await this.userRepository.save(user);
+
+      const returnedUser = { ...saved };
+      delete returnedUser.password;
+      delete returnedUser.refreshToken;
+
+      return returnedUser;
+    } catch (error: unknown) {
+      if (error instanceof Error) {
+        console.error('[UserService.updateUser] Hata:', {
+          message: error.message,
+          userId,
+          updateFields: Object.keys(updateUserDto),
+          timestamp: new Date().toISOString(),
+        });
+      } else {
+        console.error('[UserService.updateUser] Bilinmeyen hata:', {
+          raw: error,
+          userId,
+          timestamp: new Date().toISOString(),
+        });
+      }
+
+      if (error instanceof HttpException) {
+        throw error;
+      }
+
+      throw new HttpException(
+        'Kullanıcı güncellenirken bir hata oluştu',
+        HttpStatus.INTERNAL_SERVER_ERROR,
+      );
     }
-
-    // Sadece password gönderildiyse hashle
-    if (updateUserDto.password) {
-      updateUserDto.password = await hash(updateUserDto.password, 10);
-    }
-
-    Object.assign(user, updateUserDto);
-
-    const savedUser = await this.userRepository.save(user);
-
-    const returnedUser = { ...savedUser };
-    delete returnedUser.password;
-    delete returnedUser.refreshToken;
-
-    return returnedUser;
   }
 
   async findById(id: number): Promise<UserEntity> {
-    const user = await this.userRepository.findOne({ where: { id } });
-    if (!user) {
+    try {
+      const user = await this.userRepository.findOne({ where: { id } });
+
+      if (!user) {
+        throw new HttpException(
+          `User with ID ${id} not found`,
+          HttpStatus.NOT_FOUND,
+        );
+      }
+
+      return user;
+    } catch (error: unknown) {
+      if (error instanceof Error) {
+        console.error('[UserService.findById] Hata:', {
+          message: error.message,
+          userId: id,
+          timestamp: new Date().toISOString(),
+        });
+      } else {
+        console.error('[UserService.findById] Bilinmeyen hata:', {
+          raw: error,
+          userId: id,
+          timestamp: new Date().toISOString(),
+        });
+      }
+
+      if (error instanceof HttpException) {
+        throw error;
+      }
+
       throw new HttpException(
-        `User with ID ${id} not found`,
-        HttpStatus.NOT_FOUND,
+        'Kullanıcı aranırken bir veritabanı hatası oluştu',
+        HttpStatus.INTERNAL_SERVER_ERROR,
       );
     }
-    return user;
   }
 
   private getAccessToken(user: UserEntity) {
-    const payload = { id: user.id, email: user.email };
+    try {
+      const payload = { id: user.id, email: user.email };
+      const secret = this.configService.getOrThrow<string>(
+        'JWT_SECRET',
+      ) as Secret;
 
-    const secret = this.configService.getOrThrow<string>(
-      'JWT_SECRET',
-    ) as Secret;
+      const expiresIn = this.configService.getOrThrow<string>(
+        'JWT_EXPIRES_IN',
+      ) as SignOptions['expiresIn'];
 
-    const expiresIn = this.configService.getOrThrow<string>(
-      'JWT_EXPIRES_IN',
-    ) as SignOptions['expiresIn'];
+      return jwt.sign(payload, secret, { expiresIn });
+    } catch (error: unknown) {
+      if (error instanceof Error) {
+        console.error('[UserService.getAccessToken] Hata:', {
+          message: error.message,
+          userId: user.id,
+          timestamp: new Date().toISOString(),
+        });
+      } else {
+        console.error('[UserService.getAccessToken] Bilinmeyen hata:', {
+          raw: error,
+          userId: user.id,
+          timestamp: new Date().toISOString(),
+        });
+      }
 
-    const options: SignOptions = { expiresIn };
-
-    return jwt.sign(payload, secret, options);
+      throw new HttpException(
+        'Access token oluşturulurken bir hata oluştu',
+        HttpStatus.INTERNAL_SERVER_ERROR,
+      );
+    }
   }
 
   private getRefreshToken(user: UserEntity) {
-    const payload = { id: user.id, email: user.email };
+    try {
+      const payload = { id: user.id, email: user.email };
+      const secret = this.configService.getOrThrow<string>(
+        'JWT_REFRESH_SECRET',
+      ) as Secret;
 
-    const secret = this.configService.getOrThrow<string>(
-      'JWT_REFRESH_SECRET',
-    ) as Secret;
+      const expiresIn = this.configService.getOrThrow<string>(
+        'JWT_REFRESH_EXPIRES_IN',
+      ) as SignOptions['expiresIn'];
 
-    const expiresIn = this.configService.getOrThrow<string>(
-      'JWT_REFRESH_EXPIRES_IN',
-    ) as SignOptions['expiresIn'];
+      return jwt.sign(payload, secret, { expiresIn });
+    } catch (error: unknown) {
+      if (error instanceof Error) {
+        console.error('[UserService.getRefreshToken] Hata:', {
+          message: error.message,
+          userId: user.id,
+          timestamp: new Date().toISOString(),
+        });
+      } else {
+        console.error('[UserService.getRefreshToken] Bilinmeyen hata:', {
+          raw: error,
+          userId: user.id,
+          timestamp: new Date().toISOString(),
+        });
+      }
 
-    const options: SignOptions = { expiresIn };
-
-    return jwt.sign(payload, secret, options);
+      throw new HttpException(
+        'Refresh token oluşturulurken bir hata oluştu',
+        HttpStatus.INTERNAL_SERVER_ERROR,
+      );
+    }
   }
 
   private async setRefreshToken(user: UserEntity, token: string) {
-    const hashed = await hash(token, 10);
-    user.refreshToken = hashed;
-    await this.userRepository.save(user);
+    try {
+      const hashed = await hash(token, 10);
+      user.refreshToken = hashed;
+      await this.userRepository.save(user);
+    } catch (error: unknown) {
+      if (error instanceof Error) {
+        console.error('[UserService.setRefreshToken] Hata:', {
+          message: error.message,
+          userId: user.id,
+          timestamp: new Date().toISOString(),
+        });
+      } else {
+        console.error('[UserService.setRefreshToken] Bilinmeyen hata:', {
+          raw: error,
+          userId: user.id,
+          timestamp: new Date().toISOString(),
+        });
+      }
+
+      throw new HttpException(
+        'Refresh token kaydedilirken bir hata oluştu',
+        HttpStatus.INTERNAL_SERVER_ERROR,
+      );
+    }
   }
 
   private async buildAuthResponse(user: UserEntity): Promise<IUserResponse> {
-    const accessToken = this.getAccessToken(user);
-    const refreshToken = this.getRefreshToken(user);
+    try {
+      const accessToken = this.getAccessToken(user);
+      const refreshToken = this.getRefreshToken(user);
 
-    await this.setRefreshToken(user, refreshToken);
-    delete user.password;
+      await this.setRefreshToken(user, refreshToken);
 
-    const plainUser = {
-      id: user.id,
-      username: user.username,
-      name: user.name,
-      surname: user.surname,
-      email: user.email,
-      image: user.image,
-      bio: user.bio,
-    };
-    return {
-      user: {
-        ...plainUser,
-        token: accessToken,
-        refreshToken,
-      },
-    };
+      delete user.password;
+
+      const plainUser = {
+        id: user.id,
+        username: user.username,
+        name: user.name,
+        surname: user.surname,
+        email: user.email,
+        image: user.image,
+        bio: user.bio,
+      };
+
+      return {
+        user: {
+          ...plainUser,
+          token: accessToken,
+          refreshToken,
+        },
+      };
+    } catch (error: unknown) {
+      if (error instanceof Error) {
+        console.error('[UserService.buildAuthResponse] Hata:', {
+          message: error.message,
+          userId: user.id,
+          timestamp: new Date().toISOString(),
+        });
+      } else {
+        console.error('[UserService.buildAuthResponse] Bilinmeyen hata:', {
+          raw: error,
+          userId: user.id,
+          timestamp: new Date().toISOString(),
+        });
+      }
+
+      if (error instanceof HttpException) {
+        throw error;
+      }
+
+      throw new HttpException(
+        'Kimlik doğrulama yanıtı oluşturulurken hata oluştu',
+        HttpStatus.INTERNAL_SERVER_ERROR,
+      );
+    }
   }
 
-  async refreshTokens(userId: number, oldToken: string) {
-    const user = await this.userRepository.findOne({
-      where: { id: userId },
-    });
+  async refreshTokens(oldToken: string) {
+    try {
+      const secret = this.configService.getOrThrow<string>(
+        'JWT_REFRESH_SECRET',
+      ) as Secret;
 
-    if (!user || !user.refreshToken)
-      throw new UnauthorizedException('Invalid refresh request');
+      // verify sonucu bilinmeyen, bu yüzden unknown kabul ediliyor
+      const decoded: unknown = jwt.verify(oldToken, secret);
 
-    const matches = await compare(oldToken, user.refreshToken);
-    if (!matches) throw new UnauthorizedException('Refresh token mismatch');
+      // TYPE GUARD → decoded'ın UserTokenPayload olup olmadığını güvenli şekilde kontrol et
+      type RefreshTokenPayload = {
+        id: number;
+        email: string;
+        iat?: number;
+        exp?: number;
+      };
 
-    return this.buildAuthResponse(user);
+      function isRefreshPayload(obj: unknown): obj is RefreshTokenPayload {
+        return (
+          typeof obj === 'object' &&
+          obj !== null &&
+          'id' in obj &&
+          typeof (obj as { id: unknown }).id === 'number' &&
+          'email' in obj &&
+          typeof (obj as { email: unknown }).email === 'string'
+        );
+      }
+
+      // Eğer payload doğru formatta değilse hata fırlat
+      if (!isRefreshPayload(decoded)) {
+        throw new UnauthorizedException('Malformed refresh token');
+      }
+
+      // Artık decoded.id VE decoded.email tamamen güvenli
+      const user = await this.userRepository.findOne({
+        where: { id: decoded.id },
+        select: [
+          'id',
+          'username',
+          'email',
+          'name',
+          'surname',
+          'image',
+          'bio',
+          'refreshToken',
+        ],
+      });
+
+      if (!user || !user.refreshToken) {
+        throw new UnauthorizedException('Invalid refresh request');
+      }
+
+      const matches = await compare(oldToken, user.refreshToken);
+
+      if (!matches) {
+        throw new UnauthorizedException('Refresh token mismatch');
+      }
+
+      return this.buildAuthResponse(user);
+    } catch (error: unknown) {
+      if (error instanceof UnauthorizedException) throw error;
+      if (error instanceof HttpException) throw error;
+
+      console.error('[UserService.refreshTokens] Hata:', {
+        message: error instanceof Error ? error.message : 'Unknown error',
+        timestamp: new Date().toISOString(),
+      });
+
+      throw new HttpException(
+        'Token yenilenirken bir hata oluştu',
+        HttpStatus.INTERNAL_SERVER_ERROR,
+      );
+    }
   }
 
   async logout(userId: number) {
-    await this.userRepository.update(userId, { refreshToken: null });
-    return { message: 'Logged out successfully' };
+    try {
+      await this.userRepository.update(userId, { refreshToken: null });
+      return { message: 'Logged out successfully' };
+    } catch (error: unknown) {
+      if (error instanceof Error) {
+        console.error('[UserService.logout] Hata:', {
+          message: error.message,
+          userId,
+          timestamp: new Date().toISOString(),
+        });
+      } else {
+        console.error('[UserService.logout] Bilinmeyen hata:', {
+          raw: error,
+          userId,
+          timestamp: new Date().toISOString(),
+        });
+      }
+
+      throw new HttpException(
+        'Çıkış yapılırken bir hata oluştu',
+        HttpStatus.INTERNAL_SERVER_ERROR,
+      );
+    }
   }
 }

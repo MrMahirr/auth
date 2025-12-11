@@ -17,19 +17,38 @@ class AuthMiddleware implements NestMiddleware {
   async use(req: AuthRequest, _res: Response, next: NextFunction) {
     if (!req.headers.authorization) {
       req.user = new UserEntity();
-      next();
-      return;
+      return next();
     }
+
     const token = req.headers.authorization.split(' ')[1];
+
     try {
       const secret = this.configService.getOrThrow<string>('JWT_SECRET');
+
       const decode = verify(token, secret) as CustomJwtPayload;
+
       const user = await this.userService.findById(decode.id);
+
       req.user = user;
-      next();
-    } catch {
+      return next();
+    } catch (error: unknown) {
+      if (error instanceof Error) {
+        console.error('[AuthMiddleware] Auth hatası:', {
+          message: error.message,
+          errorType: error.name,
+          hasToken: !!token,
+          timestamp: new Date().toISOString(),
+        });
+      } else {
+        console.error('[AuthMiddleware] Bilinmeyen hata:', {
+          raw: error,
+          hasToken: !!token,
+          timestamp: new Date().toISOString(),
+        });
+      }
+
       req.user = new UserEntity();
-      next();
+      return next();
     }
   }
 }

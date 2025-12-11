@@ -3,8 +3,11 @@ import {
   Body,
   Controller,
   Get,
+  HttpException,
+  HttpStatus,
   Post,
   Put,
+  Req,
   Res,
   UseGuards,
   UsePipes,
@@ -24,13 +27,24 @@ import express from 'express';
 export class UserController {
   constructor(private readonly userService: UserService) {}
 
-  private setRefreshCookie(res: express.Response, token: string) {
-    res.cookie('refreshToken', token, {
+  private setRefreshCookie(res: express.Response, token: string): void {
+    const cookieOptions: express.CookieOptions = {
       httpOnly: true,
-      secure: true,
-      sameSite: 'strict',
-      path: '/refresh',
+      secure: process.env.NODE_ENV === 'production',
+      sameSite: process.env.NODE_ENV === 'production' ? 'strict' : 'lax',
+      maxAge: 7 * 24 * 60 * 60 * 1000,
+      path: '/',
+    };
+
+    console.log('[SetRefreshCookie] 🍪 Cookie ayarları:', {
+      cookieOptions,
+      tokenLength: token.length,
+      tokenPreview: `${token.substring(0, 20)}...`,
+      nodeEnv: process.env.NODE_ENV,
+      timestamp: new Date().toISOString(),
     });
+
+    res.cookie('refreshToken', token, cookieOptions);
   }
 
   @Post('users')
@@ -39,10 +53,27 @@ export class UserController {
     @Body() dto: CreateUserDto,
     @Res({ passthrough: true }) res: express.Response,
   ): Promise<IUserResponse> {
-    const result = await this.userService.createUser(dto);
-    this.setRefreshCookie(res, result.user.refreshToken!);
-    delete result.user.refreshToken;
-    return result;
+    try {
+      const result = await this.userService.createUser(dto);
+
+      const token = result.user.refreshToken;
+      if (token) this.setRefreshCookie(res, token);
+
+      delete result.user.refreshToken;
+
+      return result;
+    } catch (error: unknown) {
+      if (error instanceof HttpException) throw error;
+
+      const message = error instanceof Error ? error.message : 'Unknown error';
+
+      console.error('[CreateUser] Error:', message);
+
+      throw new HttpException(
+        'Kullanıcı oluşturulurken bir hata oluştu',
+        HttpStatus.INTERNAL_SERVER_ERROR,
+      );
+    }
   }
 
   @Post('users/login')
@@ -51,10 +82,26 @@ export class UserController {
     @Body() dto: LoginDto,
     @Res({ passthrough: true }) res: express.Response,
   ): Promise<IUserResponse> {
-    const result = await this.userService.loginUser(dto);
-    this.setRefreshCookie(res, result.user.refreshToken!);
-    delete result.user.refreshToken;
-    return result;
+    try {
+      const result = await this.userService.loginUser(dto);
+
+      const token = result.user.refreshToken;
+      if (token) this.setRefreshCookie(res, token);
+
+      delete result.user.refreshToken;
+
+      return result;
+    } catch (error: unknown) {
+      if (error instanceof HttpException) throw error;
+
+      const message = error instanceof Error ? error.message : 'Unknown error';
+      console.error('[LoginUser] Error:', message);
+
+      throw new HttpException(
+        'Giriş yapılırken bir hata oluştu',
+        HttpStatus.INTERNAL_SERVER_ERROR,
+      );
+    }
   }
 
   @Post('users/google-login')
@@ -62,23 +109,63 @@ export class UserController {
     @Body() dto: GoogleLoginDto,
     @Res({ passthrough: true }) res: express.Response,
   ): Promise<IUserResponse> {
-    const result = await this.userService.loginWithGoogle(dto);
-    this.setRefreshCookie(res, result.user.refreshToken!);
-    delete result.user.refreshToken;
-    return result;
+    try {
+      const result = await this.userService.loginWithGoogle(dto);
+
+      const token = result.user.refreshToken;
+      if (token) this.setRefreshCookie(res, token);
+
+      delete result.user.refreshToken;
+
+      return result;
+    } catch (error: unknown) {
+      if (error instanceof HttpException) throw error;
+
+      const message = error instanceof Error ? error.message : 'Unknown error';
+      console.error('[GoogleLogin] Error:', message);
+
+      throw new HttpException(
+        'Google ile giriş yapılırken bir hata oluştu',
+        HttpStatus.INTERNAL_SERVER_ERROR,
+      );
+    }
   }
 
   @Post('refresh')
-  @UseGuards(AuthGuard)
   async refresh(
-    @User('id') userId: number,
-    @Body('token') refreshToken: string,
     @Res({ passthrough: true }) res: express.Response,
+    @Req() req: express.Request,
   ): Promise<IUserResponse> {
-    const result = await this.userService.refreshTokens(userId, refreshToken);
-    this.setRefreshCookie(res, result.user.refreshToken!);
-    delete result.user.refreshToken;
-    return result;
+    try {
+      const cookies = req.cookies as Record<string, string | undefined>;
+      const refreshToken = cookies?.refreshToken;
+
+      if (!refreshToken) {
+        throw new HttpException(
+          'Refresh token bulunamadı',
+          HttpStatus.UNAUTHORIZED,
+        );
+      }
+
+      const result = await this.userService.refreshTokens(refreshToken);
+
+      const token = result.user.refreshToken;
+      if (token) this.setRefreshCookie(res, token);
+
+      delete result.user.refreshToken;
+
+      return result;
+    } catch (error: unknown) {
+      if (error instanceof HttpException) throw error;
+
+      const message = error instanceof Error ? error.message : 'Unknown error';
+      console.error('[RefreshToken] Error:', message);
+
+      throw new HttpException(
+        'Token yenilenirken bir hata oluştu',
+        HttpStatus.INTERNAL_SERVER_ERROR,
+      );
+    }
   }
 
   @Post('logout')
@@ -86,10 +173,23 @@ export class UserController {
   async logout(
     @User('id') userId: number,
     @Res({ passthrough: true }) res: express.Response,
-  ) {
-    await this.userService.logout(userId);
-    res.clearCookie('refreshToken');
-    return { message: 'Logged out successfully' };
+  ): Promise<{ message: string }> {
+    try {
+      await this.userService.logout(userId);
+      res.clearCookie('refreshToken');
+
+      return { message: 'Logged out successfully' };
+    } catch (error: unknown) {
+      if (error instanceof HttpException) throw error;
+
+      const message = error instanceof Error ? error.message : 'Unknown error';
+      console.error('[Logout] Error:', message);
+
+      throw new HttpException(
+        'Çıkış yapılırken bir hata oluştu',
+        HttpStatus.INTERNAL_SERVER_ERROR,
+      );
+    }
   }
 
   @Put('user')
@@ -98,7 +198,19 @@ export class UserController {
     @User('id') userId: number,
     @Body('user') dto: UpdateUserDto,
   ): Promise<UserEntity> {
-    return await this.userService.updateUser(userId, dto);
+    try {
+      return await this.userService.updateUser(userId, dto);
+    } catch (error: unknown) {
+      if (error instanceof HttpException) throw error;
+
+      const message = error instanceof Error ? error.message : 'Unknown error';
+      console.error('[UpdateUser] Error:', message);
+
+      throw new HttpException(
+        'Kullanıcı güncellenirken bir hata oluştu',
+        HttpStatus.INTERNAL_SERVER_ERROR,
+      );
+    }
   }
 
   @Get('user')
@@ -110,8 +222,20 @@ export class UserController {
   @Get('profile')
   @UseGuards(AuthGuard)
   async getProfile(@User() reqUser: UserEntity): Promise<UserEntity> {
-    const user = await this.userService.findById(reqUser.id);
-    if (user) delete user.password;
-    return user;
+    try {
+      const user = await this.userService.findById(reqUser.id);
+      if (user) delete user.password;
+      return user;
+    } catch (error: unknown) {
+      if (error instanceof HttpException) throw error;
+
+      const message = error instanceof Error ? error.message : 'Unknown error';
+      console.error('[GetProfile] Error:', message);
+
+      throw new HttpException(
+        'Profil bilgileri alınırken bir hata oluştu',
+        HttpStatus.INTERNAL_SERVER_ERROR,
+      );
+    }
   }
 }

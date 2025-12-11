@@ -5,13 +5,13 @@ import { UserController } from '@/user/user.controller';
 import { UserService } from '@/user/user.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { UserEntity } from '@/user/user.entity';
-import { JwtAuthStrategy } from '@/user/strategies/jwt.strategy';
+import { JwtAuthStrategy } from '@/user/guards/jwt-auth.guard';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 
 @Module({
   imports: [
     TypeOrmModule.forFeature([UserEntity]),
-    PassportModule,
+    PassportModule.register({ defaultStrategy: 'jwt' }),
     JwtModule.registerAsync({
       imports: [ConfigModule],
       inject: [ConfigService],
@@ -23,6 +23,6 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
   ],
   controllers: [UserController],
   providers: [UserService, JwtAuthStrategy],
-  exports: [UserService, JwtAuthStrategy, PassportModule], // ✅ Export strategy and PassportModule
+  exports: [UserService, JwtAuthStrategy, PassportModule],
 })
 export class UserModule {}

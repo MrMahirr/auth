@@ -1,7 +1,7 @@
 import {ReactNode, useEffect, useState} from "react";
 import AuthContext from "./AuthContext";
 import type {AuthUser} from "../types/auth";
-import { apiClient } from "../client/apiClient";
+import {apiClient} from "../client/apiClient";
 
 interface AuthProviderProps {
     children: ReactNode;
@@ -29,24 +29,27 @@ export const AuthProvider = ({children}: AuthProviderProps) => {
             }
         };
 
-        void loadUser();
+        loadUser();
     }, []);
 
-    const loginSuccess = (userData: AuthUser, tokens: { access: string; refresh: string }) => {
+    const loginSuccess = (userData: AuthUser, tokens: { access: string }) => {
         localStorage.setItem("access_token", tokens.access);
-        localStorage.setItem("refresh_token", tokens.refresh);
         setUser(userData);
     };
 
     const logout = () => {
         localStorage.removeItem("access_token");
-        localStorage.removeItem("refresh_token");
         setUser(null);
     };
 
+    if (loading) {
+        return <div className="text-white">Yükleniyor...</div>;
+    }
+
     return (
         <AuthContext.Provider value={{user, loading, loginSuccess, logout}}>
-            {!loading && children}
+            {children}
         </AuthContext.Provider>
     );
 };
+

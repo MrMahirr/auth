@@ -1,17 +1,17 @@
-import { IsNotEmpty, IsOptional, IsString } from 'class-validator';
+import { IsOptional, IsString } from 'class-validator';
 
 export class UpdateBlogDto {
-  @IsNotEmpty()
+  @IsOptional()
   @IsString()
-  readonly title: string;
+  readonly title?: string;
 
-  @IsNotEmpty()
+  @IsOptional()
   @IsString()
-  readonly content: string;
+  readonly content?: string;
 
-  @IsNotEmpty()
+  @IsOptional()
   @IsString()
-  readonly category: string;
+  readonly category?: string;
 
   @IsOptional()
   @IsString()

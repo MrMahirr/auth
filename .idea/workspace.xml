@@ -4,22 +4,26 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0498930d-d12a-40c3-a4a9-c33ae8b0e5f1" name="Changes" comment="blogta hata var onlar düzenlenecek backende hata hayıt işlmeini ve güncelleme işlemini yapmıyor profil güncelleme işlemi de bakılacak.">
-      <change afterPath="$PROJECT_DIR$/server/src/user/guards/jwt-auth.guard.ts" afterDir="false" />
+    <list default="true" id="0498930d-d12a-40c3-a4a9-c33ae8b0e5f1" name="Changes" comment="accestoken ve refresh token hataları giderildi ve cookie işlemi düzeltildi. blog ekleme işleminde sıkıntı çözüldü. kullamıcı bilgileri update işlemidnde hatalar var bakılacak.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/.env.example" beforeDir="false" afterPath="$PROJECT_DIR$/client/.env.example" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/src/client/http/axiosInstance.ts" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/client/http/axiosInstance.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/client/http/interceptors.ts" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/client/http/interceptors.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/pages/blog/BlogManager.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/pages/blog/BlogManager.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/pages/dashboard/Profile.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/pages/dashboard/Profile.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/gateway/auth.gateway.ts" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/gateway/auth.gateway.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/gateway/blog.gateway.ts" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/gateway/blog.gateway.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/layouts/MainLayout.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/layouts/MainLayout.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/context/AuthProvider.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/context/AuthProvider.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/services/auth.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/services/auth.service.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/vite.config.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/vite.config.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/.env.example" beforeDir="false" afterPath="$PROJECT_DIR$/server/.env.example" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/server/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/server/package.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/server/src/blog/blog.controller.ts" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/blog/blog.controller.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/blog/blog.entity.ts" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/blog/blog.entity.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/blog/blog.module.ts" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/blog/blog.module.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/server/src/blog/blog.services.ts" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/blog/blog.services.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/user/dto/updateUser.dto.ts" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/user/dto/updateUser.dto.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/blog/dto/updateBlog.dto.ts" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/blog/dto/updateBlog.dto.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/main.ts" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/user/decorators/user.decorator.ts" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/user/decorators/user.decorator.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/user/guards/jwt-auth.guard.ts" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/user/guards/jwt-auth.guard.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/user/middlewares/auth.middleware.ts" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/user/middlewares/auth.middleware.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/user/strategies/jwt.strategy.ts" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/server/src/user/user.controller.ts" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/user/user.controller.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/user/user.entity.ts" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/user/user.entity.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/server/src/user/user.module.ts" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/user/user.module.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/server/src/user/user.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/user/user.service.ts" afterDir="false" />
     </list>
@@ -58,7 +62,7 @@
   }
 }</component>
   <component name="ProblemsViewState">
-    <option name="selectedTabId" value="CurrentFile" />
+    <option name="selectedTabId" value="ProjectErrors" />
   </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 0
@@ -150,7 +154,11 @@
       <workItem from="1765041679484" duration="5297000" />
       <workItem from="1765130949487" duration="6452000" />
       <workItem from="1765202664079" duration="9039000" />
-      <workItem from="1765360944982" duration="177000" />
+      <workItem from="1765360944982" duration="194000" />
+      <workItem from="1765383604965" duration="1896000" />
+      <workItem from="1765399221353" duration="2103000" />
+      <workItem from="1765457300522" duration="3281000" />
+      <workItem from="1765473323576" duration="9959000" />
     </task>
     <task id="LOCAL-00002" summary="login giriş yapıldı.">
       <option name="closed" value="true" />
@@ -416,7 +424,15 @@
       <option name="project" value="LOCAL" />
       <updated>1765047155789</updated>
     </task>
-    <option name="localTasksCounter" value="35" />
+    <task id="LOCAL-00035" summary="blogta hata var onlar düzenlenecek backende hata hayıt işlmeini ve güncelleme işlemini yapmıyor profil güncelleme işlemi de bakılacak.">
+      <option name="closed" value="true" />
+      <created>1765361135244</created>
+      <option name="number" value="00035" />
+      <option name="presentableId" value="LOCAL-00035" />
+      <option name="project" value="LOCAL" />
+      <updated>1765361135244</updated>
+    </task>
+    <option name="localTasksCounter" value="36" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -453,7 +469,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="login giriş yapıldı." />
     <MESSAGE value="login giriş işlemi frondend ile bağlandi ama user içeriği düzenlenecek." />
     <MESSAGE value="middleware ve current user yapıldı" />
     <MESSAGE value="create user decerator" />
@@ -478,7 +493,8 @@
     <MESSAGE value="refreshTopken işlemi backende eklendi ve front ende yoları belirlendi." />
     <MESSAGE value="login register isteklerinde hatalr düzenlendi hatalar hayla devam ediyor bakılacak." />
     <MESSAGE value="blogta hata var onlar düzenlenecek backende hata hayıt işlmeini ve güncelleme işlemini yapmıyor profil güncelleme işlemi de bakılacak." />
-    <option name="LAST_COMMIT_MESSAGE" value="blogta hata var onlar düzenlenecek backende hata hayıt işlmeini ve güncelleme işlemini yapmıyor profil güncelleme işlemi de bakılacak." />
+    <MESSAGE value="accestoken ve refresh token hataları giderildi ve cookie işlemi düzeltildi. blog ekleme işleminde sıkıntı çözüldü. kullamıcı bilgileri update işlemidnde hatalar var bakılacak." />
+    <option name="LAST_COMMIT_MESSAGE" value="accestoken ve refresh token hataları giderildi ve cookie işlemi düzeltildi. blog ekleme işleminde sıkıntı çözüldü. kullamıcı bilgileri update işlemidnde hatalar var bakılacak." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

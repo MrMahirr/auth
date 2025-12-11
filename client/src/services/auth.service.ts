@@ -8,9 +8,11 @@ export class AuthService {
         const response = await this.gateway.login(dto);
         localStorage.setItem("access_token", response.access_token);
         localStorage.setItem("user", JSON.stringify(response.user));
+        // Refresh token HTTP-only cookie'de
 
         return response;
     }
+
     async logout() {
         try {
             await this.gateway.logout();
@@ -19,6 +21,7 @@ export class AuthService {
         } finally {
             localStorage.removeItem("access_token");
             localStorage.removeItem("user");
+            // Refresh token cookie backend tarafından temizlenir
         }
     }
 
@@ -31,14 +34,9 @@ export class AuthService {
         const res = await this.gateway.googleLogin(data);
         localStorage.setItem("access_token", res.access_token);
         localStorage.setItem("user", JSON.stringify(res.user));
+        // Refresh token HTTP-only cookie'de
         return res;
     }
 
-    async refreshToken(token: string) {
-        const res = await this.gateway.refresh(token);
-        localStorage.setItem("access_token", res.access_token);
-        localStorage.setItem("user", JSON.stringify(res.user));
-        return res;
-    }
-
+    // refreshToken metodu kaldırıldı - axios interceptor otomatik hallediyor
 }
