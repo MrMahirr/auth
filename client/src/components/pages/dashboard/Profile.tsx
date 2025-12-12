@@ -34,7 +34,7 @@ interface ProfileFormData {
 }
 
 export default function Profile() {
-    const { user } = useAuth();
+    const { user, updateUser } = useAuth();
     const [loading, setLoading] = useState(false);
     const [avatarPreview, setAvatarPreview] = useState<string | null>(null);
     const [toast, setToast] = useState<ToastState | null>(null);
@@ -137,10 +137,12 @@ export default function Profile() {
             await serviceContainer.userService.updateUser({ user: payload });
 
             setAvatarPreview(newImageUrl);
+            updateUser({ image: newImageUrl });
             showToast("Profil fotoğrafı güncellendi.");
-        } catch (error) {
+        } catch (error: any) {
             console.error("Avatar yükleme hatası:", error);
-            showToast("Profil fotoğrafı güncellenemedi.", "error");
+            const errorMsg = error?.response?.data?.message || "Profil fotoğrafı güncellenemedi.";
+            showToast(errorMsg, "error");
         }
     };
 
@@ -171,11 +173,28 @@ export default function Profile() {
 
             await serviceContainer.userService.updateUser({ user: payload });
 
+            updateUser({
+                username: formData.username,
+                name: formData.firstName,
+                surname: formData.lastName,
+                email: formData.email,
+                bio: formData.bio,
+                image: avatarPreview || "",
+                gender: formData.gender,
+                dateofbirth: formData.birthDate,
+            });
+
             showToast("Profil bilgileri güncellendi.");
-            setTimeout(() => window.location.reload(), 1000);
-        } catch (error) {
+
+            setFormData(prev => ({
+                ...prev,
+                newPassword: "",
+                confirmPassword: "",
+            }));
+        } catch (error: any) {
             console.error("Hata:", error);
-            showToast("Güncelleme başarısız.", "error");
+            const errorMsg = error?.response?.data?.message || "Güncelleme başarısız.";
+            showToast(errorMsg, "error");
         } finally {
             setLoading(false);
         }

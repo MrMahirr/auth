@@ -18,6 +18,7 @@ export interface AuthContextValue {
     loading: boolean;
     loginSuccess: (user: AuthUser, tokens: { access: string; refresh: string }) => void;
     logout: () => void;
+    updateUser: (userData: Partial<AuthUser>) => void;
 }
 
 

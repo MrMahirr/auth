@@ -4,8 +4,8 @@ import { User, UpdateUserDto } from "../domain/User.model";
 export class UserGateway {
     private api = new ApiClient();
 
-    updateUser(data: UpdateUserDto) {
-        return this.api.put<User>("/user", { user: data });
+    updateUser(data: { user: UpdateUserDto }) {
+        return this.api.put<User>("/user", data);
     }
 
     getUser() {

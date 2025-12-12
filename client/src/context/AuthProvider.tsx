@@ -1,13 +1,13 @@
-import {ReactNode, useEffect, useState} from "react";
+import { ReactNode, useEffect, useState } from "react";
 import AuthContext from "./AuthContext";
-import type {AuthUser} from "../types/auth";
-import {apiClient} from "../client/apiClient";
+import type { AuthUser } from "../types/auth";
+import { apiClient } from "../client/apiClient";
 
 interface AuthProviderProps {
     children: ReactNode;
 }
 
-export const AuthProvider = ({children}: AuthProviderProps) => {
+export const AuthProvider = ({ children }: AuthProviderProps) => {
     const [user, setUser] = useState<AuthUser | null>(null);
     const [loading, setLoading] = useState(true);
 
@@ -37,6 +37,10 @@ export const AuthProvider = ({children}: AuthProviderProps) => {
         setUser(userData);
     };
 
+    const updateUser = (userData: Partial<AuthUser>) => {
+        setUser(prev => prev ? { ...prev, ...userData } : null);
+    };
+
     const logout = () => {
         localStorage.removeItem("access_token");
         setUser(null);
@@ -47,9 +51,8 @@ export const AuthProvider = ({children}: AuthProviderProps) => {
     }
 
     return (
-        <AuthContext.Provider value={{user, loading, loginSuccess, logout}}>
+        <AuthContext.Provider value={{ user, loading, loginSuccess, logout, updateUser }}>
             {children}
         </AuthContext.Provider>
     );
 };
-

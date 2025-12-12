@@ -3,7 +3,7 @@ import { UserGateway } from "../gateway/user.gateway";
 export class UserService {
     constructor(private gateway: UserGateway) { }
 
-    async updateUser(data: any) {
+    async updateUser(data: { user: any }) {
         const user = await this.gateway.updateUser(data);
         return user.data;
     }
