@@ -4,12 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0498930d-d12a-40c3-a4a9-c33ae8b0e5f1" name="Changes" comment="blog ekleme ve güncelleme kısmı firestore database entegre edildi">
+    <list default="true" id="0498930d-d12a-40c3-a4a9-c33ae8b0e5f1" name="Changes" comment="google login giriş düzeltildi.">
+      <change afterPath="$PROJECT_DIR$/server/src/migrations/1764189821476-MakeUserFieldsNullableAndAddProvider.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/pages/auth/LoginPage.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/pages/auth/LoginPage.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/vite.config.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/vite.config.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/server/src/migrations/1764189821474-createUserAndBlogAndTags.ts" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/migrations/1764189821474-createUserAndBlogAndTags.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/user/dto/googleLogin.dto.ts" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/user/dto/googleLogin.dto.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/user/user.entity.ts" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/user/user.entity.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -55,27 +54,27 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultModelSelectionForGA.v1&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
-    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
-    &quot;junie.onboarding.icon.badge.shown&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/MrMahirr/Desktop/auth/client&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;prettierjs.PrettierConfiguration.Package&quot;: &quot;C:\\Users\\MrMahirr\\Desktop\\auth\\server\\node_modules\\prettier&quot;,
-    &quot;run.code.analysis.last.selected.profile&quot;: &quot;pProject Default&quot;,
-    &quot;to.speed.mode.migration.done&quot;: &quot;true&quot;,
-    &quot;ts.external.directory.path&quot;: &quot;C:\\Users\\MrMahirr\\Desktop\\auth\\server\\node_modules\\typescript\\lib&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultModelSelectionForGA.v1": "true",
+    "git-widget-placeholder": "master",
+    "ignore.virus.scanning.warn.message": "true",
+    "junie.onboarding.icon.badge.shown": "true",
+    "last_opened_file_path": "C:/Users/MrMahirr/Desktop/auth/server/src/migrations",
+    "node.js.detected.package.eslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "prettierjs.PrettierConfiguration.Package": "C:\\Users\\MrMahirr\\Desktop\\auth\\server\\node_modules\\prettier",
+    "run.code.analysis.last.selected.profile": "pProject Default",
+    "to.speed.mode.migration.done": "true",
+    "ts.external.directory.path": "C:\\Users\\MrMahirr\\Desktop\\auth\\server\\node_modules\\typescript\\lib",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="ReactDesignerToolWindowState">
     <option name="myId2Visible">
       <map>
@@ -86,11 +85,11 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\MrMahirr\Desktop\auth\server\src\migrations" />
       <recent name="C:\Users\MrMahirr\Desktop\auth\client" />
       <recent name="C:\Users\MrMahirr\Desktop\auth" />
       <recent name="C:\Users\MrMahirr\Desktop\auth\client\public" />
       <recent name="C:\Users\MrMahirr\Desktop\auth\client\src\assets" />
-      <recent name="C:\Users\MrMahirr\Desktop\auth\client\src\components" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\MrMahirr\Desktop\auth\client\src\components\layouts" />
@@ -339,7 +338,15 @@
       <option name="project" value="LOCAL" />
       <updated>1764799285899</updated>
     </task>
-    <option name="localTasksCounter" value="27" />
+    <task id="LOCAL-00027" summary="google login giriş düzeltildi.">
+      <option name="closed" value="true" />
+      <created>1766047127885</created>
+      <option name="number" value="00027" />
+      <option name="presentableId" value="LOCAL-00027" />
+      <option name="project" value="LOCAL" />
+      <updated>1766047127885</updated>
+    </task>
+    <option name="localTasksCounter" value="28" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -375,7 +382,8 @@
     <MESSAGE value="firestore database postgres seçme butonu eklendi blog sayfasına" />
     <MESSAGE value="database toogle butonu ismi değiştirildi ve header layout klasorune taşındı" />
     <MESSAGE value="blog ekleme ve güncelleme kısmı firestore database entegre edildi" />
-    <option name="LAST_COMMIT_MESSAGE" value="blog ekleme ve güncelleme kısmı firestore database entegre edildi" />
+    <MESSAGE value="google login giriş düzeltildi." />
+    <option name="LAST_COMMIT_MESSAGE" value="google login giriş düzeltildi." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
