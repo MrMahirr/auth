@@ -1,8 +1,8 @@
 import {
   BeforeInsert,
-  BeforeUpdate,
   Column,
   Entity,
+  Index,
   OneToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm';
@@ -13,29 +13,46 @@ import { BlogEntity } from '../blog/blog.entity';
 export class UserEntity {
   @PrimaryGeneratedColumn('increment')
   id: number;
+
   @Column()
   username: string;
-  @Column()
-  name: string;
-  @Column()
-  surname: string;
+
+  @Column({ nullable: true })
+  name?: string;
+
+  @Column({ nullable: true })
+  surname?: string;
+
+  @Index({ unique: true })
   @Column()
   email: string;
+
   @Column({ default: '' })
   bio: string;
+
   @Column({ default: '' })
   gender: string;
-  @Column({ default: '' })
-  dateofbirth: string;
-  @Column({ default: '' }) // String veriler için
-  image: string;
-  @Column()
+
+  @Column({ type: 'date', nullable: true })
+  dateofbirth?: Date;
+
+  @Column({ nullable: true })
+  image?: string;
+
+  @Column({ nullable: true })
   password?: string;
+
+  @Column({ default: 'local' })
+  provider: 'local' | 'google';
+
+  @Column({ nullable: true })
+  googleId?: string;
+
   @OneToMany(() => BlogEntity, (blog) => blog.author)
   blogs: BlogEntity[];
 
+  /* 🔐 SADECE INSERT'TE HASH */
   @BeforeInsert()
-  @BeforeUpdate()
   async hashPassword() {
     if (this.password) {
       const salt = await bcrypt.genSalt(10);

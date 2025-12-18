@@ -32,8 +32,11 @@ function LoginPage() {
             const payload = {
                 user: {
                     email: googleUser.email,
-                    username: googleUser.displayName,
-                    // avatar: googleUser.photoURL       // Profil resmi
+                    username: googleUser.displayName?.replace(/\s+/g, '').toLowerCase(),
+                    name: googleUser.displayName?.split(' ')[0] || '',
+                    surname: googleUser.displayName?.split(' ').slice(1).join(' ') || '',
+                    // avatar: googleUser.photoURL,
+
                 }
             };
 

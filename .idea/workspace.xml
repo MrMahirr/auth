@@ -6,8 +6,10 @@
   <component name="ChangeListManager">
     <list default="true" id="0498930d-d12a-40c3-a4a9-c33ae8b0e5f1" name="Changes" comment="blog ekleme ve güncelleme kısmı firestore database entegre edildi">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/pages/blog/BlogManager.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/pages/blog/BlogManager.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/pages/dashboard/Blog.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/pages/dashboard/Blog.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/pages/auth/LoginPage.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/pages/auth/LoginPage.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/migrations/1764189821474-createUserAndBlogAndTags.ts" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/migrations/1764189821474-createUserAndBlogAndTags.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/user/dto/googleLogin.dto.ts" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/user/dto/googleLogin.dto.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/user/user.entity.ts" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/user/user.entity.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -23,6 +25,11 @@
     </option>
   </component>
   <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="service-ve-gateway" />
+      </map>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="GitHubPullRequestSearchHistory">{
@@ -69,6 +76,14 @@
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
 }</component>
+  <component name="ReactDesignerToolWindowState">
+    <option name="myId2Visible">
+      <map>
+        <entry key="com.intellij.reactbuddy.reactComponents" value="false" />
+        <entry key="com.intellij.reactbuddy.reactInspector" value="false" />
+      </map>
+    </option>
+  </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\MrMahirr\Desktop\auth\client" />
@@ -368,19 +383,16 @@
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/client/src/pages/auth/RegisterPage.jsx</url>
           <line>35</line>
-          <properties lambdaOrdinal="-1" />
           <option name="timeStamp" value="3" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/client/src/pages/auth/LoginPage.jsx</url>
           <line>27</line>
-          <properties lambdaOrdinal="-1" />
           <option name="timeStamp" value="4" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/client/src/pages/auth/LoginPage.jsx</url>
-          <line>58</line>
-          <properties lambdaOrdinal="-1" />
+          <line>61</line>
           <option name="timeStamp" value="6" />
         </line-breakpoint>
       </breakpoints>
